@@ -1,9 +1,0 @@
-.env
-.git/
-.gitignore
-.idea/
-.vscode/
-logs/
-*.pyc
-__pycache__/
-README.md

@@ -97,7 +97,8 @@ services:
       postgres:
         condition: service_healthy
     env_file:
-      - ${ENV_FILE:-.env}
+      - .env
+      - .env.dev
     environment:
       AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/airflow_db
       AIRFLOW__WEBSERVER__SECRET_KEY: ${AIRFLOW_WEBSERVER_SECRET_KEY}
@@ -137,7 +138,8 @@ services:
       airflow-init:
         condition: service_completed_successfully
     env_file:
-      - ${ENV_FILE:-.env}
+      - .env
+      - .env.dev
     environment:
       AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/airflow_db
       AIRFLOW__WEBSERVER__SECRET_KEY: ${AIRFLOW_WEBSERVER_SECRET_KEY}
@@ -167,7 +169,8 @@ services:
       airflow-init:
         condition: service_completed_successfully
     env_file:
-      - ${ENV_FILE:-.env}
+      - .env
+      - .env.dev
     environment:
       AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/airflow_db
       AIRFLOW__WEBSERVER__SECRET_KEY: ${AIRFLOW_WEBSERVER_SECRET_KEY}

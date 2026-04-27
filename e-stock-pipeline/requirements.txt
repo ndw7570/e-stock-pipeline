@@ -1,9 +1,0 @@
-# 모든 패키지는 명시적으로 버전 고정 (재현성).
-# apache-airflow 본체는 베이스 이미지에 이미 포함되므로 여기 추가 불필요.
-kafka-python==2.0.2
-psycopg2-binary==2.9.9
-
-# 필요해지면 아래 주석을 해제 (Airflow 2.10 호환):
-# apache-airflow-providers-postgres==5.13.0   # PostgresHook / PostgresOperator 사용 시
-# apache-airflow-providers-http==4.13.0       # HttpOperator / HttpSensor 사용 시
-# requests==2.32.3                            # 외부 API 호출용
