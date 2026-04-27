@@ -1,0 +1,227 @@
+import os
+import json
+from datetime import datetime, timedelta, timezone
+
+import requests
+import psycopg2
+
+from airflow import DAG
+from airflow.models import Variable
+from airflow.operators.python import PythonOperator
+
+
+KST = timezone(timedelta(hours=9))
+
+
+def get_kis_access_token() -> str:
+    """
+    한국투자증권 접근토큰 발급.
+    토큰은 보통 24시간 유효하므로 Airflow Variable에 캐싱한다.
+    """
+    app_key = os.getenv("KIS_APP_KEY")
+    app_secret = os.getenv("KIS_APP_SECRET")
+    base_url = os.getenv("KIS_BASE_URL", "https://openapi.koreainvestment.com:9443")
+
+    if not app_key or not app_secret:
+        raise ValueError("KIS_APP_KEY 또는 KIS_APP_SECRET이 .env에 없습니다.")
+
+    # 기존 토큰 확인
+    cached = Variable.get("KIS_ACCESS_TOKEN_CACHE", default_var=None)
+
+    if cached:
+        cached_data = json.loads(cached)
+        expires_at = datetime.fromisoformat(cached_data["expires_at"])
+
+        # 만료 10분 전까지는 기존 토큰 사용
+        if datetime.now(KST) < expires_at - timedelta(minutes=10):
+            return cached_data["access_token"]
+
+    url = f"{base_url}/oauth2/tokenP"
+
+    payload = {
+        "grant_type": "client_credentials",
+        "appkey": app_key,
+        "appsecret": app_secret,
+    }
+
+    response = requests.post(
+        url,
+        headers={"content-type": "application/json"},
+        data=json.dumps(payload),
+        timeout=10,
+    )
+
+    if response.status_code != 200:
+        raise RuntimeError(f"토큰 발급 실패: {response.status_code}, {response.text}")
+
+    data = response.json()
+    access_token = data["access_token"]
+
+    # expires_in이 있으면 사용, 없으면 보수적으로 23시간 처리
+    expires_in = int(data.get("expires_in", 23 * 60 * 60))
+    expires_at = datetime.now(KST) + timedelta(seconds=expires_in)
+
+    Variable.set(
+        "KIS_ACCESS_TOKEN_CACHE",
+        json.dumps(
+            {
+                "access_token": access_token,
+                "expires_at": expires_at.isoformat(),
+            },
+            ensure_ascii=False,
+        ),
+    )
+
+    return access_token
+
+
+def create_table_if_not_exists():
+    conn = psycopg2.connect(
+        host=os.getenv("STOCK_DB_HOST", "postgres"),
+        port=os.getenv("STOCK_DB_PORT", "5432"),
+        dbname=os.getenv("STOCK_DB_NAME", "stock_db"),
+        user=os.getenv("STOCK_DB_USER", os.getenv("POSTGRES_USER", "airflow")),
+        password=os.getenv("STOCK_DB_PASSWORD", os.getenv("POSTGRES_PASSWORD", "airflow")),
+    )
+
+    with conn:
+        with conn.cursor() as cur:
+            cur.execute(
+                """
+                CREATE TABLE IF NOT EXISTS kis_domestic_stock_price (
+                    id BIGSERIAL PRIMARY KEY,
+                    stock_code VARCHAR(20) NOT NULL,
+                    stock_name VARCHAR(100),
+                    current_price NUMERIC,
+                    price_change NUMERIC,
+                    change_rate NUMERIC,
+                    accumulated_volume BIGINT,
+                    raw_json JSONB NOT NULL,
+                    collected_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+                );
+                """
+            )
+
+    conn.close()
+
+
+def fetch_kis_current_price(stock_code: str = "005930", stock_name: str = "삼성전자"):
+    """
+    국내주식 현재가 조회 후 PostgreSQL 저장.
+    stock_code 예:
+    - 삼성전자: 005930
+    - SK하이닉스: 000660
+    - 한화솔루션: 009830
+    """
+    app_key = os.getenv("KIS_APP_KEY")
+    app_secret = os.getenv("KIS_APP_SECRET")
+    base_url = os.getenv("KIS_BASE_URL", "https://openapi.koreainvestment.com:9443")
+
+    access_token = get_kis_access_token()
+
+    url = f"{base_url}/uapi/domestic-stock/v1/quotations/inquire-price"
+
+    headers = {
+        "content-type": "application/json; charset=utf-8",
+        "authorization": f"Bearer {access_token}",
+        "appkey": app_key,
+        "appsecret": app_secret,
+        "tr_id": "FHKST01010100",
+    }
+
+    params = {
+        "FID_COND_MRKT_DIV_CODE": "J",
+        "FID_INPUT_ISCD": stock_code,
+    }
+
+    response = requests.get(
+        url,
+        headers=headers,
+        params=params,
+        timeout=10,
+    )
+
+    if response.status_code != 200:
+        raise RuntimeError(f"KIS 현재가 API 호출 실패: {response.status_code}, {response.text}")
+
+    data = response.json()
+
+    if data.get("rt_cd") != "0":
+        raise RuntimeError(f"KIS API 응답 오류: {data}")
+
+    output = data.get("output", {})
+
+    current_price = output.get("stck_prpr")
+    price_change = output.get("prdy_vrss")
+    change_rate = output.get("prdy_ctrt")
+    accumulated_volume = output.get("acml_vol")
+
+    create_table_if_not_exists()
+
+    conn = psycopg2.connect(
+        host=os.getenv("STOCK_DB_HOST", "postgres"),
+        port=os.getenv("STOCK_DB_PORT", "5432"),
+        dbname=os.getenv("STOCK_DB_NAME", "stock_db"),
+        user=os.getenv("STOCK_DB_USER", os.getenv("POSTGRES_USER", "airflow")),
+        password=os.getenv("STOCK_DB_PASSWORD", os.getenv("POSTGRES_PASSWORD", "airflow")),
+    )
+
+    with conn:
+        with conn.cursor() as cur:
+            cur.execute(
+                """
+                INSERT INTO kis_domestic_stock_price (
+                    stock_code,
+                    stock_name,
+                    current_price,
+                    price_change,
+                    change_rate,
+                    accumulated_volume,
+                    raw_json,
+                    collected_at
+                )
+                VALUES (
+                    %s, %s, %s, %s, %s, %s, %s::jsonb, NOW()
+                );
+                """,
+                (
+                    stock_code,
+                    stock_name,
+                    int(current_price) if current_price else None,
+                    int(price_change) if price_change else None,
+                    float(change_rate) if change_rate else None,
+                    int(accumulated_volume) if accumulated_volume else None,
+                    json.dumps(data, ensure_ascii=False),
+                ),
+            )
+
+    conn.close()
+
+    print(f"[SUCCESS] {stock_name}({stock_code}) 현재가 저장 완료: {current_price}")
+
+
+default_args = {
+    "owner": "namubuntu",
+    "retries": 1,
+    "retry_delay": timedelta(minutes=1),
+}
+
+
+with DAG(
+    dag_id="kis_current_price_to_postgres",
+    description="한국투자증권 KIS API 현재가 조회 후 PostgreSQL 저장",
+    default_args=default_args,
+    start_date=datetime(2026, 4, 26),
+    schedule="*/5 * * * *",
+    catchup=False,
+    tags=["kis", "stock", "api", "postgres"],
+) as dag:
+
+    fetch_samsung_price = PythonOperator(
+        task_id="fetch_samsung_current_price",
+        python_callable=fetch_kis_current_price,
+        op_kwargs={
+            "stock_code": "005930",
+            "stock_name": "삼성전자",
+        },
+    )
