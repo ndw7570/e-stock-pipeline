@@ -1,6 +1,3 @@
-# env
-.env
-
 # python
 __pycache__/
 *.py[cod]
@@ -20,3 +17,15 @@ logs/*
 # OS
 .DS_Store
 Thumbs.db
+
+
+cat >> .gitignore << 'EOF'
+
+# 환경별 .env 파일
+.env.dev
+.env.prod
+
+# 작업 산출물
+*.zip
+archive/
+EOF
