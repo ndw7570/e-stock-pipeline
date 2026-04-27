@@ -419,3 +419,364 @@ ModuleNotFoundError: No module named 'estock.services'
 [2026-04-27T07:35:57.518+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:35:57.518+0000] {dag.py:3211} INFO - Sync 1 DAGs
 [2026-04-27T07:35:57.546+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:35:57.546+0000] {dag.py:4138} INFO - Setting next_dagrun for kis_current_price_to_postgres to 2026-04-27 07:35:00+00:00, run_after=2026-04-27 07:40:00+00:00
 [2026-04-27T07:35:57.562+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/kis_current_price_to_postgres.py took 0.093 seconds
+[2026-04-27T07:36:27.637+0000] {processor.py:186} INFO - Started process (PID=120) to work on /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:36:27.638+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/kis_current_price_to_postgres.py for tasks to queue
+[2026-04-27T07:36:27.640+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:36:27.640+0000] {dagbag.py:587} INFO - Filling up the DagBag from /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:36:27.653+0000] {processor.py:925} INFO - DAG(s) 'kis_current_price_to_postgres' retrieved from /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:36:27.681+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:36:27.681+0000] {dag.py:3211} INFO - Sync 1 DAGs
+[2026-04-27T07:36:27.710+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:36:27.710+0000] {dag.py:4138} INFO - Setting next_dagrun for kis_current_price_to_postgres to 2026-04-27 07:35:00+00:00, run_after=2026-04-27 07:40:00+00:00
+[2026-04-27T07:36:27.725+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/kis_current_price_to_postgres.py took 0.093 seconds
+[2026-04-27T07:36:57.824+0000] {processor.py:186} INFO - Started process (PID=121) to work on /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:36:57.824+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/kis_current_price_to_postgres.py for tasks to queue
+[2026-04-27T07:36:57.826+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:36:57.826+0000] {dagbag.py:587} INFO - Filling up the DagBag from /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:36:57.839+0000] {processor.py:925} INFO - DAG(s) 'kis_current_price_to_postgres' retrieved from /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:36:57.866+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:36:57.865+0000] {dag.py:3211} INFO - Sync 1 DAGs
+[2026-04-27T07:36:57.896+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:36:57.895+0000] {dag.py:4138} INFO - Setting next_dagrun for kis_current_price_to_postgres to 2026-04-27 07:35:00+00:00, run_after=2026-04-27 07:40:00+00:00
+[2026-04-27T07:36:57.910+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/kis_current_price_to_postgres.py took 0.093 seconds
+[2026-04-27T07:37:27.989+0000] {processor.py:186} INFO - Started process (PID=122) to work on /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:37:27.989+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/kis_current_price_to_postgres.py for tasks to queue
+[2026-04-27T07:37:27.991+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:37:27.991+0000] {dagbag.py:587} INFO - Filling up the DagBag from /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:37:28.005+0000] {processor.py:925} INFO - DAG(s) 'kis_current_price_to_postgres' retrieved from /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:37:28.035+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:37:28.034+0000] {dag.py:3211} INFO - Sync 1 DAGs
+[2026-04-27T07:37:28.063+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:37:28.063+0000] {dag.py:4138} INFO - Setting next_dagrun for kis_current_price_to_postgres to 2026-04-27 07:35:00+00:00, run_after=2026-04-27 07:40:00+00:00
+[2026-04-27T07:37:28.080+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/kis_current_price_to_postgres.py took 0.096 seconds
+[2026-04-27T07:37:58.174+0000] {processor.py:186} INFO - Started process (PID=123) to work on /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:37:58.175+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/kis_current_price_to_postgres.py for tasks to queue
+[2026-04-27T07:37:58.177+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:37:58.177+0000] {dagbag.py:587} INFO - Filling up the DagBag from /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:37:58.190+0000] {processor.py:925} INFO - DAG(s) 'kis_current_price_to_postgres' retrieved from /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:37:58.221+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:37:58.221+0000] {dag.py:3211} INFO - Sync 1 DAGs
+[2026-04-27T07:37:58.250+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:37:58.249+0000] {dag.py:4138} INFO - Setting next_dagrun for kis_current_price_to_postgres to 2026-04-27 07:35:00+00:00, run_after=2026-04-27 07:40:00+00:00
+[2026-04-27T07:37:58.267+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/kis_current_price_to_postgres.py took 0.098 seconds
+[2026-04-27T07:38:28.350+0000] {processor.py:186} INFO - Started process (PID=124) to work on /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:38:28.350+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/kis_current_price_to_postgres.py for tasks to queue
+[2026-04-27T07:38:28.352+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:38:28.352+0000] {dagbag.py:587} INFO - Filling up the DagBag from /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:38:28.365+0000] {processor.py:925} INFO - DAG(s) 'kis_current_price_to_postgres' retrieved from /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:38:28.396+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:38:28.396+0000] {dag.py:3211} INFO - Sync 1 DAGs
+[2026-04-27T07:38:28.426+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:38:28.425+0000] {dag.py:4138} INFO - Setting next_dagrun for kis_current_price_to_postgres to 2026-04-27 07:35:00+00:00, run_after=2026-04-27 07:40:00+00:00
+[2026-04-27T07:38:28.441+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/kis_current_price_to_postgres.py took 0.098 seconds
+[2026-04-27T07:38:58.534+0000] {processor.py:186} INFO - Started process (PID=125) to work on /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:38:58.535+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/kis_current_price_to_postgres.py for tasks to queue
+[2026-04-27T07:38:58.537+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:38:58.537+0000] {dagbag.py:587} INFO - Filling up the DagBag from /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:38:58.551+0000] {processor.py:925} INFO - DAG(s) 'kis_current_price_to_postgres' retrieved from /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:38:58.577+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:38:58.577+0000] {dag.py:3211} INFO - Sync 1 DAGs
+[2026-04-27T07:38:58.604+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:38:58.603+0000] {dag.py:4138} INFO - Setting next_dagrun for kis_current_price_to_postgres to 2026-04-27 07:35:00+00:00, run_after=2026-04-27 07:40:00+00:00
+[2026-04-27T07:38:58.622+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/kis_current_price_to_postgres.py took 0.093 seconds
+[2026-04-27T07:39:28.694+0000] {processor.py:186} INFO - Started process (PID=126) to work on /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:39:28.695+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/kis_current_price_to_postgres.py for tasks to queue
+[2026-04-27T07:39:28.696+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:39:28.696+0000] {dagbag.py:587} INFO - Filling up the DagBag from /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:39:28.705+0000] {processor.py:925} INFO - DAG(s) 'kis_current_price_to_postgres' retrieved from /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:39:28.725+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:39:28.725+0000] {dag.py:3211} INFO - Sync 1 DAGs
+[2026-04-27T07:39:28.745+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:39:28.745+0000] {dag.py:4138} INFO - Setting next_dagrun for kis_current_price_to_postgres to 2026-04-27 07:35:00+00:00, run_after=2026-04-27 07:40:00+00:00
+[2026-04-27T07:39:28.755+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/kis_current_price_to_postgres.py took 0.065 seconds
+[2026-04-27T07:39:58.883+0000] {processor.py:186} INFO - Started process (PID=127) to work on /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:39:58.884+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/kis_current_price_to_postgres.py for tasks to queue
+[2026-04-27T07:39:58.886+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:39:58.885+0000] {dagbag.py:587} INFO - Filling up the DagBag from /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:39:58.898+0000] {processor.py:925} INFO - DAG(s) 'kis_current_price_to_postgres' retrieved from /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:39:58.928+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:39:58.927+0000] {dag.py:3211} INFO - Sync 1 DAGs
+[2026-04-27T07:39:58.957+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:39:58.957+0000] {dag.py:4138} INFO - Setting next_dagrun for kis_current_price_to_postgres to 2026-04-27 07:35:00+00:00, run_after=2026-04-27 07:40:00+00:00
+[2026-04-27T07:39:58.974+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/kis_current_price_to_postgres.py took 0.096 seconds
+[2026-04-27T07:40:29.028+0000] {processor.py:186} INFO - Started process (PID=146) to work on /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:40:29.028+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/kis_current_price_to_postgres.py for tasks to queue
+[2026-04-27T07:40:29.030+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:40:29.030+0000] {dagbag.py:587} INFO - Filling up the DagBag from /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:40:29.043+0000] {processor.py:925} INFO - DAG(s) 'kis_current_price_to_postgres' retrieved from /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:40:29.074+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:40:29.074+0000] {dag.py:3211} INFO - Sync 1 DAGs
+[2026-04-27T07:40:29.102+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:40:29.102+0000] {dag.py:4138} INFO - Setting next_dagrun for kis_current_price_to_postgres to 2026-04-27 07:40:00+00:00, run_after=2026-04-27 07:45:00+00:00
+[2026-04-27T07:40:29.119+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/kis_current_price_to_postgres.py took 0.097 seconds
+[2026-04-27T07:41:15.723+0000] {processor.py:186} INFO - Started process (PID=32) to work on /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:41:15.723+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/kis_current_price_to_postgres.py for tasks to queue
+[2026-04-27T07:41:15.725+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:41:15.725+0000] {dagbag.py:587} INFO - Filling up the DagBag from /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:41:15.742+0000] {processor.py:925} INFO - DAG(s) 'kis_current_price_to_postgres' retrieved from /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:41:15.923+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:41:15.923+0000] {override.py:1858} INFO - Created Permission View: can read on DAG:kis_current_price_to_postgres
+[2026-04-27T07:41:15.931+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:41:15.930+0000] {override.py:1858} INFO - Created Permission View: can edit on DAG:kis_current_price_to_postgres
+[2026-04-27T07:41:15.936+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:41:15.935+0000] {override.py:1858} INFO - Created Permission View: can delete on DAG:kis_current_price_to_postgres
+[2026-04-27T07:41:15.936+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:41:15.936+0000] {dag.py:3211} INFO - Sync 1 DAGs
+[2026-04-27T07:41:15.947+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:41:15.947+0000] {dag.py:3234} INFO - Creating ORM DAG for kis_current_price_to_postgres
+[2026-04-27T07:41:15.959+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:41:15.958+0000] {dag.py:4138} INFO - Setting next_dagrun for kis_current_price_to_postgres to 2026-04-27 07:35:00+00:00, run_after=2026-04-27 07:40:00+00:00
+[2026-04-27T07:41:15.978+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/kis_current_price_to_postgres.py took 0.259 seconds
+[2026-04-27T07:41:46.112+0000] {processor.py:186} INFO - Started process (PID=70) to work on /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:41:46.113+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/kis_current_price_to_postgres.py for tasks to queue
+[2026-04-27T07:41:46.115+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:41:46.114+0000] {dagbag.py:587} INFO - Filling up the DagBag from /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:41:46.128+0000] {processor.py:925} INFO - DAG(s) 'kis_current_price_to_postgres' retrieved from /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:41:46.158+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:41:46.158+0000] {dag.py:3211} INFO - Sync 1 DAGs
+[2026-04-27T07:41:46.187+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:41:46.187+0000] {dag.py:4138} INFO - Setting next_dagrun for kis_current_price_to_postgres to 2026-04-27 07:40:00+00:00, run_after=2026-04-27 07:45:00+00:00
+[2026-04-27T07:41:46.205+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/kis_current_price_to_postgres.py took 0.098 seconds
+[2026-04-27T07:42:16.249+0000] {processor.py:186} INFO - Started process (PID=71) to work on /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:42:16.250+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/kis_current_price_to_postgres.py for tasks to queue
+[2026-04-27T07:42:16.252+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:42:16.251+0000] {dagbag.py:587} INFO - Filling up the DagBag from /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:42:16.265+0000] {processor.py:925} INFO - DAG(s) 'kis_current_price_to_postgres' retrieved from /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:42:16.302+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:42:16.301+0000] {dag.py:3211} INFO - Sync 1 DAGs
+[2026-04-27T07:42:16.331+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:42:16.330+0000] {dag.py:4138} INFO - Setting next_dagrun for kis_current_price_to_postgres to 2026-04-27 07:40:00+00:00, run_after=2026-04-27 07:45:00+00:00
+[2026-04-27T07:42:16.347+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/kis_current_price_to_postgres.py took 0.104 seconds
+[2026-04-27T07:42:46.464+0000] {processor.py:186} INFO - Started process (PID=72) to work on /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:42:46.465+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/kis_current_price_to_postgres.py for tasks to queue
+[2026-04-27T07:42:46.467+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:42:46.466+0000] {dagbag.py:587} INFO - Filling up the DagBag from /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:42:46.479+0000] {processor.py:925} INFO - DAG(s) 'kis_current_price_to_postgres' retrieved from /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:42:46.511+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:42:46.511+0000] {dag.py:3211} INFO - Sync 1 DAGs
+[2026-04-27T07:42:46.540+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:42:46.540+0000] {dag.py:4138} INFO - Setting next_dagrun for kis_current_price_to_postgres to 2026-04-27 07:40:00+00:00, run_after=2026-04-27 07:45:00+00:00
+[2026-04-27T07:42:46.556+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/kis_current_price_to_postgres.py took 0.098 seconds
+[2026-04-27T07:43:16.607+0000] {processor.py:186} INFO - Started process (PID=73) to work on /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:43:16.608+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/kis_current_price_to_postgres.py for tasks to queue
+[2026-04-27T07:43:16.611+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:43:16.610+0000] {dagbag.py:587} INFO - Filling up the DagBag from /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:43:16.624+0000] {processor.py:925} INFO - DAG(s) 'kis_current_price_to_postgres' retrieved from /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:43:16.648+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:43:16.648+0000] {dag.py:3211} INFO - Sync 1 DAGs
+[2026-04-27T07:43:16.666+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:43:16.666+0000] {dag.py:4138} INFO - Setting next_dagrun for kis_current_price_to_postgres to 2026-04-27 07:40:00+00:00, run_after=2026-04-27 07:45:00+00:00
+[2026-04-27T07:43:16.677+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/kis_current_price_to_postgres.py took 0.075 seconds
+[2026-04-27T07:43:46.821+0000] {processor.py:186} INFO - Started process (PID=74) to work on /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:43:46.821+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/kis_current_price_to_postgres.py for tasks to queue
+[2026-04-27T07:43:46.823+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:43:46.823+0000] {dagbag.py:587} INFO - Filling up the DagBag from /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:43:46.836+0000] {processor.py:925} INFO - DAG(s) 'kis_current_price_to_postgres' retrieved from /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:43:46.863+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:43:46.862+0000] {dag.py:3211} INFO - Sync 1 DAGs
+[2026-04-27T07:43:46.890+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:43:46.890+0000] {dag.py:4138} INFO - Setting next_dagrun for kis_current_price_to_postgres to 2026-04-27 07:40:00+00:00, run_after=2026-04-27 07:45:00+00:00
+[2026-04-27T07:43:46.908+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/kis_current_price_to_postgres.py took 0.092 seconds
+[2026-04-27T07:44:16.966+0000] {processor.py:186} INFO - Started process (PID=75) to work on /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:44:16.967+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/kis_current_price_to_postgres.py for tasks to queue
+[2026-04-27T07:44:16.969+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:44:16.969+0000] {dagbag.py:587} INFO - Filling up the DagBag from /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:44:16.982+0000] {processor.py:925} INFO - DAG(s) 'kis_current_price_to_postgres' retrieved from /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:44:17.013+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:44:17.013+0000] {dag.py:3211} INFO - Sync 1 DAGs
+[2026-04-27T07:44:17.041+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:44:17.041+0000] {dag.py:4138} INFO - Setting next_dagrun for kis_current_price_to_postgres to 2026-04-27 07:40:00+00:00, run_after=2026-04-27 07:45:00+00:00
+[2026-04-27T07:44:17.058+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/kis_current_price_to_postgres.py took 0.098 seconds
+[2026-04-27T07:44:47.168+0000] {processor.py:186} INFO - Started process (PID=76) to work on /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:44:47.169+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/kis_current_price_to_postgres.py for tasks to queue
+[2026-04-27T07:44:47.171+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:44:47.170+0000] {dagbag.py:587} INFO - Filling up the DagBag from /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:44:47.183+0000] {processor.py:925} INFO - DAG(s) 'kis_current_price_to_postgres' retrieved from /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:44:47.212+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:44:47.212+0000] {dag.py:3211} INFO - Sync 1 DAGs
+[2026-04-27T07:44:47.241+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:44:47.241+0000] {dag.py:4138} INFO - Setting next_dagrun for kis_current_price_to_postgres to 2026-04-27 07:40:00+00:00, run_after=2026-04-27 07:45:00+00:00
+[2026-04-27T07:44:47.257+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/kis_current_price_to_postgres.py took 0.095 seconds
+[2026-04-27T07:45:17.316+0000] {processor.py:186} INFO - Started process (PID=95) to work on /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:45:17.317+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/kis_current_price_to_postgres.py for tasks to queue
+[2026-04-27T07:45:17.319+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:45:17.318+0000] {dagbag.py:587} INFO - Filling up the DagBag from /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:45:17.332+0000] {processor.py:925} INFO - DAG(s) 'kis_current_price_to_postgres' retrieved from /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:45:17.363+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:45:17.363+0000] {dag.py:3211} INFO - Sync 1 DAGs
+[2026-04-27T07:45:17.392+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:45:17.392+0000] {dag.py:4138} INFO - Setting next_dagrun for kis_current_price_to_postgres to 2026-04-27 07:45:00+00:00, run_after=2026-04-27 07:50:00+00:00
+[2026-04-27T07:45:17.408+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/kis_current_price_to_postgres.py took 0.098 seconds
+[2026-04-27T07:45:47.518+0000] {processor.py:186} INFO - Started process (PID=96) to work on /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:45:47.518+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/kis_current_price_to_postgres.py for tasks to queue
+[2026-04-27T07:45:47.520+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:45:47.520+0000] {dagbag.py:587} INFO - Filling up the DagBag from /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:45:47.533+0000] {processor.py:925} INFO - DAG(s) 'kis_current_price_to_postgres' retrieved from /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:45:47.562+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:45:47.562+0000] {dag.py:3211} INFO - Sync 1 DAGs
+[2026-04-27T07:45:47.590+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:45:47.590+0000] {dag.py:4138} INFO - Setting next_dagrun for kis_current_price_to_postgres to 2026-04-27 07:45:00+00:00, run_after=2026-04-27 07:50:00+00:00
+[2026-04-27T07:45:47.606+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/kis_current_price_to_postgres.py took 0.093 seconds
+[2026-04-27T07:46:17.662+0000] {processor.py:186} INFO - Started process (PID=97) to work on /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:46:17.663+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/kis_current_price_to_postgres.py for tasks to queue
+[2026-04-27T07:46:17.665+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:46:17.664+0000] {dagbag.py:587} INFO - Filling up the DagBag from /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:46:17.678+0000] {processor.py:925} INFO - DAG(s) 'kis_current_price_to_postgres' retrieved from /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:46:17.708+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:46:17.708+0000] {dag.py:3211} INFO - Sync 1 DAGs
+[2026-04-27T07:46:17.734+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:46:17.734+0000] {dag.py:4138} INFO - Setting next_dagrun for kis_current_price_to_postgres to 2026-04-27 07:45:00+00:00, run_after=2026-04-27 07:50:00+00:00
+[2026-04-27T07:46:17.751+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/kis_current_price_to_postgres.py took 0.094 seconds
+[2026-04-27T07:46:47.870+0000] {processor.py:186} INFO - Started process (PID=98) to work on /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:46:47.871+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/kis_current_price_to_postgres.py for tasks to queue
+[2026-04-27T07:46:47.873+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:46:47.873+0000] {dagbag.py:587} INFO - Filling up the DagBag from /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:46:47.886+0000] {processor.py:925} INFO - DAG(s) 'kis_current_price_to_postgres' retrieved from /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:46:47.914+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:46:47.914+0000] {dag.py:3211} INFO - Sync 1 DAGs
+[2026-04-27T07:46:47.943+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:46:47.943+0000] {dag.py:4138} INFO - Setting next_dagrun for kis_current_price_to_postgres to 2026-04-27 07:45:00+00:00, run_after=2026-04-27 07:50:00+00:00
+[2026-04-27T07:46:47.959+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/kis_current_price_to_postgres.py took 0.094 seconds
+[2026-04-27T07:47:18.021+0000] {processor.py:186} INFO - Started process (PID=99) to work on /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:47:18.022+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/kis_current_price_to_postgres.py for tasks to queue
+[2026-04-27T07:47:18.024+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:47:18.023+0000] {dagbag.py:587} INFO - Filling up the DagBag from /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:47:18.036+0000] {processor.py:925} INFO - DAG(s) 'kis_current_price_to_postgres' retrieved from /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:47:18.066+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:47:18.066+0000] {dag.py:3211} INFO - Sync 1 DAGs
+[2026-04-27T07:47:18.094+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:47:18.094+0000] {dag.py:4138} INFO - Setting next_dagrun for kis_current_price_to_postgres to 2026-04-27 07:45:00+00:00, run_after=2026-04-27 07:50:00+00:00
+[2026-04-27T07:47:18.111+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/kis_current_price_to_postgres.py took 0.096 seconds
+[2026-04-27T07:47:48.222+0000] {processor.py:186} INFO - Started process (PID=100) to work on /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:47:48.222+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/kis_current_price_to_postgres.py for tasks to queue
+[2026-04-27T07:47:48.224+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:47:48.224+0000] {dagbag.py:587} INFO - Filling up the DagBag from /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:47:48.237+0000] {processor.py:925} INFO - DAG(s) 'kis_current_price_to_postgres' retrieved from /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:47:48.268+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:47:48.268+0000] {dag.py:3211} INFO - Sync 1 DAGs
+[2026-04-27T07:47:48.302+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:47:48.301+0000] {dag.py:4138} INFO - Setting next_dagrun for kis_current_price_to_postgres to 2026-04-27 07:45:00+00:00, run_after=2026-04-27 07:50:00+00:00
+[2026-04-27T07:47:48.321+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/kis_current_price_to_postgres.py took 0.104 seconds
+[2026-04-27T07:48:18.364+0000] {processor.py:186} INFO - Started process (PID=101) to work on /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:48:18.365+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/kis_current_price_to_postgres.py for tasks to queue
+[2026-04-27T07:48:18.367+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:48:18.367+0000] {dagbag.py:587} INFO - Filling up the DagBag from /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:48:18.380+0000] {processor.py:925} INFO - DAG(s) 'kis_current_price_to_postgres' retrieved from /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:48:18.408+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:48:18.407+0000] {dag.py:3211} INFO - Sync 1 DAGs
+[2026-04-27T07:48:18.436+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:48:18.435+0000] {dag.py:4138} INFO - Setting next_dagrun for kis_current_price_to_postgres to 2026-04-27 07:45:00+00:00, run_after=2026-04-27 07:50:00+00:00
+[2026-04-27T07:48:18.453+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/kis_current_price_to_postgres.py took 0.094 seconds
+[2026-04-27T07:49:15.351+0000] {processor.py:186} INFO - Started process (PID=32) to work on /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:49:15.351+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/kis_current_price_to_postgres.py for tasks to queue
+[2026-04-27T07:49:15.353+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:49:15.353+0000] {dagbag.py:587} INFO - Filling up the DagBag from /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:49:15.369+0000] {processor.py:925} INFO - DAG(s) 'kis_current_price_to_postgres' retrieved from /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:49:15.399+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:49:15.399+0000] {dag.py:3211} INFO - Sync 1 DAGs
+[2026-04-27T07:49:15.421+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:49:15.421+0000] {dag.py:4138} INFO - Setting next_dagrun for kis_current_price_to_postgres to 2026-04-27 07:45:00+00:00, run_after=2026-04-27 07:50:00+00:00
+[2026-04-27T07:49:15.433+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/kis_current_price_to_postgres.py took 0.085 seconds
+[2026-04-27T07:49:45.489+0000] {processor.py:186} INFO - Started process (PID=52) to work on /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:49:45.489+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/kis_current_price_to_postgres.py for tasks to queue
+[2026-04-27T07:49:45.491+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:49:45.491+0000] {dagbag.py:587} INFO - Filling up the DagBag from /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:49:45.503+0000] {processor.py:925} INFO - DAG(s) 'kis_current_price_to_postgres' retrieved from /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:49:45.535+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:49:45.535+0000] {dag.py:3211} INFO - Sync 1 DAGs
+[2026-04-27T07:49:45.563+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:49:45.562+0000] {dag.py:4138} INFO - Setting next_dagrun for kis_current_price_to_postgres to 2026-04-27 07:45:00+00:00, run_after=2026-04-27 07:50:00+00:00
+[2026-04-27T07:49:45.584+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/kis_current_price_to_postgres.py took 0.100 seconds
+[2026-04-27T07:50:15.676+0000] {processor.py:186} INFO - Started process (PID=77) to work on /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:50:15.677+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/kis_current_price_to_postgres.py for tasks to queue
+[2026-04-27T07:50:15.678+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:50:15.678+0000] {dagbag.py:587} INFO - Filling up the DagBag from /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:50:15.691+0000] {processor.py:925} INFO - DAG(s) 'kis_current_price_to_postgres' retrieved from /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:50:15.720+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:50:15.720+0000] {dag.py:3211} INFO - Sync 1 DAGs
+[2026-04-27T07:50:15.749+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:50:15.749+0000] {dag.py:4138} INFO - Setting next_dagrun for kis_current_price_to_postgres to 2026-04-27 07:50:00+00:00, run_after=2026-04-27 07:55:00+00:00
+[2026-04-27T07:50:15.766+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/kis_current_price_to_postgres.py took 0.095 seconds
+[2026-04-27T07:50:45.846+0000] {processor.py:186} INFO - Started process (PID=78) to work on /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:50:45.846+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/kis_current_price_to_postgres.py for tasks to queue
+[2026-04-27T07:50:45.848+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:50:45.848+0000] {dagbag.py:587} INFO - Filling up the DagBag from /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:50:45.861+0000] {processor.py:925} INFO - DAG(s) 'kis_current_price_to_postgres' retrieved from /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:50:45.892+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:50:45.892+0000] {dag.py:3211} INFO - Sync 1 DAGs
+[2026-04-27T07:50:45.920+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:50:45.920+0000] {dag.py:4138} INFO - Setting next_dagrun for kis_current_price_to_postgres to 2026-04-27 07:50:00+00:00, run_after=2026-04-27 07:55:00+00:00
+[2026-04-27T07:50:45.936+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/kis_current_price_to_postgres.py took 0.095 seconds
+[2026-04-27T07:51:16.032+0000] {processor.py:186} INFO - Started process (PID=85) to work on /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:51:16.033+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/kis_current_price_to_postgres.py for tasks to queue
+[2026-04-27T07:51:16.035+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:51:16.034+0000] {dagbag.py:587} INFO - Filling up the DagBag from /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:51:16.047+0000] {processor.py:925} INFO - DAG(s) 'kis_current_price_to_postgres' retrieved from /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:51:16.078+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:51:16.078+0000] {dag.py:3211} INFO - Sync 1 DAGs
+[2026-04-27T07:51:16.107+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:51:16.107+0000] {dag.py:4138} INFO - Setting next_dagrun for kis_current_price_to_postgres to 2026-04-27 07:50:00+00:00, run_after=2026-04-27 07:55:00+00:00
+[2026-04-27T07:51:16.125+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/kis_current_price_to_postgres.py took 0.098 seconds
+[2026-04-27T07:51:46.201+0000] {processor.py:186} INFO - Started process (PID=86) to work on /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:51:46.202+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/kis_current_price_to_postgres.py for tasks to queue
+[2026-04-27T07:51:46.204+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:51:46.204+0000] {dagbag.py:587} INFO - Filling up the DagBag from /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:51:46.216+0000] {processor.py:925} INFO - DAG(s) 'kis_current_price_to_postgres' retrieved from /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:51:46.246+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:51:46.245+0000] {dag.py:3211} INFO - Sync 1 DAGs
+[2026-04-27T07:51:46.275+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:51:46.275+0000] {dag.py:4138} INFO - Setting next_dagrun for kis_current_price_to_postgres to 2026-04-27 07:50:00+00:00, run_after=2026-04-27 07:55:00+00:00
+[2026-04-27T07:51:46.293+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/kis_current_price_to_postgres.py took 0.097 seconds
+[2026-04-27T07:52:16.389+0000] {processor.py:186} INFO - Started process (PID=87) to work on /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:52:16.390+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/kis_current_price_to_postgres.py for tasks to queue
+[2026-04-27T07:52:16.392+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:52:16.392+0000] {dagbag.py:587} INFO - Filling up the DagBag from /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:52:16.405+0000] {processor.py:925} INFO - DAG(s) 'kis_current_price_to_postgres' retrieved from /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:52:16.434+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:52:16.434+0000] {dag.py:3211} INFO - Sync 1 DAGs
+[2026-04-27T07:52:16.461+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:52:16.461+0000] {dag.py:4138} INFO - Setting next_dagrun for kis_current_price_to_postgres to 2026-04-27 07:50:00+00:00, run_after=2026-04-27 07:55:00+00:00
+[2026-04-27T07:52:16.477+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/kis_current_price_to_postgres.py took 0.093 seconds
+[2026-04-27T07:52:46.552+0000] {processor.py:186} INFO - Started process (PID=100) to work on /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:52:46.553+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/kis_current_price_to_postgres.py for tasks to queue
+[2026-04-27T07:52:46.555+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:52:46.555+0000] {dagbag.py:587} INFO - Filling up the DagBag from /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:52:46.568+0000] {processor.py:925} INFO - DAG(s) 'kis_current_price_to_postgres' retrieved from /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:52:46.599+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:52:46.598+0000] {dag.py:3211} INFO - Sync 1 DAGs
+[2026-04-27T07:52:46.629+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:52:46.628+0000] {dag.py:4138} INFO - Setting next_dagrun for kis_current_price_to_postgres to 2026-04-27 07:50:00+00:00, run_after=2026-04-27 07:55:00+00:00
+[2026-04-27T07:52:46.643+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/kis_current_price_to_postgres.py took 0.097 seconds
+[2026-04-27T07:53:16.744+0000] {processor.py:186} INFO - Started process (PID=101) to work on /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:53:16.745+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/kis_current_price_to_postgres.py for tasks to queue
+[2026-04-27T07:53:16.747+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:53:16.746+0000] {dagbag.py:587} INFO - Filling up the DagBag from /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:53:16.759+0000] {processor.py:925} INFO - DAG(s) 'kis_current_price_to_postgres' retrieved from /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:53:16.789+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:53:16.789+0000] {dag.py:3211} INFO - Sync 1 DAGs
+[2026-04-27T07:53:16.819+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:53:16.819+0000] {dag.py:4138} INFO - Setting next_dagrun for kis_current_price_to_postgres to 2026-04-27 07:50:00+00:00, run_after=2026-04-27 07:55:00+00:00
+[2026-04-27T07:53:16.837+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/kis_current_price_to_postgres.py took 0.098 seconds
+[2026-04-27T07:53:46.901+0000] {processor.py:186} INFO - Started process (PID=102) to work on /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:53:46.902+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/kis_current_price_to_postgres.py for tasks to queue
+[2026-04-27T07:53:46.903+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:53:46.903+0000] {dagbag.py:587} INFO - Filling up the DagBag from /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:53:46.916+0000] {processor.py:925} INFO - DAG(s) 'kis_current_price_to_postgres' retrieved from /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:53:46.946+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:53:46.946+0000] {dag.py:3211} INFO - Sync 1 DAGs
+[2026-04-27T07:53:46.974+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:53:46.974+0000] {dag.py:4138} INFO - Setting next_dagrun for kis_current_price_to_postgres to 2026-04-27 07:50:00+00:00, run_after=2026-04-27 07:55:00+00:00
+[2026-04-27T07:53:46.990+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/kis_current_price_to_postgres.py took 0.094 seconds
+[2026-04-27T07:54:17.100+0000] {processor.py:186} INFO - Started process (PID=103) to work on /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:54:17.101+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/kis_current_price_to_postgres.py for tasks to queue
+[2026-04-27T07:54:17.103+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:54:17.103+0000] {dagbag.py:587} INFO - Filling up the DagBag from /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:54:17.116+0000] {processor.py:925} INFO - DAG(s) 'kis_current_price_to_postgres' retrieved from /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:54:17.145+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:54:17.145+0000] {dag.py:3211} INFO - Sync 1 DAGs
+[2026-04-27T07:54:17.172+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:54:17.172+0000] {dag.py:4138} INFO - Setting next_dagrun for kis_current_price_to_postgres to 2026-04-27 07:50:00+00:00, run_after=2026-04-27 07:55:00+00:00
+[2026-04-27T07:54:17.188+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/kis_current_price_to_postgres.py took 0.093 seconds
+[2026-04-27T07:54:47.252+0000] {processor.py:186} INFO - Started process (PID=104) to work on /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:54:47.253+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/kis_current_price_to_postgres.py for tasks to queue
+[2026-04-27T07:54:47.255+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:54:47.255+0000] {dagbag.py:587} INFO - Filling up the DagBag from /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:54:47.267+0000] {processor.py:925} INFO - DAG(s) 'kis_current_price_to_postgres' retrieved from /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:54:47.294+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:54:47.294+0000] {dag.py:3211} INFO - Sync 1 DAGs
+[2026-04-27T07:54:47.319+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:54:47.319+0000] {dag.py:4138} INFO - Setting next_dagrun for kis_current_price_to_postgres to 2026-04-27 07:50:00+00:00, run_after=2026-04-27 07:55:00+00:00
+[2026-04-27T07:54:47.334+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/kis_current_price_to_postgres.py took 0.088 seconds
+[2026-04-27T07:55:17.437+0000] {processor.py:186} INFO - Started process (PID=123) to work on /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:55:17.437+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/kis_current_price_to_postgres.py for tasks to queue
+[2026-04-27T07:55:17.438+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:55:17.438+0000] {dagbag.py:587} INFO - Filling up the DagBag from /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:55:17.447+0000] {processor.py:925} INFO - DAG(s) 'kis_current_price_to_postgres' retrieved from /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:55:17.468+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:55:17.468+0000] {dag.py:3211} INFO - Sync 1 DAGs
+[2026-04-27T07:55:17.489+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:55:17.488+0000] {dag.py:4138} INFO - Setting next_dagrun for kis_current_price_to_postgres to 2026-04-27 07:55:00+00:00, run_after=2026-04-27 08:00:00+00:00
+[2026-04-27T07:55:17.499+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/kis_current_price_to_postgres.py took 0.067 seconds
+[2026-04-27T07:55:47.592+0000] {processor.py:186} INFO - Started process (PID=124) to work on /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:55:47.592+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/kis_current_price_to_postgres.py for tasks to queue
+[2026-04-27T07:55:47.594+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:55:47.594+0000] {dagbag.py:587} INFO - Filling up the DagBag from /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:55:47.607+0000] {processor.py:925} INFO - DAG(s) 'kis_current_price_to_postgres' retrieved from /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:55:47.636+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:55:47.636+0000] {dag.py:3211} INFO - Sync 1 DAGs
+[2026-04-27T07:55:47.663+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:55:47.663+0000] {dag.py:4138} INFO - Setting next_dagrun for kis_current_price_to_postgres to 2026-04-27 07:55:00+00:00, run_after=2026-04-27 08:00:00+00:00
+[2026-04-27T07:55:47.677+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/kis_current_price_to_postgres.py took 0.092 seconds
+[2026-04-27T07:56:17.760+0000] {processor.py:186} INFO - Started process (PID=125) to work on /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:56:17.761+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/kis_current_price_to_postgres.py for tasks to queue
+[2026-04-27T07:56:17.763+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:56:17.763+0000] {dagbag.py:587} INFO - Filling up the DagBag from /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:56:17.776+0000] {processor.py:925} INFO - DAG(s) 'kis_current_price_to_postgres' retrieved from /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:56:17.805+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:56:17.805+0000] {dag.py:3211} INFO - Sync 1 DAGs
+[2026-04-27T07:56:17.830+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:56:17.830+0000] {dag.py:4138} INFO - Setting next_dagrun for kis_current_price_to_postgres to 2026-04-27 07:55:00+00:00, run_after=2026-04-27 08:00:00+00:00
+[2026-04-27T07:56:17.845+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/kis_current_price_to_postgres.py took 0.090 seconds
+[2026-04-27T07:56:47.940+0000] {processor.py:186} INFO - Started process (PID=126) to work on /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:56:47.941+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/kis_current_price_to_postgres.py for tasks to queue
+[2026-04-27T07:56:47.943+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:56:47.943+0000] {dagbag.py:587} INFO - Filling up the DagBag from /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:56:47.955+0000] {processor.py:925} INFO - DAG(s) 'kis_current_price_to_postgres' retrieved from /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:56:47.984+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:56:47.984+0000] {dag.py:3211} INFO - Sync 1 DAGs
+[2026-04-27T07:56:48.013+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:56:48.012+0000] {dag.py:4138} INFO - Setting next_dagrun for kis_current_price_to_postgres to 2026-04-27 07:55:00+00:00, run_after=2026-04-27 08:00:00+00:00
+[2026-04-27T07:56:48.029+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/kis_current_price_to_postgres.py took 0.094 seconds
+[2026-04-27T07:57:18.105+0000] {processor.py:186} INFO - Started process (PID=127) to work on /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:57:18.106+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/kis_current_price_to_postgres.py for tasks to queue
+[2026-04-27T07:57:18.108+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:57:18.107+0000] {dagbag.py:587} INFO - Filling up the DagBag from /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:57:18.120+0000] {processor.py:925} INFO - DAG(s) 'kis_current_price_to_postgres' retrieved from /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:57:18.151+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:57:18.151+0000] {dag.py:3211} INFO - Sync 1 DAGs
+[2026-04-27T07:57:18.179+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:57:18.179+0000] {dag.py:4138} INFO - Setting next_dagrun for kis_current_price_to_postgres to 2026-04-27 07:55:00+00:00, run_after=2026-04-27 08:00:00+00:00
+[2026-04-27T07:57:18.197+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/kis_current_price_to_postgres.py took 0.097 seconds
+[2026-04-27T07:57:48.295+0000] {processor.py:186} INFO - Started process (PID=128) to work on /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:57:48.295+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/kis_current_price_to_postgres.py for tasks to queue
+[2026-04-27T07:57:48.297+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:57:48.297+0000] {dagbag.py:587} INFO - Filling up the DagBag from /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:57:48.309+0000] {processor.py:925} INFO - DAG(s) 'kis_current_price_to_postgres' retrieved from /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:57:48.338+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:57:48.337+0000] {dag.py:3211} INFO - Sync 1 DAGs
+[2026-04-27T07:57:48.363+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:57:48.362+0000] {dag.py:4138} INFO - Setting next_dagrun for kis_current_price_to_postgres to 2026-04-27 07:55:00+00:00, run_after=2026-04-27 08:00:00+00:00
+[2026-04-27T07:57:48.380+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/kis_current_price_to_postgres.py took 0.090 seconds
+[2026-04-27T07:58:47.935+0000] {processor.py:186} INFO - Started process (PID=32) to work on /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:58:47.936+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/kis_current_price_to_postgres.py for tasks to queue
+[2026-04-27T07:58:47.938+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:58:47.937+0000] {dagbag.py:587} INFO - Filling up the DagBag from /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:58:47.955+0000] {processor.py:925} INFO - DAG(s) 'kis_current_price_to_postgres' retrieved from /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:58:47.985+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:58:47.985+0000] {dag.py:3211} INFO - Sync 1 DAGs
+[2026-04-27T07:58:48.006+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:58:48.006+0000] {dag.py:4138} INFO - Setting next_dagrun for kis_current_price_to_postgres to 2026-04-27 07:55:00+00:00, run_after=2026-04-27 08:00:00+00:00
+[2026-04-27T07:58:48.018+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/kis_current_price_to_postgres.py took 0.086 seconds
+[2026-04-27T07:59:18.077+0000] {processor.py:186} INFO - Started process (PID=40) to work on /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:59:18.078+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/kis_current_price_to_postgres.py for tasks to queue
+[2026-04-27T07:59:18.080+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:59:18.080+0000] {dagbag.py:587} INFO - Filling up the DagBag from /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:59:18.092+0000] {processor.py:925} INFO - DAG(s) 'kis_current_price_to_postgres' retrieved from /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:59:18.121+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:59:18.121+0000] {dag.py:3211} INFO - Sync 1 DAGs
+[2026-04-27T07:59:18.149+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:59:18.149+0000] {dag.py:4138} INFO - Setting next_dagrun for kis_current_price_to_postgres to 2026-04-27 07:55:00+00:00, run_after=2026-04-27 08:00:00+00:00
+[2026-04-27T07:59:18.166+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/kis_current_price_to_postgres.py took 0.094 seconds
+[2026-04-27T07:59:48.274+0000] {processor.py:186} INFO - Started process (PID=41) to work on /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:59:48.275+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/kis_current_price_to_postgres.py for tasks to queue
+[2026-04-27T07:59:48.277+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:59:48.276+0000] {dagbag.py:587} INFO - Filling up the DagBag from /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:59:48.291+0000] {processor.py:925} INFO - DAG(s) 'kis_current_price_to_postgres' retrieved from /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T07:59:48.318+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:59:48.318+0000] {dag.py:3211} INFO - Sync 1 DAGs
+[2026-04-27T07:59:48.346+0000] {logging_mixin.py:190} INFO - [2026-04-27T07:59:48.346+0000] {dag.py:4138} INFO - Setting next_dagrun for kis_current_price_to_postgres to 2026-04-27 07:55:00+00:00, run_after=2026-04-27 08:00:00+00:00
+[2026-04-27T07:59:48.361+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/kis_current_price_to_postgres.py took 0.093 seconds
+[2026-04-27T08:00:18.418+0000] {processor.py:186} INFO - Started process (PID=60) to work on /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T08:00:18.419+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/kis_current_price_to_postgres.py for tasks to queue
+[2026-04-27T08:00:18.421+0000] {logging_mixin.py:190} INFO - [2026-04-27T08:00:18.421+0000] {dagbag.py:587} INFO - Filling up the DagBag from /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T08:00:18.434+0000] {processor.py:925} INFO - DAG(s) 'kis_current_price_to_postgres' retrieved from /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T08:00:18.461+0000] {logging_mixin.py:190} INFO - [2026-04-27T08:00:18.461+0000] {dag.py:3211} INFO - Sync 1 DAGs
+[2026-04-27T08:00:18.486+0000] {logging_mixin.py:190} INFO - [2026-04-27T08:00:18.486+0000] {dag.py:4138} INFO - Setting next_dagrun for kis_current_price_to_postgres to 2026-04-27 08:00:00+00:00, run_after=2026-04-27 08:05:00+00:00
+[2026-04-27T08:00:18.500+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/kis_current_price_to_postgres.py took 0.088 seconds
+[2026-04-27T08:00:48.618+0000] {processor.py:186} INFO - Started process (PID=73) to work on /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T08:00:48.618+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/kis_current_price_to_postgres.py for tasks to queue
+[2026-04-27T08:00:48.620+0000] {logging_mixin.py:190} INFO - [2026-04-27T08:00:48.620+0000] {dagbag.py:587} INFO - Filling up the DagBag from /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T08:00:48.632+0000] {processor.py:925} INFO - DAG(s) 'kis_current_price_to_postgres' retrieved from /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T08:00:48.662+0000] {logging_mixin.py:190} INFO - [2026-04-27T08:00:48.662+0000] {dag.py:3211} INFO - Sync 1 DAGs
+[2026-04-27T08:00:48.691+0000] {logging_mixin.py:190} INFO - [2026-04-27T08:00:48.691+0000] {dag.py:4138} INFO - Setting next_dagrun for kis_current_price_to_postgres to 2026-04-27 08:00:00+00:00, run_after=2026-04-27 08:05:00+00:00
+[2026-04-27T08:00:48.709+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/kis_current_price_to_postgres.py took 0.096 seconds
+[2026-04-27T08:01:18.762+0000] {processor.py:186} INFO - Started process (PID=80) to work on /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T08:01:18.763+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/kis_current_price_to_postgres.py for tasks to queue
+[2026-04-27T08:01:18.765+0000] {logging_mixin.py:190} INFO - [2026-04-27T08:01:18.765+0000] {dagbag.py:587} INFO - Filling up the DagBag from /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T08:01:18.778+0000] {processor.py:925} INFO - DAG(s) 'kis_current_price_to_postgres' retrieved from /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T08:01:18.808+0000] {logging_mixin.py:190} INFO - [2026-04-27T08:01:18.808+0000] {dag.py:3211} INFO - Sync 1 DAGs
+[2026-04-27T08:01:18.836+0000] {logging_mixin.py:190} INFO - [2026-04-27T08:01:18.836+0000] {dag.py:4138} INFO - Setting next_dagrun for kis_current_price_to_postgres to 2026-04-27 08:00:00+00:00, run_after=2026-04-27 08:05:00+00:00
+[2026-04-27T08:01:18.853+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/kis_current_price_to_postgres.py took 0.096 seconds
+[2026-04-27T08:01:48.975+0000] {processor.py:186} INFO - Started process (PID=88) to work on /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T08:01:48.976+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/kis_current_price_to_postgres.py for tasks to queue
+[2026-04-27T08:01:48.978+0000] {logging_mixin.py:190} INFO - [2026-04-27T08:01:48.978+0000] {dagbag.py:587} INFO - Filling up the DagBag from /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T08:01:48.990+0000] {processor.py:925} INFO - DAG(s) 'kis_current_price_to_postgres' retrieved from /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T08:01:49.020+0000] {logging_mixin.py:190} INFO - [2026-04-27T08:01:49.020+0000] {dag.py:3211} INFO - Sync 1 DAGs
+[2026-04-27T08:01:49.048+0000] {logging_mixin.py:190} INFO - [2026-04-27T08:01:49.048+0000] {dag.py:4138} INFO - Setting next_dagrun for kis_current_price_to_postgres to 2026-04-27 08:00:00+00:00, run_after=2026-04-27 08:05:00+00:00
+[2026-04-27T08:01:49.066+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/kis_current_price_to_postgres.py took 0.096 seconds
+[2026-04-27T08:02:19.124+0000] {processor.py:186} INFO - Started process (PID=89) to work on /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T08:02:19.125+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/kis_current_price_to_postgres.py for tasks to queue
+[2026-04-27T08:02:19.127+0000] {logging_mixin.py:190} INFO - [2026-04-27T08:02:19.127+0000] {dagbag.py:587} INFO - Filling up the DagBag from /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T08:02:19.140+0000] {processor.py:925} INFO - DAG(s) 'kis_current_price_to_postgres' retrieved from /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T08:02:19.170+0000] {logging_mixin.py:190} INFO - [2026-04-27T08:02:19.170+0000] {dag.py:3211} INFO - Sync 1 DAGs
+[2026-04-27T08:02:19.196+0000] {logging_mixin.py:190} INFO - [2026-04-27T08:02:19.196+0000] {dag.py:4138} INFO - Setting next_dagrun for kis_current_price_to_postgres to 2026-04-27 08:00:00+00:00, run_after=2026-04-27 08:05:00+00:00
+[2026-04-27T08:02:19.210+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/kis_current_price_to_postgres.py took 0.092 seconds
+[2026-04-27T08:02:49.330+0000] {processor.py:186} INFO - Started process (PID=90) to work on /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T08:02:49.331+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/kis_current_price_to_postgres.py for tasks to queue
+[2026-04-27T08:02:49.332+0000] {logging_mixin.py:190} INFO - [2026-04-27T08:02:49.332+0000] {dagbag.py:587} INFO - Filling up the DagBag from /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T08:02:49.345+0000] {processor.py:925} INFO - DAG(s) 'kis_current_price_to_postgres' retrieved from /opt/airflow/dags/kis_current_price_to_postgres.py
+[2026-04-27T08:02:49.373+0000] {logging_mixin.py:190} INFO - [2026-04-27T08:02:49.373+0000] {dag.py:3211} INFO - Sync 1 DAGs
+[2026-04-27T08:02:49.401+0000] {logging_mixin.py:190} INFO - [2026-04-27T08:02:49.401+0000] {dag.py:4138} INFO - Setting next_dagrun for kis_current_price_to_postgres to 2026-04-27 08:00:00+00:00, run_after=2026-04-27 08:05:00+00:00
+[2026-04-27T08:02:49.416+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/kis_current_price_to_postgres.py took 0.091 seconds

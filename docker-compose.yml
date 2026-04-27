@@ -122,6 +122,7 @@ services:
       - ./logs:/opt/airflow/logs
       - ./plugins:/opt/airflow/plugins
       - ./app:/opt/airflow/app
+      - ./producers:/opt/airflow/producers
     networks:
       - estock-network
 
@@ -153,6 +154,7 @@ services:
       - ./logs:/opt/airflow/logs
       - ./plugins:/opt/airflow/plugins
       - ./app:/opt/airflow/app
+      - ./producers:/opt/airflow/producers
     networks:
       - estock-network
 
@@ -182,6 +184,7 @@ services:
       - ./logs:/opt/airflow/logs
       - ./plugins:/opt/airflow/plugins
       - ./app:/opt/airflow/app
+      - ./producers:/opt/airflow/producers
     networks:
       - estock-network
 

@@ -1,139 +1,285 @@
 # e-stock-pipeline
 
-주식 데이터와 LLM 응답을 다루는 데이터 파이프라인의 **인프라 골격**.
-DAG, 토픽, 테이블 스키마는 학습하며 단계적으로 추가한다.
+주식 시세 데이터를 수집·처리하는 데이터 파이프라인 학습 프로젝트.
+Kafka, Airflow, PostgreSQL 을 활용한 실시간/배치 통합 환경.
 
-## 1. 아키텍처 비전
+## 1. 프로젝트 개요
+
+### 목표
+- 한국투자증권(KIS) Open API 로 실 주식 시세 수집
+- Airflow 로 주기적 API 호출 + Kafka 로 실시간 스트리밍
+- PostgreSQL 에 적재 후 LLM 컨텍스트로 활용 (장기 목표)
+
+### 데이터 흐름
 
 ```
-   ┌─────────────┐    ┌─────────────┐    ┌────────────────┐    ┌──────────────┐
-   │   Airflow   │───▶│    Kafka    │───▶│   PostgreSQL   │───▶│  LLM 컨텍스트  │
-   │             │    │             │    │                │    │              │
-   │  주기적      │    │  실시간      │    │  raw → cleaned │    │  정제 데이터  │
-   │  API 호출    │    │  스트림 버퍼 │    │  → mart 변환    │    │  기반 RAG     │
-   │  (KIS,      │    │  + LLM      │    │                │    │              │
-   │   pykrx,    │    │  응답 저장   │    │  (data mart /  │    │              │
-   │   뉴스 등)   │    │             │    │   warehouse)   │    │              │
-   └─────────────┘    └─────────────┘    └────────────────┘    └──────────────┘
+┌──────────────┐    ┌──────────────┐    ┌──────────────┐    ┌──────────────┐
+│   Airflow    │───▶│    Kafka     │───▶│  PostgreSQL  │───▶│ LLM 컨텍스트  │
+│              │    │              │    │              │    │              │
+│ 주기적        │    │ 실시간        │    │ raw → cleaned│    │ 정제 데이터로 │
+│ KIS API 호출  │    │ 메시지 버퍼   │    │ → mart 변환   │    │ 답변 퀄리티   │
+│              │    │              │    │              │    │ 향상 (RAG)   │
+└──────────────┘    └──────────────┘    └──────────────┘    └──────────────┘
 ```
 
-데이터 흐름 예시:
-1. **Airflow (주기 실행)** → 외부 API 호출 → Kafka 토픽으로 적재
-2. **Kafka consumer** → Postgres `raw` 테이블에 저장
-3. **Airflow (변환)** → `raw` → `cleaned` → `mart` 단계별 변환
-4. **LLM 연동** → `mart` 의 정제된 데이터를 컨텍스트로 LLM 호출, 응답을 다시 Kafka 로 스트림 (선택)
+## 2. 기술 스택
 
-## 2. 현재 구성
-
-이 저장소는 **인프라만** 정의되어 있고 비즈니스 로직(DAG, 토픽, 테이블) 은 비어 있다.
-
-| 컴포넌트     | 역할                                                | 포트 (localhost only) |
-| ----------- | --------------------------------------------------- | -------------------- |
-| Zookeeper   | Kafka 메타데이터 / 리더 선출                          | 12181                |
-| Kafka       | 메시지 브로커 (단일 브로커, healthcheck 활성화)        | 19092                |
-| Kafka UI    | 토픽 / 메시지 모니터링 (kafbat fork v1.1.0)           | 18088                |
-| Postgres    | `stock_db` (적재) + `airflow_db` (메타) 겸용         | 15439                |
-| Airflow     | webserver + scheduler (Python 3.11, 2.10.0)         | 18080                |
-
-모든 포트는 `127.0.0.1` 에만 바인딩되어 외부 노출 차단.
+| 컴포넌트     | 버전                        | 역할                                     |
+| ----------- | -------------------------- | --------------------------------------- |
+| Confluent   | `7.7.1`                    | Kafka + Zookeeper                       |
+| Kafka UI    | `kafbat/kafka-ui:v1.1.0`   | 토픽/메시지 모니터링                       |
+| PostgreSQL  | `postgres:15.17-alpine`    | 데이터 적재 + Airflow 메타DB              |
+| Airflow     | `2.10.0` (Python 3.11)     | 워크플로우 오케스트레이션                  |
+| kafka-python| `2.0.2`                    | Producer/Consumer 클라이언트              |
+| psycopg2    | `2.9.9`                    | PostgreSQL 드라이버                      |
 
 ## 3. 폴더 구조
 
 ```
 e-stock-pipeline/
-├── docker-compose.yaml      # 인프라 정의
-├── Dockerfile               # Airflow 커스텀 이미지 (kafka-python, psycopg2 추가)
+├── docker-compose.yml          # 인프라 정의 (zookeeper, kafka, postgres, airflow)
+├── Dockerfile                  # Airflow 커스텀 이미지 (kafka-python, psycopg2 추가)
 ├── requirements.txt
-├── .env.example             # 복사해서 .env 로 사용
+├── .env                        # 공통 환경변수 (Git 제외)
+├── .env.dev                    # dev 환경 차이 (Git 제외)
+├── .env.prod                   # prod 환경 차이 (Git 제외, 운영시 사용)
 ├── .gitignore
 ├── .dockerignore
 ├── README.md
 ├── config/
-│   └── init.sql             # airflow_db 만 생성. 분석용 스키마는 직접 추가
-├── dags/                    # Airflow DAG 추가 위치 (현재 비어 있음)
-├── plugins/                 # Airflow 커스텀 플러그인
-└── logs/                    # 런타임 로그 (gitignore)
+│   └── init.sql                # airflow_db 생성
+├── dags/
+│   └── kis_current_price_to_postgres.py    # KIS API → PostgreSQL DAG
+├── app/
+│   └── estock/                 # 비즈니스 로직 (DAG 에서 import)
+│       ├── clients/
+│       │   └── kis_client.py           # KIS API 호출 + 토큰 캐싱
+│       ├── repositories/
+│       │   └── stock_price_repository.py   # PostgreSQL 적재
+│       └── services/
+│           └── stock_price_service.py      # client + repository 조합
+├── producer/                   # Kafka producer 스크립트
+│   └── test_producer.py
+└── plugins/                    # Airflow 플러그인 (현재 비어있음)
 ```
 
-## 4. 실행 방법
+## 4. 환경 분리 전략
+
+### 파일 구성
+
+`.env` 에 **공통 변수**, `.env.dev` / `.env.prod` 에 **환경별 차이만** 작성.
+실행 시 두 파일을 같이 로드하여 dev/prod 가 자동 분기.
 
 ```bash
-# 1. 환경변수 파일 생성
-cp .env.example .env
+# 공통 변수 (모든 환경에서 동일)
+.env:
+  POSTGRES_USER=estock
+  AIRFLOW_UID=50000
+  KAFKA_ADVERTISED_HOST=localhost
+  *_BIND_HOST=127.0.0.1   # 외부 노출 차단
+```
 
-# 2. SECRET_KEY 를 랜덤 문자열로 교체 (세션 유지에 필수)
+```bash
+# dev: 모의투자 + 1xxxx 포트
+.env.dev:
+  COMPOSE_PROJECT_NAME=estock-dev
+  POSTGRES_PASSWORD=estock_dev_pw
+  POSTGRES_DB=estock_dev
+  KAFKA_HOST_PORT=19092
+  AIRFLOW_WEBSERVER_HOST_PORT=18080
+  KIS_BASE_URL=https://openapivts.koreainvestment.com:29443
+  AIRFLOW_FERNET_KEY=<생성한 키>
+  AIRFLOW_WEBSERVER_SECRET_KEY=<생성한 키>
+  KIS_APP_KEY=<KIS 발급 키>
+  KIS_APP_SECRET=<KIS 발급 시크릿>
+```
+
+```bash
+# prod: 실전 서버 + 2xxxx 포트 (포트 충돌 방지)
+.env.prod:
+  COMPOSE_PROJECT_NAME=estock-prod
+  POSTGRES_DB=estock_prod
+  KAFKA_HOST_PORT=29092
+  AIRFLOW_WEBSERVER_HOST_PORT=28080
+  KIS_BASE_URL=https://openapi.koreainvestment.com:9443
+```
+
+### 키 생성 방법
+
+```bash
+# Airflow SECRET_KEY (세션 유지용)
 python3 -c "import secrets; print(secrets.token_hex(32))"
-# 출력값을 .env 의 AIRFLOW_WEBSERVER_SECRET_KEY 에 붙여넣기
 
-# 3. (Linux/Mac) AIRFLOW_UID 를 호스트 사용자로 맞추기 (logs/ 권한 문제 방지)
-echo "AIRFLOW_UID=$(id -u)" >> .env
-
-# 4. 인프라 기동 + Airflow 메타DB 초기화 (최초 1회)
-docker compose up -d zookeeper kafka-1 kafka-ui postgres
-docker compose run --rm airflow-init
-
-# 5. Airflow 기동
-docker compose up -d airflow-webserver airflow-scheduler
-
-# 6. 접속
-#    Airflow UI : http://localhost:18080  (airflow / airflow)
-#    Kafka UI   : http://localhost:18088
-#    Postgres   : localhost:15439 (계정은 .env 참조)
+# Airflow FERNET_KEY (Variable/Connection 암호화용)
+docker run --rm apache/airflow:2.10.0-python3.11 \
+  python -c "from cryptography.fernet import Fernet; print(Fernet.generate_key().decode())"
 ```
 
-종료:
+## 5. 실행 방법
+
+### 5-1. 첫 실행 (인프라 기동)
 
 ```bash
-docker compose down              # 컨테이너만 제거 (볼륨 유지)
-docker compose down -v           # 볼륨까지 제거 (DB 초기화)
+# .env 파일 준비 (.env.example 참고하여 작성)
+
+# 인프라 + Airflow 메타DB 초기화 + 서비스 기동 (한 번에)
+docker compose --env-file .env --env-file .env.dev up -d
+
+# 1~2분 후 상태 확인 (kafka healthy + airflow-init 완료까지)
+docker compose --env-file .env --env-file .env.dev ps
 ```
 
-## 5. 학습 로드맵
+기대 결과:
+```
+estock-dev-postgres            Up (healthy)
+estock-dev-zookeeper           Up
+estock-dev-kafka-1             Up (healthy)
+estock-dev-kafka-ui            Up
+estock-dev-airflow-init        Exited (0)       ← 정상 종료
+estock-dev-airflow-webserver   Up
+estock-dev-airflow-scheduler   Up
+```
 
-각 단계마다 DAG, 토픽, 테이블을 하나씩 추가하며 점진적으로 확장.
+### 5-2. 접속
 
-| 단계 | 학습 목표                                                                                                  |
-| --- | --------------------------------------------------------------------------------------------------------- |
-| 1   | **Airflow 기본기**: PythonOperator 로 외부 API (pykrx, KIS, 뉴스) 호출 → 로컬 파일 저장                       |
-| 2   | **Kafka 입문**: Producer 작성 → API 응답을 토픽 적재 → Kafka UI 로 메시지 흐름 관찰                          |
-| 3   | **Consumer + Postgres**: Kafka 에서 읽어 `raw_*` 테이블에 적재 (`enable_auto_commit=False` 로 정확성 확보)   |
-| 4   | **변환 파이프라인**: `raw` → `cleaned` → `mart` 3단 변환. dbt 도입 검토                                       |
-| 5   | **LLM 연동**: `mart` 의 정제 데이터를 컨텍스트로 LLM API 호출, 응답을 Kafka 토픽으로 스트림 저장               |
-| 6   | **벡터 검색**: pgvector 확장 도입 (또는 Qdrant 별도 컨테이너) → 뉴스/공시 임베딩 → RAG 파이프라인 구성         |
-| 7   | **운영급 확장**: Kafka 브로커 1→3, partition 키 설계, exactly-once semantics, 토픽별 retention 정책          |
+| 서비스      | URL                              | 계정              |
+| ---------- | -------------------------------- | ---------------- |
+| Airflow UI | http://localhost:18080           | airflow/airflow  |
+| Kafka UI   | http://localhost:18088           | -                |
+| PostgreSQL | localhost:15439                  | estock/estock_dev_pw |
 
-## 6. 버전 고정 정책
+### 5-3. KIS API DAG 실행
 
-`:latest` 태그는 사용하지 않음. 모든 이미지/패키지는 명시적 버전.
+Airflow UI 접속 → `kis_current_price_to_postgres` DAG → 토글 ON → Trigger
 
-| 컴포넌트         | 고정 버전                              | 선택 근거                                                    |
-| --------------- | ------------------------------------ | ----------------------------------------------------------- |
-| Confluent CP    | `7.7.1`                              | 7.5 는 standard support 종료(2025-05). 7.7.1 은 ZooKeeper 모드 공식 최소 권장. 8.x 는 ZK 미지원. |
-| Kafka UI        | `ghcr.io/kafbat/kafka-ui:v1.1.0`     | 원본 `provectuslabs/kafka-ui` 는 유지보수 중단(CVE-2023-52251 RCE 미패치). kafbat 포크 v1.1.0 (2025-01) 이 검증된 안정 태그. |
-| PostgreSQL      | `postgres:15.17-alpine`              | 15 계열 최신 패치 (2026-02), alpine 변종.                       |
-| Airflow         | `apache/airflow:2.10.0-python3.11`   | 메이저+마이너+파이썬 버전 모두 고정. constraints 파일과 함께 패키지 버전까지 사실상 고정. |
-| kafka-python    | `2.0.2`                              | 마지막으로 폭넓게 검증된 안정 버전.                              |
-| psycopg2-binary | `2.9.9`                              | Postgres 15 호환 안정 버전.                                  |
+검증 (DB 에 데이터 적재 확인):
+```bash
+docker compose --env-file .env --env-file .env.dev exec postgres \
+  psql -U estock -d estock_dev \
+  -c "SELECT stock_code, stock_name, current_price, collected_at FROM kis_domestic_stock_price ORDER BY collected_at DESC LIMIT 5;"
+```
 
-## 7. 적용된 운영 안정성 설정
+### 5-4. Kafka Producer 테스트
 
-처음부터 자주 부딪히는 함정들을 미리 막아둔 항목:
+컨테이너 안에서 실행 (호스트 환경 더럽히지 않음):
 
-- **Kafka healthcheck**: `kafka-topics --list` 로 브로커 ready 확인. kafka-ui 가 healthy 조건 대기.
-- **`airflow-init` idempotent**: 사용자 이미 존재해도 init 재실행이 가능 (`|| echo skipping`).
-- **Postgres healthcheck**: airflow 가 DB ready 확인 후 기동.
-- **AIRFLOW_UID 적용**: 호스트 UID 와 맞춰 `logs/` 권한 충돌 방지.
-- **`AIRFLOW__WEBSERVER__SECRET_KEY` 고정**: webserver 재시작 시 세션 유지.
-- **Kafka JVM heap 제한**: 512MB 로 제한해 노트북 환경 OOM 방지.
-- **`restart: unless-stopped` 전 서비스 적용**: 단발성 크래시 자동 복구.
-- **포트 `127.0.0.1` 바인딩**: 외부 네트워크 노출 차단 (카페/회사망 안전).
-- **`.dockerignore`**: 빌드 컨텍스트 최소화.
+```bash
+docker compose --env-file .env --env-file .env.dev exec airflow-scheduler \
+  python /opt/airflow/producers/test_producer.py
+```
 
-## 8. 트러블슈팅
+기대 출력:
+```
+[producer] connected to kafka-1:29092
+[producer] sending to topic: test-stock-prices
+  [1] 삼성전자: 74,832원 (vol=53,210)
+  [2] SK하이닉스: 178,440원 (vol=78,901)
+  ...
+```
 
-- **Kafka 연결 실패 (NoBrokersAvailable)**: kafka-1 healthcheck 가 healthy 될 때까지 30~60초 소요. `docker compose ps` 로 STATUS 확인.
-- **Airflow init 멈춤**: postgres healthcheck 대기 중일 가능성. `docker compose logs postgres` 확인.
-- **DAG 가 webserver UI 에 안 보임**: 파싱 에러 가능. `docker compose logs airflow-scheduler` 확인.
-- **`logs/` 디렉터리 권한 에러 (Permission denied)**: `.env` 의 `AIRFLOW_UID` 가 호스트 UID 와 다름. `id -u` 로 확인 후 수정.
-- **Postgres 비번 변경 후 재기동 실패**: 볼륨에 이전 비번 남아 있음. `docker compose down -v` 후 재기동.
-- **회사 DRM 으로 WSL2/Docker Desktop 차단**: Rancher Desktop 또는 사내 개발 VM 위에서 실행.
+Ctrl+C 로 종료. 검증:
+```bash
+# 토픽 확인
+docker compose --env-file .env --env-file .env.dev exec kafka-1 \
+  kafka-topics --bootstrap-server kafka-1:29092 --list
+
+# 메시지 직접 읽기
+docker compose --env-file .env --env-file .env.dev exec kafka-1 \
+  kafka-console-consumer --bootstrap-server kafka-1:29092 \
+  --topic test-stock-prices --from-beginning --max-messages 5
+```
+
+또는 Kafka UI 에서 시각적으로:
+http://localhost:18088 → estock-cluster → Topics → test-stock-prices → Messages
+
+### 5-5. 종료
+
+```bash
+# 컨테이너만 정지 (데이터 유지)
+docker compose --env-file .env --env-file .env.dev down
+
+# 데이터까지 완전 삭제 (DB 초기화)
+docker compose --env-file .env --env-file .env.dev down -v
+```
+
+## 6. 핵심 설계 결정
+
+### 왜 단일 Kafka 브로커인가
+학습용. 운영급 확장 시 브로커 3 개로 늘리고 `replication_factor=3`,
+`min.insync.replicas=2` 로 상향. Confluent 공식 권장도 3 의 정족수(quorum) 패턴.
+
+### 왜 호스트 포트가 19092 / 컨테이너 내부는 29092 인가
+Kafka 의 dual-listener 패턴:
+- **외부 (호스트)**: `localhost:19092` → 도커가 9092 로 포워딩
+- **내부 (컨테이너)**: `kafka-1:29092` 직접 연결
+
+producer/consumer 가 어디서 실행되느냐에 따라 다른 주소 사용:
+- 호스트에서: `localhost:19092`
+- 컨테이너 안에서 (airflow-scheduler 등): `kafka-1:29092`
+
+### 왜 plugins 가 아닌 app 폴더인가
+Airflow 의 `plugins/` 는 본래 `AirflowPlugin` 클래스 등록용. 일반 비즈니스
+로직 패키지는 `app/` 같은 별도 폴더 + `PYTHONPATH` 설정이 권장 패턴
+(Airflow 2.x 공식 가이드).
+
+### 왜 AIRFLOW_UID=50000 인가
+Airflow 도커 이미지 내부에 `airflow` 사용자(UID 50000) 가 등록되어 있음.
+호스트 UID(보통 1000) 로 컨테이너를 띄우면 `getuser()` 가 사용자명을 못 찾아
+Airflow 가 거부. 호스트 폴더 소유자를 50000:0 으로 맞춰서 해결.
+
+```bash
+sudo chown -R 50000:0 logs/ dags/ plugins/ app/ producer/
+sudo chmod -R g+rwX logs/ dags/ plugins/ app/ producer/
+```
+
+호스트 사용자(group 0=root) 도 권한 갖도록 `g+rwX` 부여.
+
+## 7. 학습 진행 단계
+
+| 단계 | 학습 목표                                                                | 상태 |
+| --- | ----------------------------------------------------------------------- | ---- |
+| 1   | 인프라 구축 (Kafka + Airflow + PostgreSQL) docker-compose 화             | ✅   |
+| 2   | dev/prod 환경 분리, FERNET_KEY 등 보안 설정                                | ✅   |
+| 3   | KIS API DAG: 한국투자증권 현재가 → PostgreSQL 적재 (PythonOperator)        | ✅   |
+| 4   | Kafka Producer 첫 실행: mock 데이터 → 토픽 → Kafka UI 검증                 | ✅   |
+| 5   | Kafka Consumer DAG: 토픽 → PostgreSQL 적재 (auto_commit=False)            | ⬜   |
+| 6   | KIS Producer: 실 시세를 Kafka 토픽으로 발행 (별도 producer 서비스로 분리)   | ⬜   |
+| 7   | 변환 파이프라인: raw → cleaned → mart 3단 구조 (dbt 도입 검토)               | ⬜   |
+| 8   | LLM 연동: mart 데이터를 컨텍스트로 LLM 호출, 응답을 Kafka 로 스트림           | ⬜   |
+| 9   | 벡터 검색: pgvector 도입 → 뉴스/공시 임베딩 → RAG 파이프라인                | ⬜   |
+
+## 8. 거쳐온 트러블슈팅 기록
+
+학습 과정에서 부딪힌 주요 함정과 해결 방법.
+
+| 증상 | 원인 | 해결 |
+| --- | --- | --- |
+| `airflow-init` race condition | webserver/scheduler 가 init 보다 먼저 시작 | `service_completed_successfully` 의존성 추가 |
+| `Permission denied: /opt/airflow/logs/...` | 호스트 폴더 UID 1000, 컨테이너 UID 50000 불일치 | `sudo chown -R 50000:0` + `chmod g+rwX` |
+| `The user has no username` | 컨테이너 내 `/etc/passwd` 에 UID 1000 없음 | UID 1000 으로 가지 말고 50000 으로 통일 |
+| `ModuleNotFoundError: No module named 'estock'` | docker-compose 에 `app/` 마운트 누락 | `volumes:` 에 `./app:/opt/airflow/app` 추가 |
+| `connect to stock_db failed` | repository 의 fallback DB명이 `stock_db`, 실제는 `estock_dev` | fallback 을 `os.getenv("POSTGRES_DB", "estock_dev")` 로 |
+| `SyntaxError: Non-UTF-8 code` | producer 코드가 CP949 인코딩 | `iconv -f CP949 -t UTF-8` 로 변환 |
+| `NoBrokersAvailable` (컨테이너 안) | bootstrap_server 가 `localhost:19092` (외부 주소) | 컨테이너 안에서는 `kafka-1:29092` |
+| `KIS API 키 노출` | `.env` 가 zip 에 포함되어 외부 공유 | `.gitignore` + zip 시 `-x "*/.env*"` 옵션 |
+
+## 9. 보안 체크리스트
+
+- [x] 모든 포트 `127.0.0.1` 바인딩 (외부 노출 차단)
+- [x] `AIRFLOW_FERNET_KEY` 설정 (Variable/Connection 암호화)
+- [x] `AIRFLOW_WEBSERVER_SECRET_KEY` 랜덤 생성 (세션 보호)
+- [x] `.env*` 파일 `.gitignore` 등록
+- [ ] zip 공유 시 `-x "*/.env*"` 옵션 사용 (수동 체크 필요)
+- [ ] prod 배포 시 Airflow 기본 계정(`airflow/airflow`) 변경
+- [ ] prod 배포 시 PostgreSQL 비밀번호 강력화
+
+## 10. 향후 개선 검토
+
+| 영역 | 현재 | 개선안 |
+| --- | --- | --- |
+| 명령 단순화 | 매번 `--env-file` 두 개 입력 | Makefile 로 `make dev-up` 형태 |
+| Producer 운영 | 학습용 컨테이너 내 수동 실행 | docker-compose 의 별도 producer 서비스로 분리, `restart: unless-stopped` |
+| 테스트 | 없음 | `tests/` + pytest + KisClient/Repository 모킹 |
+| DB Connection 관리 | psycopg2 직접 연결 | Airflow `PostgresHook` + Connection UI 통합 관리 |
+| 토픽 자동 생성 | `KAFKA_AUTO_CREATE_TOPICS_ENABLE: true` | `airflow-init` 에서 명시적 토픽 생성 (파티션/replication 제어) |
+| 로깅 | `print()` | `logging.info()` 로 통일 (UI 에서 레벨 필터링 가능) |
