@@ -121,3 +121,80 @@ class KisClient:
             raise RuntimeError(f"KIS API 응답 오류: {data}")
 
         return data
+
+    def get_ohlcv_price(
+        self,
+        stock_code: str,
+        start_date: str,
+        end_date: str,
+        period_code: str = "D",
+        adjusted_price: str = "0",
+    ) -> dict:
+        """
+        국내주식기간별시세(일/주/월/년) 조회.
+
+        Parameters
+        ----------
+        stock_code : str
+            종목코드. 예: 삼성전자 "005930"
+
+        start_date : str
+            조회 시작일. YYYYMMDD 형식. 예: "20240101"
+
+        end_date : str
+            조회 종료일. YYYYMMDD 형식. 예: "20240506"
+
+        period_code : str
+            기간 구분.
+            D = 일봉
+            W = 주봉
+            M = 월봉
+            Y = 년봉
+
+        adjusted_price : str
+            수정주가 반영 여부.
+            보통 "0" 또는 "1" 사용.
+        """
+        access_token = self.get_access_token()
+
+        url = (
+            f"{self.base_url}"
+            "/uapi/domestic-stock/v1/quotations/inquire-daily-itemchartprice"
+        )
+
+        headers = {
+            "content-type": "application/json; charset=utf-8",
+            "authorization": f"Bearer {access_token}",
+            "appkey": self.app_key,
+            "appsecret": self.app_secret,
+            "tr_id": "FHKST03010100",
+        }
+
+        params = {
+            "FID_COND_MRKT_DIV_CODE": "J",
+            "FID_INPUT_ISCD": stock_code,
+            "FID_INPUT_DATE_1": start_date,
+            "FID_INPUT_DATE_2": end_date,
+            "FID_PERIOD_DIV_CODE": period_code,
+            "FID_ORG_ADJ_PRC": adjusted_price,
+        }
+
+        response = requests.get(
+            url,
+            headers=headers,
+            params=params,
+            timeout=10,
+        )
+
+        if response.status_code != 200:
+            raise RuntimeError(
+                f"KIS 기간별시세 API 호출 실패: "
+                f"{response.status_code}, {response.text}"
+            )
+
+        data = response.json()
+
+        if data.get("rt_cd") != "0":
+            raise RuntimeError(f"KIS 기간별시세 API 응답 오류: {data}")
+
+        return data
