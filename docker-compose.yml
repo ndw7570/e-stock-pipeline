@@ -187,9 +187,26 @@ services:
       - ./producers:/opt/airflow/producers
     networks:
       - estock-network
+    
+  minio:
+    image: minio/minio:latest
+    container_name: ${CONTAINER_PREFIX:-estock}-minio
+    restart: unless-stopped
+    command: server /data --console-address ":9001"
+    ports:
+      - "19000:9000"
+      - "19001:9001"
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin123
+    volumes:
+      - estock_minio_data:/data
+    networks:
+      - estock-network
 
 networks:
   estock-network:
 
 volumes:
   estock_postgres_data:
+  estock_minio_data:
