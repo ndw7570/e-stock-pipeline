@@ -8,3 +8,4 @@ psycopg2-binary==2.9.9
 # apache-airflow-providers-http==4.13.0       # HttpOperator / HttpSensor 사용 시
 # requests==2.32.3                            # 외부 API 호출용
 minio==7.2.10
+websockets==12.0

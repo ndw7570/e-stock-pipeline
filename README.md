@@ -1,285 +1,811 @@
 # e-stock-pipeline
 
-주식 시세 데이터를 수집·처리하는 데이터 파이프라인 학습 프로젝트.
-Kafka, Airflow, PostgreSQL 을 활용한 실시간/배치 통합 환경.
+한국투자증권 KIS Open API, Kafka, Airflow, PostgreSQL, MinIO를 활용한 주식 데이터 파이프라인 프로젝트입니다.
 
-## 1. 프로젝트 개요
+현재 목표는 다음과 같습니다.
 
-### 목표
-- 한국투자증권(KIS) Open API 로 실 주식 시세 수집
-- Airflow 로 주기적 API 호출 + Kafka 로 실시간 스트리밍
-- PostgreSQL 에 적재 후 LLM 컨텍스트로 활용 (장기 목표)
-
-### 데이터 흐름
-
-```
-┌──────────────┐    ┌──────────────┐    ┌──────────────┐    ┌──────────────┐
-│   Airflow    │───▶│    Kafka     │───▶│  PostgreSQL  │───▶│ LLM 컨텍스트  │
-│              │    │              │    │              │    │              │
-│ 주기적        │    │ 실시간        │    │ raw → cleaned│    │ 정제 데이터로 │
-│ KIS API 호출  │    │ 메시지 버퍼   │    │ → mart 변환   │    │ 답변 퀄리티   │
-│              │    │              │    │              │    │ 향상 (RAG)   │
-└──────────────┘    └──────────────┘    └──────────────┘    └──────────────┘
+```text
+KIS WebSocket 실시간 데이터
+→ Kafka raw topic
+→ MinIO raw 저장
+→ raw 메시지 분류
+→ trade 메시지만 parsed topic으로 전달
+→ PostgreSQL 저장
+→ 이후 Spark 처리 확장
 ```
 
-## 2. 기술 스택
+현재 단계에서는 Spark 처리 전까지의 실시간 수집 파이프라인을 구성하고 있습니다.
 
-| 컴포넌트     | 버전                        | 역할                                     |
-| ----------- | -------------------------- | --------------------------------------- |
-| Confluent   | `7.7.1`                    | Kafka + Zookeeper                       |
-| Kafka UI    | `kafbat/kafka-ui:v1.1.0`   | 토픽/메시지 모니터링                       |
-| PostgreSQL  | `postgres:15.17-alpine`    | 데이터 적재 + Airflow 메타DB              |
-| Airflow     | `2.10.0` (Python 3.11)     | 워크플로우 오케스트레이션                  |
-| kafka-python| `2.0.2`                    | Producer/Consumer 클라이언트              |
-| psycopg2    | `2.9.9`                    | PostgreSQL 드라이버                      |
+---
 
-## 3. 폴더 구조
+## 1. 현재 구성 요소
 
-```
-e-stock-pipeline/
-├── docker-compose.yml          # 인프라 정의 (zookeeper, kafka, postgres, airflow)
-├── Dockerfile                  # Airflow 커스텀 이미지 (kafka-python, psycopg2 추가)
-├── requirements.txt
-├── .env                        # 공통 환경변수 (Git 제외)
-├── .env.dev                    # dev 환경 차이 (Git 제외)
-├── .env.prod                   # prod 환경 차이 (Git 제외, 운영시 사용)
-├── .gitignore
-├── .dockerignore
-├── README.md
-├── config/
-│   └── init.sql                # airflow_db 생성
-├── dags/
-│   └── kis_current_price_to_postgres.py    # KIS API → PostgreSQL DAG
-├── app/
-│   └── estock/                 # 비즈니스 로직 (DAG 에서 import)
-│       ├── clients/
-│       │   └── kis_client.py           # KIS API 호출 + 토큰 캐싱
-│       ├── repositories/
-│       │   └── stock_price_repository.py   # PostgreSQL 적재
-│       └── services/
-│           └── stock_price_service.py      # client + repository 조합
-├── producer/                   # Kafka producer 스크립트
-│   └── test_producer.py
-└── plugins/                    # Airflow 플러그인 (현재 비어있음)
+```text
+Windows 개발 환경
+Docker Desktop
+Docker Compose
+Airflow
+Kafka
+Kafka UI
+PostgreSQL
+MinIO
+KIS Open API
 ```
 
-## 4. 환경 분리 전략
+각 역할은 다음과 같습니다.
 
-### 파일 구성
+```text
+KIS WebSocket
+→ 한국투자증권 실시간 주식 데이터 수신
 
-`.env` 에 **공통 변수**, `.env.dev` / `.env.prod` 에 **환경별 차이만** 작성.
-실행 시 두 파일을 같이 로드하여 dev/prod 가 자동 분기.
+Kafka
+→ 실시간 메시지 버퍼 및 분기 처리
 
-```bash
-# 공통 변수 (모든 환경에서 동일)
-.env:
-  POSTGRES_USER=estock
-  AIRFLOW_UID=50000
-  KAFKA_ADVERTISED_HOST=localhost
-  *_BIND_HOST=127.0.0.1   # 외부 노출 차단
+MinIO
+→ S3 대체 오픈소스 오브젝트 스토리지
+→ raw JSONL 파일 저장
+
+PostgreSQL
+→ 현재가, OHLCV, 이후 parsed trade 데이터 저장
+
+Airflow
+→ REST API 배치 수집, DAG 기반 작업 실행
+
+Spark
+→ 이후 대량 파일 처리, Parquet 변환, 집계 처리 예정
 ```
 
-```bash
-# dev: 모의투자 + 1xxxx 포트
-.env.dev:
-  COMPOSE_PROJECT_NAME=estock-dev
-  POSTGRES_PASSWORD=estock_dev_pw
-  POSTGRES_DB=estock_dev
-  KAFKA_HOST_PORT=19092
-  AIRFLOW_WEBSERVER_HOST_PORT=18080
-  KIS_BASE_URL=https://openapivts.koreainvestment.com:29443
-  AIRFLOW_FERNET_KEY=<생성한 키>
-  AIRFLOW_WEBSERVER_SECRET_KEY=<생성한 키>
-  KIS_APP_KEY=<KIS 발급 키>
-  KIS_APP_SECRET=<KIS 발급 시크릿>
+---
+
+## 2. 폴더 구조
+
+현재 기준 폴더 구조는 다음과 같습니다.
+
+```text
+app/
+└── estock/
+    ├── clients/
+    │   └── kis_client.py
+    │
+    ├── repositories/
+    │   ├── stock_current_price_repository.py
+    │   └── stock_ohlcv_repository.py
+    │
+    ├── services/
+    │   └── stock_price_service.py
+    │
+    ├── storage/
+    │   ├── __init__.py
+    │   └── minio_storage.py
+    │
+    └── kafka/
+        ├── __init__.py
+        ├── producer.py
+        ├── consumer.py
+        ├── topics.py
+        ├── kis_message_classifier.py
+        ├── kis_trade_parser.py
+        │
+        ├── producers/
+        │   ├── __init__.py
+        │   ├── test_kafka_producer.py
+        │   └── kis_ws_trade_producer.py
+        │
+        └── consumers/
+            ├── __init__.py
+            ├── test_kafka_consumer.py
+            ├── kis_trade_minio_consumer.py
+            ├── kis_trade_raw_debug_consumer.py
+            ├── kis_trade_raw_to_parsed_consumer.py
+            └── kis_trade_parsed_debug_consumer.py
 ```
 
-```bash
-# prod: 실전 서버 + 2xxxx 포트 (포트 충돌 방지)
-.env.prod:
-  COMPOSE_PROJECT_NAME=estock-prod
-  POSTGRES_DB=estock_prod
-  KAFKA_HOST_PORT=29092
-  AIRFLOW_WEBSERVER_HOST_PORT=28080
-  KIS_BASE_URL=https://openapi.koreainvestment.com:9443
+---
+
+## 3. 폴더별 역할
+
+### `clients/`
+
+외부 API 호출 담당입니다.
+
+```text
+kis_client.py
+→ KIS REST API 호출
+→ access_token 발급 및 캐싱
+→ WebSocket approval_key 발급
+→ 현재가 API 호출
+→ OHLCV API 호출
 ```
 
-### 키 생성 방법
+---
 
-```bash
-# Airflow SECRET_KEY (세션 유지용)
-python3 -c "import secrets; print(secrets.token_hex(32))"
+### `repositories/`
 
-# Airflow FERNET_KEY (Variable/Connection 암호화용)
-docker run --rm apache/airflow:2.10.0-python3.11 \
-  python -c "from cryptography.fernet import Fernet; print(Fernet.generate_key().decode())"
+PostgreSQL 저장 담당입니다.
+
+```text
+stock_current_price_repository.py
+→ 현재가 저장
+
+stock_ohlcv_repository.py
+→ 일봉/주봉/월봉/년봉 OHLCV 저장
 ```
 
-## 5. 실행 방법
+DAG 기준이 아니라 DB 테이블/도메인 기준으로 repository를 분리합니다.
 
-### 5-1. 첫 실행 (인프라 기동)
+---
 
-```bash
-# .env 파일 준비 (.env.example 참고하여 작성)
+### `services/`
 
-# 인프라 + Airflow 메타DB 초기화 + 서비스 기동 (한 번에)
-docker compose --env-file .env --env-file .env.dev up -d
+API 호출, 파싱, 저장 흐름을 조립하는 계층입니다.
 
-# 1~2분 후 상태 확인 (kafka healthy + airflow-init 완료까지)
-docker compose --env-file .env --env-file .env.dev ps
+```text
+stock_price_service.py
+→ KIS API 호출
+→ 응답 데이터 처리
+→ repository 호출
 ```
 
-기대 결과:
-```
-estock-dev-postgres            Up (healthy)
-estock-dev-zookeeper           Up
-estock-dev-kafka-1             Up (healthy)
-estock-dev-kafka-ui            Up
-estock-dev-airflow-init        Exited (0)       ← 정상 종료
-estock-dev-airflow-webserver   Up
-estock-dev-airflow-scheduler   Up
-```
+---
 
-### 5-2. 접속
+### `storage/`
 
-| 서비스      | URL                              | 계정              |
-| ---------- | -------------------------------- | ---------------- |
-| Airflow UI | http://localhost:18080           | airflow/airflow  |
-| Kafka UI   | http://localhost:18088           | -                |
-| PostgreSQL | localhost:15439                  | estock/estock_dev_pw |
+파일 저장소 관련 코드입니다.
 
-### 5-3. KIS API DAG 실행
-
-Airflow UI 접속 → `kis_current_price_to_postgres` DAG → 토글 ON → Trigger
-
-검증 (DB 에 데이터 적재 확인):
-```bash
-docker compose --env-file .env --env-file .env.dev exec postgres \
-  psql -U estock -d estock_dev \
-  -c "SELECT stock_code, stock_name, current_price, collected_at FROM kis_domestic_stock_price ORDER BY collected_at DESC LIMIT 5;"
+```text
+minio_storage.py
+→ MinIO 클라이언트 생성
+→ 버킷 생성
+→ 텍스트/JSONL 업로드
 ```
 
-### 5-4. Kafka Producer 테스트
+MinIO는 Kafka 자체가 아니라 저장소이므로 `kafka/` 밖에 둡니다.
 
-컨테이너 안에서 실행 (호스트 환경 더럽히지 않음):
+---
 
-```bash
-docker compose --env-file .env --env-file .env.dev exec airflow-scheduler \
-  python /opt/airflow/producers/test_producer.py
+### `kafka/`
+
+Kafka 관련 공통 코드와 실행 프로그램을 모아둔 영역입니다.
+
+```text
+producer.py
+→ Kafka Producer 생성 공통 함수
+
+consumer.py
+→ Kafka Consumer 생성 공통 함수
+
+topics.py
+→ Kafka topic 이름 상수 관리
+
+kis_message_classifier.py
+→ KIS WebSocket raw_message 분류
+
+kis_trade_parser.py
+→ KIS 실시간 체결 메시지 파싱
 ```
 
-기대 출력:
-```
-[producer] connected to kafka-1:29092
-[producer] sending to topic: test-stock-prices
-  [1] 삼성전자: 74,832원 (vol=53,210)
-  [2] SK하이닉스: 178,440원 (vol=78,901)
-  ...
-```
+---
 
-Ctrl+C 로 종료. 검증:
-```bash
-# 토픽 확인
-docker compose --env-file .env --env-file .env.dev exec kafka-1 \
-  kafka-topics --bootstrap-server kafka-1:29092 --list
+### `kafka/producers/`
 
-# 메시지 직접 읽기
-docker compose --env-file .env --env-file .env.dev exec kafka-1 \
-  kafka-console-consumer --bootstrap-server kafka-1:29092 \
-  --topic test-stock-prices --from-beginning --max-messages 5
+Kafka에 메시지를 발행하는 실행 프로그램입니다.
+
+```text
+test_kafka_producer.py
+→ Kafka 송신 테스트용 Producer
+
+kis_ws_trade_producer.py
+→ KIS WebSocket 수신 후 Kafka raw topic 발행
 ```
 
-또는 Kafka UI 에서 시각적으로:
-http://localhost:18088 → estock-cluster → Topics → test-stock-prices → Messages
+---
 
-### 5-5. 종료
+### `kafka/consumers/`
 
-```bash
-# 컨테이너만 정지 (데이터 유지)
-docker compose --env-file .env --env-file .env.dev down
+Kafka에서 메시지를 읽는 실행 프로그램입니다.
 
-# 데이터까지 완전 삭제 (DB 초기화)
-docker compose --env-file .env --env-file .env.dev down -v
+```text
+test_kafka_consumer.py
+→ Kafka 수신 테스트용 Consumer
+
+kis_trade_minio_consumer.py
+→ Kafka 메시지를 MinIO JSONL 파일로 저장
+
+kis_trade_raw_debug_consumer.py
+→ kis.stock.trade.raw topic 메시지 디버깅
+
+kis_trade_raw_to_parsed_consumer.py
+→ raw topic에서 trade 메시지만 parsed topic으로 전달
+
+kis_trade_parsed_debug_consumer.py
+→ parsed topic 메시지 디버깅
 ```
 
-## 6. 핵심 설계 결정
+---
 
-### 왜 단일 Kafka 브로커인가
-학습용. 운영급 확장 시 브로커 3 개로 늘리고 `replication_factor=3`,
-`min.insync.replicas=2` 로 상향. Confluent 공식 권장도 3 의 정족수(quorum) 패턴.
+## 4. Docker Compose 실행 방식
 
-### 왜 호스트 포트가 19092 / 컨테이너 내부는 29092 인가
-Kafka 의 dual-listener 패턴:
-- **외부 (호스트)**: `localhost:19092` → 도커가 9092 로 포워딩
-- **내부 (컨테이너)**: `kafka-1:29092` 직접 연결
+Windows PowerShell 기준으로 실행합니다.
 
-producer/consumer 가 어디서 실행되느냐에 따라 다른 주소 사용:
-- 호스트에서: `localhost:19092`
-- 컨테이너 안에서 (airflow-scheduler 등): `kafka-1:29092`
+이 프로젝트에서는 `.env.dev`와 `.env`를 함께 사용합니다.
 
-### 왜 plugins 가 아닌 app 폴더인가
-Airflow 의 `plugins/` 는 본래 `AirflowPlugin` 클래스 등록용. 일반 비즈니스
-로직 패키지는 `app/` 같은 별도 폴더 + `PYTHONPATH` 설정이 권장 패턴
-(Airflow 2.x 공식 가이드).
-
-### 왜 AIRFLOW_UID=50000 인가
-Airflow 도커 이미지 내부에 `airflow` 사용자(UID 50000) 가 등록되어 있음.
-호스트 UID(보통 1000) 로 컨테이너를 띄우면 `getuser()` 가 사용자명을 못 찾아
-Airflow 가 거부. 호스트 폴더 소유자를 50000:0 으로 맞춰서 해결.
-
-```bash
-sudo chown -R 50000:0 logs/ dags/ plugins/ app/ producer/
-sudo chmod -R g+rwX logs/ dags/ plugins/ app/ producer/
+```powershell
+docker compose --env-file .env.dev --env-file .env up -d --build
 ```
 
-호스트 사용자(group 0=root) 도 권한 갖도록 `g+rwX` 부여.
+상태 확인:
 
-## 7. 학습 진행 단계
+```powershell
+docker compose --env-file .env.dev --env-file .env ps
+```
 
-| 단계 | 학습 목표                                                                | 상태 |
-| --- | ----------------------------------------------------------------------- | ---- |
-| 1   | 인프라 구축 (Kafka + Airflow + PostgreSQL) docker-compose 화             | ✅   |
-| 2   | dev/prod 환경 분리, FERNET_KEY 등 보안 설정                                | ✅   |
-| 3   | KIS API DAG: 한국투자증권 현재가 → PostgreSQL 적재 (PythonOperator)        | ✅   |
-| 4   | Kafka Producer 첫 실행: mock 데이터 → 토픽 → Kafka UI 검증                 | ✅   |
-| 5   | Kafka Consumer DAG: 토픽 → PostgreSQL 적재 (auto_commit=False)            | ⬜   |
-| 6   | KIS Producer: 실 시세를 Kafka 토픽으로 발행 (별도 producer 서비스로 분리)   | ⬜   |
-| 7   | 변환 파이프라인: raw → cleaned → mart 3단 구조 (dbt 도입 검토)               | ⬜   |
-| 8   | LLM 연동: mart 데이터를 컨텍스트로 LLM 호출, 응답을 Kafka 로 스트림           | ⬜   |
-| 9   | 벡터 검색: pgvector 도입 → 뉴스/공시 임베딩 → RAG 파이프라인                | ⬜   |
+로그 확인:
 
-## 8. 거쳐온 트러블슈팅 기록
+```powershell
+docker compose --env-file .env.dev --env-file .env logs --tail=50
+```
 
-학습 과정에서 부딪힌 주요 함정과 해결 방법.
+컨테이너 내부 명령 실행:
 
-| 증상 | 원인 | 해결 |
-| --- | --- | --- |
-| `airflow-init` race condition | webserver/scheduler 가 init 보다 먼저 시작 | `service_completed_successfully` 의존성 추가 |
-| `Permission denied: /opt/airflow/logs/...` | 호스트 폴더 UID 1000, 컨테이너 UID 50000 불일치 | `sudo chown -R 50000:0` + `chmod g+rwX` |
-| `The user has no username` | 컨테이너 내 `/etc/passwd` 에 UID 1000 없음 | UID 1000 으로 가지 말고 50000 으로 통일 |
-| `ModuleNotFoundError: No module named 'estock'` | docker-compose 에 `app/` 마운트 누락 | `volumes:` 에 `./app:/opt/airflow/app` 추가 |
-| `connect to stock_db failed` | repository 의 fallback DB명이 `stock_db`, 실제는 `estock_dev` | fallback 을 `os.getenv("POSTGRES_DB", "estock_dev")` 로 |
-| `SyntaxError: Non-UTF-8 code` | producer 코드가 CP949 인코딩 | `iconv -f CP949 -t UTF-8` 로 변환 |
-| `NoBrokersAvailable` (컨테이너 안) | bootstrap_server 가 `localhost:19092` (외부 주소) | 컨테이너 안에서는 `kafka-1:29092` |
-| `KIS API 키 노출` | `.env` 가 zip 에 포함되어 외부 공유 | `.gitignore` + zip 시 `-x "*/.env*"` 옵션 |
+```powershell
+docker compose --env-file .env.dev --env-file .env exec airflow-scheduler bash
+```
 
-## 9. 보안 체크리스트
+Python 모듈 실행:
 
-- [x] 모든 포트 `127.0.0.1` 바인딩 (외부 노출 차단)
-- [x] `AIRFLOW_FERNET_KEY` 설정 (Variable/Connection 암호화)
-- [x] `AIRFLOW_WEBSERVER_SECRET_KEY` 랜덤 생성 (세션 보호)
-- [x] `.env*` 파일 `.gitignore` 등록
-- [ ] zip 공유 시 `-x "*/.env*"` 옵션 사용 (수동 체크 필요)
-- [ ] prod 배포 시 Airflow 기본 계정(`airflow/airflow`) 변경
-- [ ] prod 배포 시 PostgreSQL 비밀번호 강력화
+```powershell
+docker compose --env-file .env.dev --env-file .env exec airflow-scheduler python -m 모듈경로
+```
 
-## 10. 향후 개선 검토
+---
 
-| 영역 | 현재 | 개선안 |
-| --- | --- | --- |
-| 명령 단순화 | 매번 `--env-file` 두 개 입력 | Makefile 로 `make dev-up` 형태 |
-| Producer 운영 | 학습용 컨테이너 내 수동 실행 | docker-compose 의 별도 producer 서비스로 분리, `restart: unless-stopped` |
-| 테스트 | 없음 | `tests/` + pytest + KisClient/Repository 모킹 |
-| DB Connection 관리 | psycopg2 직접 연결 | Airflow `PostgresHook` + Connection UI 통합 관리 |
-| 토픽 자동 생성 | `KAFKA_AUTO_CREATE_TOPICS_ENABLE: true` | `airflow-init` 에서 명시적 토픽 생성 (파티션/replication 제어) |
-| 로깅 | `print()` | `logging.info()` 로 통일 (UI 에서 레벨 필터링 가능) |
+## 5. 주요 서비스 접속 정보
+
+### Airflow
+
+```text
+http://localhost:18080
+```
+
+### Kafka UI
+
+```text
+http://localhost:18081
+```
+
+### MinIO Console
+
+```text
+http://localhost:19001
+```
+
+기본 개발 계정 예시:
+
+```text
+ID: minioadmin
+PW: minioadmin123
+```
+
+### MinIO API
+
+```text
+localhost:19000
+```
+
+컨테이너 내부에서는 다음 주소를 사용합니다.
+
+```text
+minio:9000
+```
+
+---
+
+## 6. 환경변수 예시
+
+`.env.dev` 또는 `.env`에 다음 값들이 필요합니다.
+
+```env
+# Kafka
+KAFKA_BOOTSTRAP_SERVERS=kafka-1:29092
+KAFKA_SOURCE_TOPIC=kis.stock.trade.raw
+
+# MinIO
+MINIO_ENDPOINT=minio:9000
+MINIO_ACCESS_KEY=minioadmin
+MINIO_SECRET_KEY=minioadmin123
+MINIO_BUCKET=stock-data
+MINIO_SECURE=false
+
+# KIS REST API
+KIS_BASE_URL=https://openapi.koreainvestment.com:9443
+KIS_APP_KEY=your_app_key
+KIS_APP_SECRET=your_app_secret
+
+# KIS WebSocket
+KIS_WS_URL=ws://ops.koreainvestment.com:21000
+KIS_WS_STOCK_CODES=005930,000660
+```
+
+주의:
+
+```text
+.env
+.env.dev
+.env.prod
+```
+
+위 파일에는 API Key, Secret이 들어갈 수 있으므로 GitHub에 올리지 않습니다.
+
+`.gitignore`에 포함하는 것을 권장합니다.
+
+```gitignore
+.env
+.env.dev
+.env.prod
+```
+
+---
+
+## 7. Kafka Topic
+
+현재 사용하는 주요 topic은 다음과 같습니다.
+
+```text
+test-stock-prices
+→ Kafka 송수신 테스트용 topic
+
+kis.stock.trade.raw
+→ KIS WebSocket 원문 메시지 저장 topic
+
+kis.stock.trade.parsed
+→ KIS 실시간 체결 데이터 파싱 결과 topic
+```
+
+`app/estock/kafka/topics.py`에서 관리합니다.
+
+```python
+TEST_STOCK_PRICES = "test-stock-prices"
+
+KIS_STOCK_TRADE_RAW = "kis.stock.trade.raw"
+KIS_STOCK_TRADE_PARSED = "kis.stock.trade.parsed"
+```
+
+---
+
+## 8. 현재까지 검증된 흐름
+
+### 8.1 Kafka 테스트 송수신
+
+Producer 실행:
+
+```powershell
+docker compose --env-file .env.dev --env-file .env exec airflow-scheduler python -m estock.kafka.producers.test_kafka_producer
+```
+
+Consumer 실행:
+
+```powershell
+docker compose --env-file .env.dev --env-file .env exec airflow-scheduler python -m estock.kafka.consumers.test_kafka_consumer
+```
+
+검증 결과:
+
+```text
+test_kafka_producer
+→ test-stock-prices topic
+→ test_kafka_consumer
+```
+
+정상 수신 확인 완료.
+
+---
+
+### 8.2 Python → MinIO 업로드
+
+테스트 파일 업로드 성공.
+
+```text
+stock-data/test/...
+```
+
+MinIO 콘솔에서 파일 확인 완료.
+
+---
+
+### 8.3 Kafka → MinIO 저장
+
+Consumer 실행:
+
+```powershell
+docker compose --env-file .env.dev --env-file .env exec airflow-scheduler python -m estock.kafka.consumers.kis_trade_minio_consumer
+```
+
+Producer 실행:
+
+```powershell
+docker compose --env-file .env.dev --env-file .env exec airflow-scheduler python -m estock.kafka.producers.test_kafka_producer
+```
+
+검증 결과:
+
+```text
+Kafka topic
+→ kis_trade_minio_consumer
+→ MinIO JSONL 저장
+```
+
+저장 경로 예시:
+
+```text
+stock-data/
+└── raw/
+    └── kis/
+        └── trade/
+            └── dt=YYYY-MM-DD/
+                └── hour=HH/
+                    └── kafka-trade-YYYYMMDD-HHMMSS.jsonl
+```
+
+---
+
+### 8.4 KIS WebSocket → Kafka raw topic
+
+Producer 실행:
+
+```powershell
+docker compose --env-file .env.dev --env-file .env exec airflow-scheduler python -m estock.kafka.producers.kis_ws_trade_producer
+```
+
+검증된 로그 예시:
+
+```text
+[KIS WS Producer Start]
+topic       : kis.stock.trade.raw
+stock_codes : ['005930', '000660']
+
+[SUBSCRIBED] stock_code=005930
+[SUBSCRIBED] stock_code=000660
+
+[PRODUCED] topic=kis.stock.trade.raw, message_type=control_json
+[PINGPONG] received and pong sent
+```
+
+현재까지 확인된 메시지:
+
+```json
+{
+  "source": "KIS",
+  "market": "KRX",
+  "tr_id": "H0STCNT0",
+  "received_at": "2026-05-11T19:10:38.910768+09:00",
+  "raw_message": "{\"header\":{\"tr_id\":\"H0STCNT0\",\"tr_key\":\"005930\",\"encrypt\":\"N\"},\"body\":{\"rt_cd\":\"0\",\"msg_cd\":\"OPSP0000\",\"msg1\":\"SUBSCRIBE SUCCESS\"}}"
+}
+```
+
+의미:
+
+```text
+KIS WebSocket 연결 성공
+종목 구독 성공
+Kafka raw topic 발행 성공
+```
+
+---
+
+### 8.5 KIS raw message 디버깅
+
+Debug Consumer 실행:
+
+```powershell
+docker compose --env-file .env.dev --env-file .env exec airflow-scheduler python -m estock.kafka.consumers.kis_trade_raw_debug_consumer
+```
+
+확인된 message_type:
+
+```text
+control_json
+pingpong
+```
+
+예시:
+
+```text
+[message_type]
+pingpong
+
+[raw_message]
+{"header":{"tr_id":"PINGPONG","datetime":"20260511192459"}}
+```
+
+---
+
+### 8.6 raw → parsed Consumer
+
+Consumer 실행:
+
+```powershell
+docker compose --env-file .env.dev --env-file .env exec airflow-scheduler python -m estock.kafka.consumers.kis_trade_raw_to_parsed_consumer
+```
+
+현재 장외 시간 기준 로그:
+
+```text
+[START] KIS trade raw → parsed consumer
+[SOURCE TOPIC] kis.stock.trade.raw
+[TARGET TOPIC] kis.stock.trade.parsed
+
+[SKIP] offset=0, message_type=control_json
+[SKIP] offset=1, message_type=control_json
+[SKIP] offset=2, message_type=pingpong
+```
+
+의미:
+
+```text
+control_json은 skip
+pingpong은 skip
+trade 메시지만 parsed topic으로 발행 예정
+```
+
+현재 장외 시간이라 실제 trade 메시지는 아직 미확인입니다.
+
+---
+
+## 9. KIS raw message 분류 기준
+
+`kis_message_classifier.py`에서 raw_message를 분류합니다.
+
+현재 분류값:
+
+```text
+control_json
+→ SUBSCRIBE SUCCESS 같은 JSON 제어 메시지
+
+pingpong
+→ KIS WebSocket heartbeat 메시지
+
+trade
+→ H0STCNT0 실시간 체결 데이터
+
+empty
+→ 빈 메시지
+
+unknown
+→ 아직 알 수 없는 메시지
+```
+
+현재까지 실제 확인된 값:
+
+```text
+control_json
+pingpong
+```
+
+장중 실제 체결 데이터가 들어오면 다음 형태일 가능성이 있습니다.
+
+```text
+0|H0STCNT0|...|005930^...
+```
+
+이 경우 `trade`로 분류되어야 합니다.
+
+---
+
+## 10. 현재까지 완료된 것
+
+현재까지 완료된 항목은 다음과 같습니다.
+
+```text
+1. Docker Desktop 기반 로컬 개발 환경 구성
+2. Docker Compose 기반 Airflow/Kafka/PostgreSQL/MinIO 실행
+3. Kafka Producer 공통 모듈 작성
+4. Kafka Consumer 공통 모듈 작성
+5. Kafka 테스트 Producer/Consumer 검증
+6. MinIO Python 업로드 검증
+7. Kafka → MinIO JSONL 저장 검증
+8. KIS WebSocket approval_key 자동 발급
+9. KIS WebSocket 연결 성공
+10. KIS 종목 구독 성공
+11. KIS WebSocket → Kafka raw topic 발행 성공
+12. PINGPONG 처리 추가
+13. raw_message 분류 기능 추가
+14. control_json / pingpong skip 처리
+15. raw → parsed Consumer 구조 준비
+```
+
+---
+
+## 11. 아직 남은 것
+
+Spark 처리 전까지 남은 작업은 다음과 같습니다.
+
+```text
+1. 장중 실제 trade 메시지 수신 확인
+2. H0STCNT0 실시간 체결 데이터 raw 샘플 확보
+3. kis_trade_parser.py 필드 매핑 확정
+4. kis.stock.trade.parsed topic 데이터 검증
+5. parsed topic → PostgreSQL 저장 Consumer 작성
+6. stock_trade_repository.py 작성
+7. Docker Compose 서비스로 Producer/Consumer 상시 실행 등록
+8. 에러 topic 또는 dead-letter topic 추가
+9. 장 시작/장 종료 운영 전략 정리
+10. 이후 Spark로 raw JSONL/Parquet 처리 확장
+```
+
+---
+
+## 12. 현재 진행률
+
+대략적인 진행률은 다음과 같이 판단합니다.
+
+```text
+로컬 Docker 환경 구축: 90%
+Kafka 기본 구조: 85%
+MinIO 저장 구조: 85%
+KIS WebSocket 연결: 80~90%
+KIS raw 수집 파이프라인: 70~80%
+raw message 분류: 80%
+실제 체결 데이터 파싱: 20%
+PostgreSQL 실시간 적재: 0~20%
+Spark 연계: 0~5%
+```
+
+전체적으로 Spark 전 단계 기준으로는 약 60~65% 정도 진행된 상태로 봅니다.
+
+---
+
+## 13. 현재 아키텍처
+
+```text
+KIS WebSocket
+    ↓
+estock.kafka.producers.kis_ws_trade_producer
+    ↓
+Kafka topic: kis.stock.trade.raw
+    ↓
+┌──────────────────────────────────────┐
+│                                      │
+│  kis_trade_minio_consumer             │
+│  → MinIO raw JSONL 저장               │
+│                                      │
+│  kis_trade_raw_to_parsed_consumer     │
+│  → control_json / pingpong skip       │
+│  → trade만 parsed topic으로 발행       │
+│                                      │
+└──────────────────────────────────────┘
+    ↓
+Kafka topic: kis.stock.trade.parsed
+    ↓
+향후 PostgreSQL 저장
+    ↓
+향후 Spark 처리
+```
+
+---
+
+## 14. 자주 사용하는 명령어
+
+### 전체 실행
+
+```powershell
+docker compose --env-file .env.dev --env-file .env up -d --build
+```
+
+### 상태 확인
+
+```powershell
+docker compose --env-file .env.dev --env-file .env ps
+```
+
+### KIS WebSocket Producer 실행
+
+```powershell
+docker compose --env-file .env.dev --env-file .env exec airflow-scheduler python -m estock.kafka.producers.kis_ws_trade_producer
+```
+
+### raw debug Consumer 실행
+
+```powershell
+docker compose --env-file .env.dev --env-file .env exec airflow-scheduler python -m estock.kafka.consumers.kis_trade_raw_debug_consumer
+```
+
+### raw → parsed Consumer 실행
+
+```powershell
+docker compose --env-file .env.dev --env-file .env exec airflow-scheduler python -m estock.kafka.consumers.kis_trade_raw_to_parsed_consumer
+```
+
+### parsed debug Consumer 실행
+
+```powershell
+docker compose --env-file .env.dev --env-file .env exec airflow-scheduler python -m estock.kafka.consumers.kis_trade_parsed_debug_consumer
+```
+
+### Kafka → MinIO Consumer 실행
+
+```powershell
+docker compose --env-file .env.dev --env-file .env exec airflow-scheduler python -m estock.kafka.consumers.kis_trade_minio_consumer
+```
+
+---
+
+## 15. 현재 주의사항
+
+### 1. 장외 시간에는 실시간 체결 데이터가 안 올 수 있음
+
+현재까지 받은 메시지는 대부분 다음과 같습니다.
+
+```text
+SUBSCRIBE SUCCESS
+PINGPONG
+```
+
+이는 정상입니다.
+
+실제 체결 데이터는 장중에 확인해야 합니다.
+
+---
+
+### 2. PINGPONG은 Kafka에 저장하지 않음
+
+Producer에서 PINGPONG 메시지를 받으면 다음처럼 처리합니다.
+
+```text
+PINGPONG 수신
+→ websocket.pong() 응답
+→ Kafka 발행하지 않음
+```
+
+이유는 PINGPONG은 데이터가 아니라 연결 유지용 메시지이기 때문입니다.
+
+---
+
+### 3. raw 데이터는 MinIO에 저장
+
+원천 메시지는 MinIO에 JSONL 형태로 저장합니다.
+
+```text
+raw/kis/trade/dt=YYYY-MM-DD/hour=HH/...
+```
+
+---
+
+### 4. PostgreSQL에는 parsed 데이터만 저장 예정
+
+실시간 tick raw 전체를 PostgreSQL에 무작정 넣기보다, MinIO에 raw를 저장하고 PostgreSQL에는 파싱된 조회용 데이터를 저장하는 방향입니다.
+
+---
+
+## 16. 다음 작업
+
+다음 작업은 장중에 실제 trade 메시지를 확보하는 것입니다.
+
+장중 실행:
+
+```powershell
+docker compose --env-file .env.dev --env-file .env exec airflow-scheduler python -m estock.kafka.producers.kis_ws_trade_producer
+```
+
+동시에 raw debug Consumer 실행:
+
+```powershell
+docker compose --env-file .env.dev --env-file .env exec airflow-scheduler python -m estock.kafka.consumers.kis_trade_raw_debug_consumer
+```
+
+실제 trade 메시지가 확인되면 `kis_trade_parser.py`의 필드 매핑을 확정합니다.
+
+예상 목표:
+
+```text
+raw_message
+→ stock_code
+→ trade_time
+→ current_price
+→ price_change
+→ change_rate
+→ trade_volume
+→ accumulated_volume
+→ accumulated_trading_value
+```
+
+이후 parsed topic을 PostgreSQL에 저장하는 Consumer를 작성합니다.

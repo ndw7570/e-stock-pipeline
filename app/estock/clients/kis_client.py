@@ -122,7 +122,7 @@ class KisClient:
 
         return data
 
-    def get_ohlcv_price(
+    def get_period_price(
         self,
         stock_code: str,
         start_date: str,
@@ -198,3 +198,40 @@ class KisClient:
             raise RuntimeError(f"KIS 기간별시세 API 응답 오류: {data}")
 
         return data
+
+    def get_websocket_approval_key(self) -> str:
+        """
+        KIS WebSocket 접속키 approval_key 발급.
+
+        REST access_token과 별개로,
+        실시간 WebSocket 연결에 사용하는 접속키를 발급한다.
+        """
+        url = f"{self.base_url}/oauth2/Approval"
+
+        payload = {
+            "grant_type": "client_credentials",
+            "appkey": self.app_key,
+            "secretkey": self.app_secret,
+        }
+
+        response = requests.post(
+            url,
+            headers={"content-type": "application/json"},
+            data=json.dumps(payload),
+            timeout=10,
+        )
+
+        if response.status_code != 200:
+            raise RuntimeError(
+                f"KIS WebSocket approval_key 발급 실패: "
+                f"{response.status_code}, {response.text}"
+            )
+
+        data = response.json()
+
+        approval_key = data.get("approval_key")
+
+        if not approval_key:
+            raise RuntimeError(f"KIS WebSocket approval_key 응답 오류: {data}")
+
+        return approval_key
