@@ -7454,3 +7454,141 @@ File Path                                             PID  Runtime      # DAGs  
 /opt/airflow/dags/kis_period_price_to_postgres.py     454  0.03s             1           0  0.23s           2026-05-11T11:25:31                      12
 /opt/airflow/dags/kis_current_price_to_postgres.py    455  0.01s             1           0  0.22s           2026-05-11T11:25:31                      12
 ================================================================================
+[2026-05-14T06:32:18.191+0000] {manager.py:483} INFO - Processing files using up to 2 processes at a time 
+[2026-05-14T06:32:18.194+0000] {manager.py:484} INFO - Process each file at most once every 30 seconds
+[2026-05-14T06:32:18.196+0000] {manager.py:485} INFO - Checking for new files in /opt/airflow/dags every 300 seconds
+[2026-05-14T06:32:18.198+0000] {manager.py:821} INFO - Searching for files in /opt/airflow/dags
+[2026-05-14T06:32:18.257+0000] {manager.py:824} INFO - There are 2 files in /opt/airflow/dags
+[2026-05-14T06:32:18.462+0000] {manager.py:997} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                             PID  Runtime      # DAGs    # Errors  Last Runtime    Last Run      Last # of DB Queries
+--------------------------------------------------  -----  ---------  --------  ----------  --------------  ----------  ----------------------
+/opt/airflow/dags/kis_current_price_to_postgres.py     35  0.05s             0           0                                                   0
+/opt/airflow/dags/kis_period_price_to_postgres.py      34  0.07s             0           0                                                   0
+================================================================================
+[2026-05-14T06:32:48.726+0000] {manager.py:997} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                           PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run               Last # of DB Queries
+--------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------  ----------------------
+/opt/airflow/dags/kis_period_price_to_postgres.py                            1           0  0.46s           2026-05-14T06:32:18                      12
+/opt/airflow/dags/kis_current_price_to_postgres.py                           1           0  0.45s           2026-05-14T06:32:18                      12
+================================================================================
+[2026-05-14T06:33:19.376+0000] {manager.py:997} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                             PID  Runtime      # DAGs    # Errors  Last Runtime    Last Run               Last # of DB Queries
+--------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------  ----------------------
+/opt/airflow/dags/kis_period_price_to_postgres.py      38  0.01s             1           0  0.19s           2026-05-14T06:32:49                      12
+/opt/airflow/dags/kis_current_price_to_postgres.py     39  0.00s             1           0  0.18s           2026-05-14T06:32:49                      12
+================================================================================
+[2026-05-14T06:33:49.787+0000] {manager.py:997} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                             PID  Runtime      # DAGs    # Errors  Last Runtime    Last Run               Last # of DB Queries
+--------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------  ----------------------
+/opt/airflow/dags/kis_period_price_to_postgres.py      40  0.03s             1           0  0.16s           2026-05-14T06:33:19                      12
+/opt/airflow/dags/kis_current_price_to_postgres.py     41  0.00s             1           0  0.15s           2026-05-14T06:33:19                      12
+================================================================================
+[2026-05-14T06:34:15.965+0000] {manager.py:465} INFO - Exiting gracefully upon receiving signal 15
+[2026-05-14T06:35:04.694+0000] {manager.py:483} INFO - Processing files using up to 2 processes at a time 
+[2026-05-14T06:35:04.696+0000] {manager.py:484} INFO - Process each file at most once every 30 seconds
+[2026-05-14T06:35:04.698+0000] {manager.py:485} INFO - Checking for new files in /opt/airflow/dags every 300 seconds
+[2026-05-14T06:35:04.699+0000] {manager.py:821} INFO - Searching for files in /opt/airflow/dags
+[2026-05-14T06:35:04.756+0000] {manager.py:824} INFO - There are 2 files in /opt/airflow/dags
+[2026-05-14T06:35:04.890+0000] {manager.py:997} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                             PID  Runtime      # DAGs    # Errors  Last Runtime    Last Run      Last # of DB Queries
+--------------------------------------------------  -----  ---------  --------  ----------  --------------  ----------  ----------------------
+/opt/airflow/dags/kis_current_price_to_postgres.py     34  0.04s             0           0                                                   0
+/opt/airflow/dags/kis_period_price_to_postgres.py      33  0.05s             0           0                                                   0
+================================================================================
+[2026-05-14T06:35:35.095+0000] {manager.py:997} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                           PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run               Last # of DB Queries
+--------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------  ----------------------
+/opt/airflow/dags/kis_period_price_to_postgres.py                            1           0  0.29s           2026-05-14T06:35:05                      12
+/opt/airflow/dags/kis_current_price_to_postgres.py                           1           0  0.28s           2026-05-14T06:35:05                      12
+================================================================================
+[2026-05-14T06:36:05.558+0000] {manager.py:997} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                             PID  Runtime      # DAGs    # Errors  Last Runtime    Last Run               Last # of DB Queries
+--------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------  ----------------------
+/opt/airflow/dags/kis_period_price_to_postgres.py      37  0.01s             1           0  0.16s           2026-05-14T06:35:35                      12
+/opt/airflow/dags/kis_current_price_to_postgres.py     38  0.00s             1           0  0.15s           2026-05-14T06:35:35                      12
+================================================================================
+[2026-05-14T06:36:35.897+0000] {manager.py:997} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                             PID  Runtime      # DAGs    # Errors  Last Runtime    Last Run               Last # of DB Queries
+--------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------  ----------------------
+/opt/airflow/dags/kis_period_price_to_postgres.py      39  0.01s             1           0  0.16s           2026-05-14T06:36:05                      12
+/opt/airflow/dags/kis_current_price_to_postgres.py     40  0.00s             1           0  0.16s           2026-05-14T06:36:05                      12
+================================================================================
+[2026-05-14T06:37:06.137+0000] {manager.py:997} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                             PID  Runtime      # DAGs    # Errors  Last Runtime    Last Run               Last # of DB Queries
+--------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------  ----------------------
+/opt/airflow/dags/kis_period_price_to_postgres.py      41  0.02s             1           0  0.13s           2026-05-14T06:36:36                      12
+/opt/airflow/dags/kis_current_price_to_postgres.py     42  0.00s             1           0  0.13s           2026-05-14T06:36:36                      12
+================================================================================
+[2026-05-14T06:37:36.437+0000] {manager.py:997} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                             PID  Runtime      # DAGs    # Errors  Last Runtime    Last Run               Last # of DB Queries
+--------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------  ----------------------
+/opt/airflow/dags/kis_period_price_to_postgres.py      43  0.02s             1           0  0.14s           2026-05-14T06:37:06                      12
+/opt/airflow/dags/kis_current_price_to_postgres.py     44  0.00s             1           0  0.12s           2026-05-14T06:37:06                      12
+================================================================================
+[2026-05-14T06:38:06.669+0000] {manager.py:997} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                             PID  Runtime      # DAGs    # Errors  Last Runtime    Last Run               Last # of DB Queries
+--------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------  ----------------------
+/opt/airflow/dags/kis_period_price_to_postgres.py      45  0.01s             1           0  0.18s           2026-05-14T06:37:36                      12
+/opt/airflow/dags/kis_current_price_to_postgres.py     46  0.00s             1           0  0.18s           2026-05-14T06:37:36                      12
+================================================================================
+[2026-05-14T06:38:37.041+0000] {manager.py:997} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                             PID  Runtime      # DAGs    # Errors  Last Runtime    Last Run               Last # of DB Queries
+--------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------  ----------------------
+/opt/airflow/dags/kis_period_price_to_postgres.py      47  0.01s             1           0  0.16s           2026-05-14T06:38:06                      12
+/opt/airflow/dags/kis_current_price_to_postgres.py     48  0.00s             1           0  0.15s           2026-05-14T06:38:06                      12
+================================================================================
+[2026-05-14T06:39:07.277+0000] {manager.py:997} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                             PID  Runtime      # DAGs    # Errors  Last Runtime    Last Run               Last # of DB Queries
+--------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------  ----------------------
+/opt/airflow/dags/kis_period_price_to_postgres.py      49  0.01s             1           0  0.16s           2026-05-14T06:38:37                      12
+/opt/airflow/dags/kis_current_price_to_postgres.py     50  0.00s             1           0  0.14s           2026-05-14T06:38:37                      12
+================================================================================
+[2026-05-14T06:39:37.607+0000] {manager.py:997} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                             PID  Runtime      # DAGs    # Errors  Last Runtime    Last Run               Last # of DB Queries
+--------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------  ----------------------
+/opt/airflow/dags/kis_period_price_to_postgres.py      51  0.01s             1           0  0.13s           2026-05-14T06:39:07                      12
+/opt/airflow/dags/kis_current_price_to_postgres.py     52  0.00s             1           0  0.13s           2026-05-14T06:39:07                      12
+================================================================================
+[2026-05-14T06:39:50.218+0000] {manager.py:465} INFO - Exiting gracefully upon receiving signal 15

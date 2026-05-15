@@ -1,0 +1,21 @@
+version: 2
+
+sources:
+  - name: raw
+    description: "애플리케이션이 적재한 원본 테이블 모음"
+    schema: google_workspace
+    tables:
+      - name: calendar_event
+        description: "Google Calendar API 이벤트 raw 적재 테이블 (Kafka consumer가 upsert)"
+        columns:
+          - name: event_id
+            description: "Google Calendar 이벤트 ID. Primary key."
+            tests:
+              - unique
+              - not_null
+          - name: calendar_id
+            description: "캘린더 ID (보통 'primary' 또는 이메일)"
+          - name: start_time
+            description: "이벤트 시작 시각 (UTC)"
+          - name: status
+            description: "confirmed / tentative / cancelled"

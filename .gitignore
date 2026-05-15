@@ -20,8 +20,16 @@ Thumbs.db
 
 
 # 환경별 .env 파일
+.env
 .env.dev
 .env.prod
+
+# secrets (oauth client, token, service account key 등)
+secrets/**/*.json
+secrets/**/*token*
+secrets/**/*credential*
+secrets/**/*oauth*
+secrets/**/*key*
 
 # 작업 산출물
 *.zip

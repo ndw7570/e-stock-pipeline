@@ -1,0 +1,16 @@
+version: 2
+
+models:
+  - name: daily_meeting_stats
+    description: "날짜 × 주최자별 confirmed 미팅 건수 집계 테이블."
+    columns:
+      - name: event_date
+        description: "이벤트가 시작된 날짜"
+        tests:
+          - not_null
+      - name: organizer_email
+        description: "이벤트 주최자 이메일"
+      - name: meeting_count
+        description: "해당 날짜 + 주최자의 confirmed 미팅 수"
+        tests:
+          - not_null

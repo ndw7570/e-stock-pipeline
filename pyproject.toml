@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "e-stock-pipeline"
+version = "0.1.0"
+description = "Data engineering learning project: stock pipeline + Google Workspace monitoring"
+requires-python = ">=3.12"
+
+[project.scripts]
+check-calendar = "app.monitoring_google_workspace_logs.scripts.check_calendar:main"
+collect-calendar = "app.monitoring_google_workspace_logs.scripts.collect_calendar_to_kafka:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["app*"]
+exclude = ["dags*", "logs*", "plugins*", "producers*", "scripts*", "secrets*", "config*", "data*"]
+http://localhost:18088/

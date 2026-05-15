@@ -1,0 +1,13 @@
+e_stock_pipeline:
+  target: dev
+  outputs:
+    dev:
+      type: postgres
+      host: "{{ env_var('POSTGRES_HOST', 'localhost') }}"
+      port: "{{ env_var('POSTGRES_PORT', '15439') | int }}"
+      user: "{{ env_var('POSTGRES_USER', 'estock') }}"
+      password: "{{ env_var('POSTGRES_PASSWORD', 'stock_db') }}"
+      dbname: "{{ env_var('POSTGRES_DB', 'stock_db') }}"
+      schema: dbt_default
+      threads: 4
+      keepalives_idle: 0

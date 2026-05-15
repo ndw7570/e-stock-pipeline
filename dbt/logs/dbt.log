@@ -1,0 +1,829 @@
+[0m09:28:53.347959 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x73afb10c46d0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x73afb2312710>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x73afb0eb7890>]}
+
+
+============================== 09:28:53.359759 | b9e34b40-5667-4838-a538-abcd04515f64 ==============================
+[0m09:28:53.359759 [info ] [MainThread]: Running with dbt=1.8.3
+[0m09:28:53.363215 [debug] [MainThread]: running dbt with arguments {'printer_width': '80', 'indirect_selection': 'eager', 'log_cache_events': 'False', 'write_json': 'True', 'partial_parse': 'True', 'cache_selected_only': 'False', 'profiles_dir': '/usr/app', 'version_check': 'True', 'debug': 'False', 'log_path': '/usr/app/logs', 'fail_fast': 'False', 'warn_error': 'None', 'use_colors': 'True', 'use_experimental_parser': 'False', 'no_print': 'None', 'quiet': 'False', 'empty': 'False', 'log_format': 'default', 'introspect': 'True', 'invocation_command': 'dbt run --project-dir /usr/app', 'warn_error_options': 'WarnErrorOptions(include=[], exclude=[])', 'target_path': 'None', 'static_parser': 'True', 'send_anonymous_usage_stats': 'True'}
+[0m09:28:53.698723 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'project_id', 'label': 'b9e34b40-5667-4838-a538-abcd04515f64', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x73afaf597090>]}
+[0m09:28:53.778985 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'adapter_info', 'label': 'b9e34b40-5667-4838-a538-abcd04515f64', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x73afb0fc3550>]}
+[0m09:28:53.782676 [info ] [MainThread]: Registered adapter: postgres=1.8.2
+[0m09:28:53.803781 [debug] [MainThread]: checksum: 30bd4080c2bc8dee5936f8f60083ffbe1c906859d0fd965607c2144031479456, vars: {}, profile: , target: , version: 1.8.3
+[0m09:28:53.813012 [info ] [MainThread]: Unable to do partial parsing because saved manifest not found. Starting full parse.
+[0m09:28:53.815419 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'partial_parser', 'label': 'b9e34b40-5667-4838-a538-abcd04515f64', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x73afb0ed9690>]}
+[0m09:28:55.304161 [warn ] [MainThread]: [[33mWARNING[0m]: Deprecated functionality
+The `tests` config has been renamed to `data_tests`. Please see
+https://docs.getdbt.com/docs/build/data-tests#new-data_tests-syntax for more
+information.
+[0m09:28:55.306634 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'deprecation', 'label': 'b9e34b40-5667-4838-a538-abcd04515f64', 'property_': 'warn', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x73afb0f33550>]}
+[0m09:28:55.881121 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'load_project', 'label': 'b9e34b40-5667-4838-a538-abcd04515f64', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x73afaf463590>]}
+[0m09:28:56.131038 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'resource_counts', 'label': 'b9e34b40-5667-4838-a538-abcd04515f64', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x73afaf616450>]}
+[0m09:28:56.133177 [info ] [MainThread]: Found 2 models, 7 data tests, 1 source, 415 macros
+[0m09:28:56.135724 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'runnable_timing', 'label': 'b9e34b40-5667-4838-a538-abcd04515f64', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x73afad289a10>]}
+[0m09:28:56.141234 [info ] [MainThread]: 
+[0m09:28:56.143930 [debug] [MainThread]: Acquiring new postgres connection 'master'
+[0m09:28:56.151808 [debug] [ThreadPool]: Acquiring new postgres connection 'list_stock_db'
+[0m09:28:56.153208 [debug] [ThreadPool]: Acquiring new postgres connection 'list_stock_db'
+[0m09:28:56.239573 [debug] [ThreadPool]: Using postgres connection "list_stock_db"
+[0m09:28:56.240225 [debug] [ThreadPool]: Using postgres connection "list_stock_db"
+[0m09:28:56.241988 [debug] [ThreadPool]: On list_stock_db: /* {"app": "dbt", "dbt_version": "1.8.3", "profile_name": "e_stock_pipeline", "target_name": "dev", "connection_name": "list_stock_db"} */
+
+    select distinct nspname from pg_namespace
+  
+[0m09:28:56.243806 [debug] [ThreadPool]: On list_stock_db: /* {"app": "dbt", "dbt_version": "1.8.3", "profile_name": "e_stock_pipeline", "target_name": "dev", "connection_name": "list_stock_db"} */
+
+    select distinct nspname from pg_namespace
+  
+[0m09:28:56.245542 [debug] [ThreadPool]: Opening a new connection, currently in state init
+[0m09:28:56.247266 [debug] [ThreadPool]: Opening a new connection, currently in state init
+[0m09:28:56.268805 [debug] [ThreadPool]: SQL status: SELECT 5 in 0.0 seconds
+[0m09:28:56.269638 [debug] [ThreadPool]: SQL status: SELECT 5 in 0.0 seconds
+[0m09:28:56.272733 [debug] [ThreadPool]: On list_stock_db: Close
+[0m09:28:56.276710 [debug] [ThreadPool]: On list_stock_db: Close
+[0m09:28:56.281247 [debug] [ThreadPool]: Re-using an available connection from the pool (formerly list_stock_db, now create_stock_db_dbt_default_staging)
+[0m09:28:56.282103 [debug] [ThreadPool]: Re-using an available connection from the pool (formerly list_stock_db, now create_stock_db_dbt_default_marts)
+[0m09:28:56.283948 [debug] [ThreadPool]: Creating schema "database: "stock_db"
+schema: "dbt_default_staging"
+"
+[0m09:28:56.285905 [debug] [ThreadPool]: Creating schema "database: "stock_db"
+schema: "dbt_default_marts"
+"
+[0m09:28:56.295769 [debug] [ThreadPool]: Using postgres connection "create_stock_db_dbt_default_staging"
+[0m09:28:56.299384 [debug] [ThreadPool]: Using postgres connection "create_stock_db_dbt_default_marts"
+[0m09:28:56.301056 [debug] [ThreadPool]: On create_stock_db_dbt_default_staging: BEGIN
+[0m09:28:56.303342 [debug] [ThreadPool]: On create_stock_db_dbt_default_marts: BEGIN
+[0m09:28:56.304996 [debug] [ThreadPool]: Opening a new connection, currently in state closed
+[0m09:28:56.306620 [debug] [ThreadPool]: Opening a new connection, currently in state closed
+[0m09:28:56.318234 [debug] [ThreadPool]: SQL status: BEGIN in 0.0 seconds
+[0m09:28:56.318782 [debug] [ThreadPool]: SQL status: BEGIN in 0.0 seconds
+[0m09:28:56.320468 [debug] [ThreadPool]: Using postgres connection "create_stock_db_dbt_default_staging"
+[0m09:28:56.322119 [debug] [ThreadPool]: Using postgres connection "create_stock_db_dbt_default_marts"
+[0m09:28:56.324000 [debug] [ThreadPool]: On create_stock_db_dbt_default_staging: /* {"app": "dbt", "dbt_version": "1.8.3", "profile_name": "e_stock_pipeline", "target_name": "dev", "connection_name": "create_stock_db_dbt_default_staging"} */
+create schema if not exists "dbt_default_staging"
+[0m09:28:56.325471 [debug] [ThreadPool]: On create_stock_db_dbt_default_marts: /* {"app": "dbt", "dbt_version": "1.8.3", "profile_name": "e_stock_pipeline", "target_name": "dev", "connection_name": "create_stock_db_dbt_default_marts"} */
+create schema if not exists "dbt_default_marts"
+[0m09:28:56.328322 [debug] [ThreadPool]: SQL status: CREATE SCHEMA in 0.0 seconds
+[0m09:28:56.329081 [debug] [ThreadPool]: SQL status: CREATE SCHEMA in 0.0 seconds
+[0m09:28:56.331182 [debug] [ThreadPool]: On create_stock_db_dbt_default_staging: COMMIT
+[0m09:28:56.333861 [debug] [ThreadPool]: On create_stock_db_dbt_default_marts: COMMIT
+[0m09:28:56.336047 [debug] [ThreadPool]: Using postgres connection "create_stock_db_dbt_default_staging"
+[0m09:28:56.337804 [debug] [ThreadPool]: Using postgres connection "create_stock_db_dbt_default_marts"
+[0m09:28:56.340072 [debug] [ThreadPool]: On create_stock_db_dbt_default_staging: COMMIT
+[0m09:28:56.342318 [debug] [ThreadPool]: On create_stock_db_dbt_default_marts: COMMIT
+[0m09:28:56.348598 [debug] [ThreadPool]: SQL status: COMMIT in 0.0 seconds
+[0m09:28:56.350727 [debug] [ThreadPool]: On create_stock_db_dbt_default_staging: Close
+[0m09:28:56.351841 [debug] [ThreadPool]: SQL status: COMMIT in 0.0 seconds
+[0m09:28:56.355495 [debug] [ThreadPool]: On create_stock_db_dbt_default_marts: Close
+[0m09:28:56.359400 [debug] [ThreadPool]: Re-using an available connection from the pool (formerly create_stock_db_dbt_default_marts, now list_stock_db_dbt_default_staging)
+[0m09:28:56.360719 [debug] [ThreadPool]: Re-using an available connection from the pool (formerly create_stock_db_dbt_default_staging, now list_stock_db_dbt_default_marts)
+[0m09:28:56.370817 [debug] [ThreadPool]: Using postgres connection "list_stock_db_dbt_default_staging"
+[0m09:28:56.375280 [debug] [ThreadPool]: Using postgres connection "list_stock_db_dbt_default_marts"
+[0m09:28:56.377260 [debug] [ThreadPool]: On list_stock_db_dbt_default_staging: BEGIN
+[0m09:28:56.380025 [debug] [ThreadPool]: On list_stock_db_dbt_default_marts: BEGIN
+[0m09:28:56.381898 [debug] [ThreadPool]: Opening a new connection, currently in state closed
+[0m09:28:56.384059 [debug] [ThreadPool]: Opening a new connection, currently in state closed
+[0m09:28:56.396985 [debug] [ThreadPool]: SQL status: BEGIN in 0.0 seconds
+[0m09:28:56.398786 [debug] [ThreadPool]: SQL status: BEGIN in 0.0 seconds
+[0m09:28:56.400359 [debug] [ThreadPool]: Using postgres connection "list_stock_db_dbt_default_staging"
+[0m09:28:56.402416 [debug] [ThreadPool]: Using postgres connection "list_stock_db_dbt_default_marts"
+[0m09:28:56.404648 [debug] [ThreadPool]: On list_stock_db_dbt_default_staging: /* {"app": "dbt", "dbt_version": "1.8.3", "profile_name": "e_stock_pipeline", "target_name": "dev", "connection_name": "list_stock_db_dbt_default_staging"} */
+select
+      'stock_db' as database,
+      tablename as name,
+      schemaname as schema,
+      'table' as type
+    from pg_tables
+    where schemaname ilike 'dbt_default_staging'
+    union all
+    select
+      'stock_db' as database,
+      viewname as name,
+      schemaname as schema,
+      'view' as type
+    from pg_views
+    where schemaname ilike 'dbt_default_staging'
+    union all
+    select
+      'stock_db' as database,
+      matviewname as name,
+      schemaname as schema,
+      'materialized_view' as type
+    from pg_matviews
+    where schemaname ilike 'dbt_default_staging'
+  
+[0m09:28:56.406644 [debug] [ThreadPool]: On list_stock_db_dbt_default_marts: /* {"app": "dbt", "dbt_version": "1.8.3", "profile_name": "e_stock_pipeline", "target_name": "dev", "connection_name": "list_stock_db_dbt_default_marts"} */
+select
+      'stock_db' as database,
+      tablename as name,
+      schemaname as schema,
+      'table' as type
+    from pg_tables
+    where schemaname ilike 'dbt_default_marts'
+    union all
+    select
+      'stock_db' as database,
+      viewname as name,
+      schemaname as schema,
+      'view' as type
+    from pg_views
+    where schemaname ilike 'dbt_default_marts'
+    union all
+    select
+      'stock_db' as database,
+      matviewname as name,
+      schemaname as schema,
+      'materialized_view' as type
+    from pg_matviews
+    where schemaname ilike 'dbt_default_marts'
+  
+[0m09:28:56.457919 [debug] [ThreadPool]: SQL status: SELECT 0 in 0.0 seconds
+[0m09:28:56.458713 [debug] [ThreadPool]: SQL status: SELECT 0 in 0.0 seconds
+[0m09:28:56.462004 [debug] [ThreadPool]: On list_stock_db_dbt_default_marts: ROLLBACK
+[0m09:28:56.465747 [debug] [ThreadPool]: On list_stock_db_dbt_default_staging: ROLLBACK
+[0m09:28:56.468691 [debug] [ThreadPool]: On list_stock_db_dbt_default_marts: Close
+[0m09:28:56.472030 [debug] [ThreadPool]: On list_stock_db_dbt_default_staging: Close
+[0m09:28:56.483918 [debug] [MainThread]: Using postgres connection "master"
+[0m09:28:56.486568 [debug] [MainThread]: On master: BEGIN
+[0m09:28:56.488714 [debug] [MainThread]: Opening a new connection, currently in state init
+[0m09:28:56.505235 [debug] [MainThread]: SQL status: BEGIN in 0.0 seconds
+[0m09:28:56.507681 [debug] [MainThread]: Using postgres connection "master"
+[0m09:28:56.510812 [debug] [MainThread]: On master: /* {"app": "dbt", "dbt_version": "1.8.3", "profile_name": "e_stock_pipeline", "target_name": "dev", "connection_name": "master"} */
+with relation as (
+        select
+            pg_rewrite.ev_class as class,
+            pg_rewrite.oid as id
+        from pg_rewrite
+    ),
+    class as (
+        select
+            oid as id,
+            relname as name,
+            relnamespace as schema,
+            relkind as kind
+        from pg_class
+    ),
+    dependency as (
+        select distinct
+            pg_depend.objid as id,
+            pg_depend.refobjid as ref
+        from pg_depend
+    ),
+    schema as (
+        select
+            pg_namespace.oid as id,
+            pg_namespace.nspname as name
+        from pg_namespace
+        where nspname != 'information_schema' and nspname not like 'pg\_%'
+    ),
+    referenced as (
+        select
+            relation.id AS id,
+            referenced_class.name ,
+            referenced_class.schema ,
+            referenced_class.kind
+        from relation
+        join class as referenced_class on relation.class=referenced_class.id
+        where referenced_class.kind in ('r', 'v', 'm')
+    ),
+    relationships as (
+        select
+            referenced.name as referenced_name,
+            referenced.schema as referenced_schema_id,
+            dependent_class.name as dependent_name,
+            dependent_class.schema as dependent_schema_id,
+            referenced.kind as kind
+        from referenced
+        join dependency on referenced.id=dependency.id
+        join class as dependent_class on dependency.ref=dependent_class.id
+        where
+            (referenced.name != dependent_class.name or
+             referenced.schema != dependent_class.schema)
+    )
+
+    select
+        referenced_schema.name as referenced_schema,
+        relationships.referenced_name as referenced_name,
+        dependent_schema.name as dependent_schema,
+        relationships.dependent_name as dependent_name
+    from relationships
+    join schema as dependent_schema on relationships.dependent_schema_id=dependent_schema.id
+    join schema as referenced_schema on relationships.referenced_schema_id=referenced_schema.id
+    group by referenced_schema, referenced_name, dependent_schema, dependent_name
+    order by referenced_schema, referenced_name, dependent_schema, dependent_name;
+[0m09:28:56.571433 [debug] [MainThread]: SQL status: SELECT 0 in 0.0 seconds
+[0m09:28:56.576401 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'runnable_timing', 'label': 'b9e34b40-5667-4838-a538-abcd04515f64', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x73afad289a10>]}
+[0m09:28:56.580704 [debug] [MainThread]: On master: ROLLBACK
+[0m09:28:56.584368 [debug] [MainThread]: Using postgres connection "master"
+[0m09:28:56.587417 [debug] [MainThread]: On master: BEGIN
+[0m09:28:56.591374 [debug] [MainThread]: SQL status: BEGIN in 0.0 seconds
+[0m09:28:56.594061 [debug] [MainThread]: On master: COMMIT
+[0m09:28:56.596651 [debug] [MainThread]: Using postgres connection "master"
+[0m09:28:56.598670 [debug] [MainThread]: On master: COMMIT
+[0m09:28:56.601154 [debug] [MainThread]: SQL status: COMMIT in 0.0 seconds
+[0m09:28:56.604826 [debug] [MainThread]: On master: Close
+[0m09:28:56.608141 [info ] [MainThread]: Concurrency: 4 threads (target='dev')
+[0m09:28:56.611070 [info ] [MainThread]: 
+[0m09:28:56.631512 [debug] [Thread-1 (]: Began running node model.e_stock_pipeline.stg_calendar_event
+[0m09:28:56.635451 [info ] [Thread-1 (]: 1 of 2 START sql view model dbt_default_staging.stg_calendar_event ............. [RUN]
+[0m09:28:56.638694 [debug] [Thread-1 (]: Re-using an available connection from the pool (formerly list_stock_db_dbt_default_staging, now model.e_stock_pipeline.stg_calendar_event)
+[0m09:28:56.641571 [debug] [Thread-1 (]: Began compiling node model.e_stock_pipeline.stg_calendar_event
+[0m09:28:56.659426 [debug] [Thread-1 (]: Writing injected SQL for node "model.e_stock_pipeline.stg_calendar_event"
+[0m09:28:56.723716 [debug] [Thread-1 (]: Began executing node model.e_stock_pipeline.stg_calendar_event
+[0m09:28:56.779610 [debug] [Thread-1 (]: Writing runtime sql for node "model.e_stock_pipeline.stg_calendar_event"
+[0m09:28:56.827570 [debug] [Thread-1 (]: Using postgres connection "model.e_stock_pipeline.stg_calendar_event"
+[0m09:28:56.829572 [debug] [Thread-1 (]: On model.e_stock_pipeline.stg_calendar_event: BEGIN
+[0m09:28:56.831348 [debug] [Thread-1 (]: Opening a new connection, currently in state closed
+[0m09:28:56.844619 [debug] [Thread-1 (]: SQL status: BEGIN in 0.0 seconds
+[0m09:28:56.847085 [debug] [Thread-1 (]: Using postgres connection "model.e_stock_pipeline.stg_calendar_event"
+[0m09:28:56.849502 [debug] [Thread-1 (]: On model.e_stock_pipeline.stg_calendar_event: /* {"app": "dbt", "dbt_version": "1.8.3", "profile_name": "e_stock_pipeline", "target_name": "dev", "node_id": "model.e_stock_pipeline.stg_calendar_event"} */
+
+  create view "stock_db"."dbt_default_staging"."stg_calendar_event__dbt_tmp"
+    
+    
+  as (
+    
+
+-- 원본 calendar_event 테이블에서 삭제 안 된 이벤트만 추출하고,
+-- 분석에 자주 쓰이는 event_date(시작일) 컬럼을 미리 계산해서 노출한다.
+
+SELECT
+    event_id,
+    calendar_id,
+    summary,
+    status,
+    start_time,
+    end_time,
+    organizer_email,
+    DATE(start_time) AS event_date,
+    created_at,
+    updated_at
+FROM "stock_db"."google_workspace"."calendar_event"
+WHERE is_deleted = FALSE
+  );
+[0m09:28:56.867874 [debug] [Thread-1 (]: SQL status: CREATE VIEW in 0.0 seconds
+[0m09:28:56.879454 [debug] [Thread-1 (]: Using postgres connection "model.e_stock_pipeline.stg_calendar_event"
+[0m09:28:56.881540 [debug] [Thread-1 (]: On model.e_stock_pipeline.stg_calendar_event: /* {"app": "dbt", "dbt_version": "1.8.3", "profile_name": "e_stock_pipeline", "target_name": "dev", "node_id": "model.e_stock_pipeline.stg_calendar_event"} */
+alter table "stock_db"."dbt_default_staging"."stg_calendar_event__dbt_tmp" rename to "stg_calendar_event"
+[0m09:28:56.887321 [debug] [Thread-1 (]: SQL status: ALTER TABLE in 0.0 seconds
+[0m09:28:56.907607 [debug] [Thread-1 (]: On model.e_stock_pipeline.stg_calendar_event: COMMIT
+[0m09:28:56.910287 [debug] [Thread-1 (]: Using postgres connection "model.e_stock_pipeline.stg_calendar_event"
+[0m09:28:56.912165 [debug] [Thread-1 (]: On model.e_stock_pipeline.stg_calendar_event: COMMIT
+[0m09:28:56.918183 [debug] [Thread-1 (]: SQL status: COMMIT in 0.0 seconds
+[0m09:28:56.928938 [debug] [Thread-1 (]: Applying DROP to: "stock_db"."dbt_default_staging"."stg_calendar_event__dbt_backup"
+[0m09:28:56.938286 [debug] [Thread-1 (]: Using postgres connection "model.e_stock_pipeline.stg_calendar_event"
+[0m09:28:56.940828 [debug] [Thread-1 (]: On model.e_stock_pipeline.stg_calendar_event: /* {"app": "dbt", "dbt_version": "1.8.3", "profile_name": "e_stock_pipeline", "target_name": "dev", "node_id": "model.e_stock_pipeline.stg_calendar_event"} */
+drop view if exists "stock_db"."dbt_default_staging"."stg_calendar_event__dbt_backup" cascade
+[0m09:28:56.945191 [debug] [Thread-1 (]: SQL status: DROP VIEW in 0.0 seconds
+[0m09:28:56.950229 [debug] [Thread-1 (]: On model.e_stock_pipeline.stg_calendar_event: Close
+[0m09:28:56.956064 [debug] [Thread-1 (]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': 'b9e34b40-5667-4838-a538-abcd04515f64', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x73afac16c590>]}
+[0m09:28:56.959161 [info ] [Thread-1 (]: 1 of 2 OK created sql view model dbt_default_staging.stg_calendar_event ........ [[32mCREATE VIEW[0m in 0.31s]
+[0m09:28:56.962663 [debug] [Thread-1 (]: Finished running node model.e_stock_pipeline.stg_calendar_event
+[0m09:28:56.966696 [debug] [Thread-3 (]: Began running node model.e_stock_pipeline.daily_meeting_stats
+[0m09:28:56.969740 [info ] [Thread-3 (]: 2 of 2 START sql table model dbt_default_marts.daily_meeting_stats ............. [RUN]
+[0m09:28:56.972873 [debug] [Thread-3 (]: Acquiring new postgres connection 'model.e_stock_pipeline.daily_meeting_stats'
+[0m09:28:56.975266 [debug] [Thread-3 (]: Began compiling node model.e_stock_pipeline.daily_meeting_stats
+[0m09:28:56.981995 [debug] [Thread-3 (]: Writing injected SQL for node "model.e_stock_pipeline.daily_meeting_stats"
+[0m09:28:57.013350 [debug] [Thread-3 (]: Began executing node model.e_stock_pipeline.daily_meeting_stats
+[0m09:28:57.044421 [debug] [Thread-3 (]: Writing runtime sql for node "model.e_stock_pipeline.daily_meeting_stats"
+[0m09:28:57.072834 [debug] [Thread-3 (]: Using postgres connection "model.e_stock_pipeline.daily_meeting_stats"
+[0m09:28:57.074792 [debug] [Thread-3 (]: On model.e_stock_pipeline.daily_meeting_stats: BEGIN
+[0m09:28:57.076441 [debug] [Thread-3 (]: Opening a new connection, currently in state init
+[0m09:28:57.089256 [debug] [Thread-3 (]: SQL status: BEGIN in 0.0 seconds
+[0m09:28:57.091415 [debug] [Thread-3 (]: Using postgres connection "model.e_stock_pipeline.daily_meeting_stats"
+[0m09:28:57.093461 [debug] [Thread-3 (]: On model.e_stock_pipeline.daily_meeting_stats: /* {"app": "dbt", "dbt_version": "1.8.3", "profile_name": "e_stock_pipeline", "target_name": "dev", "node_id": "model.e_stock_pipeline.daily_meeting_stats"} */
+
+  
+    
+
+  create  table "stock_db"."dbt_default_marts"."daily_meeting_stats__dbt_tmp"
+  
+  
+    as
+  
+  (
+    
+
+-- 날짜별 / 주최자별 confirmed 미팅 건수 집계.
+-- BI 도구나 Slack 리포트가 직접 조회하는 mart 레이어.
+
+SELECT
+    event_date,
+    organizer_email,
+    COUNT(*) AS meeting_count
+FROM "stock_db"."dbt_default_staging"."stg_calendar_event"
+WHERE status = 'confirmed'
+GROUP BY event_date, organizer_email
+ORDER BY event_date DESC, meeting_count DESC
+  );
+  
+[0m09:28:57.123847 [debug] [Thread-3 (]: SQL status: SELECT 4 in 0.0 seconds
+[0m09:28:57.130540 [debug] [Thread-3 (]: Using postgres connection "model.e_stock_pipeline.daily_meeting_stats"
+[0m09:28:57.132440 [debug] [Thread-3 (]: On model.e_stock_pipeline.daily_meeting_stats: /* {"app": "dbt", "dbt_version": "1.8.3", "profile_name": "e_stock_pipeline", "target_name": "dev", "node_id": "model.e_stock_pipeline.daily_meeting_stats"} */
+alter table "stock_db"."dbt_default_marts"."daily_meeting_stats__dbt_tmp" rename to "daily_meeting_stats"
+[0m09:28:57.135541 [debug] [Thread-3 (]: SQL status: ALTER TABLE in 0.0 seconds
+[0m09:28:57.143822 [debug] [Thread-3 (]: On model.e_stock_pipeline.daily_meeting_stats: COMMIT
+[0m09:28:57.145415 [debug] [Thread-3 (]: Using postgres connection "model.e_stock_pipeline.daily_meeting_stats"
+[0m09:28:57.147042 [debug] [Thread-3 (]: On model.e_stock_pipeline.daily_meeting_stats: COMMIT
+[0m09:28:57.152733 [debug] [Thread-3 (]: SQL status: COMMIT in 0.0 seconds
+[0m09:28:57.157184 [debug] [Thread-3 (]: Applying DROP to: "stock_db"."dbt_default_marts"."daily_meeting_stats__dbt_backup"
+[0m09:28:57.163501 [debug] [Thread-3 (]: Using postgres connection "model.e_stock_pipeline.daily_meeting_stats"
+[0m09:28:57.165402 [debug] [Thread-3 (]: On model.e_stock_pipeline.daily_meeting_stats: /* {"app": "dbt", "dbt_version": "1.8.3", "profile_name": "e_stock_pipeline", "target_name": "dev", "node_id": "model.e_stock_pipeline.daily_meeting_stats"} */
+drop table if exists "stock_db"."dbt_default_marts"."daily_meeting_stats__dbt_backup" cascade
+[0m09:28:57.167752 [debug] [Thread-3 (]: SQL status: DROP TABLE in 0.0 seconds
+[0m09:28:57.171932 [debug] [Thread-3 (]: On model.e_stock_pipeline.daily_meeting_stats: Close
+[0m09:28:57.174371 [debug] [Thread-3 (]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': 'b9e34b40-5667-4838-a538-abcd04515f64', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x73afac259250>]}
+[0m09:28:57.176801 [info ] [Thread-3 (]: 2 of 2 OK created sql table model dbt_default_marts.daily_meeting_stats ........ [[32mSELECT 4[0m in 0.20s]
+[0m09:28:57.179471 [debug] [Thread-3 (]: Finished running node model.e_stock_pipeline.daily_meeting_stats
+[0m09:28:57.183765 [debug] [MainThread]: Using postgres connection "master"
+[0m09:28:57.185681 [debug] [MainThread]: On master: BEGIN
+[0m09:28:57.187592 [debug] [MainThread]: Opening a new connection, currently in state closed
+[0m09:28:57.201687 [debug] [MainThread]: SQL status: BEGIN in 0.0 seconds
+[0m09:28:57.204788 [debug] [MainThread]: On master: COMMIT
+[0m09:28:57.206871 [debug] [MainThread]: Using postgres connection "master"
+[0m09:28:57.208962 [debug] [MainThread]: On master: COMMIT
+[0m09:28:57.210758 [debug] [MainThread]: SQL status: COMMIT in 0.0 seconds
+[0m09:28:57.212161 [debug] [MainThread]: On master: Close
+[0m09:28:57.213645 [debug] [MainThread]: Connection 'master' was properly closed.
+[0m09:28:57.215226 [debug] [MainThread]: Connection 'list_stock_db_dbt_default_marts' was properly closed.
+[0m09:28:57.217830 [debug] [MainThread]: Connection 'model.e_stock_pipeline.stg_calendar_event' was properly closed.
+[0m09:28:57.219811 [debug] [MainThread]: Connection 'model.e_stock_pipeline.daily_meeting_stats' was properly closed.
+[0m09:28:57.221674 [info ] [MainThread]: 
+[0m09:28:57.223678 [info ] [MainThread]: Finished running 1 view model, 1 table model in 0 hours 0 minutes and 1.08 seconds (1.08s).
+[0m09:28:57.226299 [debug] [MainThread]: Command end result
+[0m09:28:57.313487 [info ] [MainThread]: 
+[0m09:28:57.316130 [info ] [MainThread]: [32mCompleted successfully[0m
+[0m09:28:57.318270 [info ] [MainThread]: 
+[0m09:28:57.320261 [info ] [MainThread]: Done. PASS=2 WARN=0 ERROR=0 SKIP=0 TOTAL=2
+[0m09:28:57.323490 [debug] [MainThread]: Resource report: {"command_name": "run", "command_success": true, "command_wall_clock_time": 4.093839, "process_user_time": 4.234013, "process_kernel_time": 0.406111, "process_mem_max_rss": "116996", "process_out_blocks": "1272", "process_in_blocks": "0"}
+[0m09:28:57.325456 [debug] [MainThread]: Command `dbt run` succeeded at 09:28:57.325261 after 4.10 seconds
+[0m09:28:57.327226 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x73afb10c43d0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x73afb0f0c1d0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x73afb4d00750>]}
+[0m09:28:57.329046 [debug] [MainThread]: Flushing usage events
+[0m09:28:58.111418 [debug] [MainThread]: Error sending anonymous usage statistics. Disabling tracking for this execution. If you wish to permanently disable tracking, see: https://docs.getdbt.com/reference/global-configs#send-anonymous-usage-stats.
+[0m09:29:17.731940 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x76fb0e8b2f50>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x76fb0e70a950>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x76fb0e8b0050>]}
+
+
+============================== 09:29:17.738694 | 24cb3c00-75ca-4d51-855f-d23479bdde2f ==============================
+[0m09:29:17.738694 [info ] [MainThread]: Running with dbt=1.8.3
+[0m09:29:17.740032 [debug] [MainThread]: running dbt with arguments {'printer_width': '80', 'indirect_selection': 'eager', 'log_cache_events': 'False', 'write_json': 'True', 'partial_parse': 'True', 'cache_selected_only': 'False', 'warn_error': 'None', 'fail_fast': 'False', 'version_check': 'True', 'log_path': '/usr/app/logs', 'debug': 'False', 'profiles_dir': '/usr/app', 'use_colors': 'True', 'use_experimental_parser': 'False', 'no_print': 'None', 'quiet': 'False', 'empty': 'None', 'warn_error_options': 'WarnErrorOptions(include=[], exclude=[])', 'introspect': 'True', 'invocation_command': 'dbt test --project-dir /usr/app', 'static_parser': 'True', 'target_path': 'None', 'log_format': 'default', 'send_anonymous_usage_stats': 'True'}
+[0m09:29:17.899413 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'project_id', 'label': '24cb3c00-75ca-4d51-855f-d23479bdde2f', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x76fb0e72ae90>]}
+[0m09:29:17.947243 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'adapter_info', 'label': '24cb3c00-75ca-4d51-855f-d23479bdde2f', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x76fb10489710>]}
+[0m09:29:17.950067 [info ] [MainThread]: Registered adapter: postgres=1.8.2
+[0m09:29:17.961683 [debug] [MainThread]: checksum: 30bd4080c2bc8dee5936f8f60083ffbe1c906859d0fd965607c2144031479456, vars: {}, profile: , target: , version: 1.8.3
+[0m09:29:18.169677 [debug] [MainThread]: Partial parsing enabled: 0 files deleted, 0 files added, 0 files changed.
+[0m09:29:18.170967 [debug] [MainThread]: Partial parsing enabled, no changes found, skipping parsing
+[0m09:29:18.205510 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'load_project', 'label': '24cb3c00-75ca-4d51-855f-d23479bdde2f', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x76fb0cd43990>]}
+[0m09:29:18.326271 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'resource_counts', 'label': '24cb3c00-75ca-4d51-855f-d23479bdde2f', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x76fb0ca56250>]}
+[0m09:29:18.327379 [info ] [MainThread]: Found 2 models, 7 data tests, 1 source, 415 macros
+[0m09:29:18.328474 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'runnable_timing', 'label': '24cb3c00-75ca-4d51-855f-d23479bdde2f', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x76fb0ce93650>]}
+[0m09:29:18.330944 [info ] [MainThread]: 
+[0m09:29:18.332282 [debug] [MainThread]: Acquiring new postgres connection 'master'
+[0m09:29:18.334186 [debug] [ThreadPool]: Acquiring new postgres connection 'list_stock_db_dbt_default_marts'
+[0m09:29:18.334908 [debug] [ThreadPool]: Acquiring new postgres connection 'list_stock_db_dbt_default_staging'
+[0m09:29:18.378419 [debug] [ThreadPool]: Using postgres connection "list_stock_db_dbt_default_marts"
+[0m09:29:18.378866 [debug] [ThreadPool]: Using postgres connection "list_stock_db_dbt_default_staging"
+[0m09:29:18.379803 [debug] [ThreadPool]: On list_stock_db_dbt_default_marts: BEGIN
+[0m09:29:18.380789 [debug] [ThreadPool]: On list_stock_db_dbt_default_staging: BEGIN
+[0m09:29:18.381737 [debug] [ThreadPool]: Opening a new connection, currently in state init
+[0m09:29:18.382558 [debug] [ThreadPool]: Opening a new connection, currently in state init
+[0m09:29:18.391837 [debug] [ThreadPool]: SQL status: BEGIN in 0.0 seconds
+[0m09:29:18.392245 [debug] [ThreadPool]: SQL status: BEGIN in 0.0 seconds
+[0m09:29:18.393351 [debug] [ThreadPool]: Using postgres connection "list_stock_db_dbt_default_marts"
+[0m09:29:18.394340 [debug] [ThreadPool]: Using postgres connection "list_stock_db_dbt_default_staging"
+[0m09:29:18.395742 [debug] [ThreadPool]: On list_stock_db_dbt_default_marts: /* {"app": "dbt", "dbt_version": "1.8.3", "profile_name": "e_stock_pipeline", "target_name": "dev", "connection_name": "list_stock_db_dbt_default_marts"} */
+select
+      'stock_db' as database,
+      tablename as name,
+      schemaname as schema,
+      'table' as type
+    from pg_tables
+    where schemaname ilike 'dbt_default_marts'
+    union all
+    select
+      'stock_db' as database,
+      viewname as name,
+      schemaname as schema,
+      'view' as type
+    from pg_views
+    where schemaname ilike 'dbt_default_marts'
+    union all
+    select
+      'stock_db' as database,
+      matviewname as name,
+      schemaname as schema,
+      'materialized_view' as type
+    from pg_matviews
+    where schemaname ilike 'dbt_default_marts'
+  
+[0m09:29:18.396853 [debug] [ThreadPool]: On list_stock_db_dbt_default_staging: /* {"app": "dbt", "dbt_version": "1.8.3", "profile_name": "e_stock_pipeline", "target_name": "dev", "connection_name": "list_stock_db_dbt_default_staging"} */
+select
+      'stock_db' as database,
+      tablename as name,
+      schemaname as schema,
+      'table' as type
+    from pg_tables
+    where schemaname ilike 'dbt_default_staging'
+    union all
+    select
+      'stock_db' as database,
+      viewname as name,
+      schemaname as schema,
+      'view' as type
+    from pg_views
+    where schemaname ilike 'dbt_default_staging'
+    union all
+    select
+      'stock_db' as database,
+      matviewname as name,
+      schemaname as schema,
+      'materialized_view' as type
+    from pg_matviews
+    where schemaname ilike 'dbt_default_staging'
+  
+[0m09:29:18.403849 [debug] [ThreadPool]: SQL status: SELECT 1 in 0.0 seconds
+[0m09:29:18.404502 [debug] [ThreadPool]: SQL status: SELECT 1 in 0.0 seconds
+[0m09:29:18.406061 [debug] [ThreadPool]: On list_stock_db_dbt_default_marts: ROLLBACK
+[0m09:29:18.408107 [debug] [ThreadPool]: On list_stock_db_dbt_default_staging: ROLLBACK
+[0m09:29:18.409331 [debug] [ThreadPool]: On list_stock_db_dbt_default_marts: Close
+[0m09:29:18.410242 [debug] [ThreadPool]: On list_stock_db_dbt_default_staging: Close
+[0m09:29:18.415528 [debug] [MainThread]: Using postgres connection "master"
+[0m09:29:18.416391 [debug] [MainThread]: On master: BEGIN
+[0m09:29:18.417239 [debug] [MainThread]: Opening a new connection, currently in state init
+[0m09:29:18.424017 [debug] [MainThread]: SQL status: BEGIN in 0.0 seconds
+[0m09:29:18.425187 [debug] [MainThread]: Using postgres connection "master"
+[0m09:29:18.426528 [debug] [MainThread]: On master: /* {"app": "dbt", "dbt_version": "1.8.3", "profile_name": "e_stock_pipeline", "target_name": "dev", "connection_name": "master"} */
+with relation as (
+        select
+            pg_rewrite.ev_class as class,
+            pg_rewrite.oid as id
+        from pg_rewrite
+    ),
+    class as (
+        select
+            oid as id,
+            relname as name,
+            relnamespace as schema,
+            relkind as kind
+        from pg_class
+    ),
+    dependency as (
+        select distinct
+            pg_depend.objid as id,
+            pg_depend.refobjid as ref
+        from pg_depend
+    ),
+    schema as (
+        select
+            pg_namespace.oid as id,
+            pg_namespace.nspname as name
+        from pg_namespace
+        where nspname != 'information_schema' and nspname not like 'pg\_%'
+    ),
+    referenced as (
+        select
+            relation.id AS id,
+            referenced_class.name ,
+            referenced_class.schema ,
+            referenced_class.kind
+        from relation
+        join class as referenced_class on relation.class=referenced_class.id
+        where referenced_class.kind in ('r', 'v', 'm')
+    ),
+    relationships as (
+        select
+            referenced.name as referenced_name,
+            referenced.schema as referenced_schema_id,
+            dependent_class.name as dependent_name,
+            dependent_class.schema as dependent_schema_id,
+            referenced.kind as kind
+        from referenced
+        join dependency on referenced.id=dependency.id
+        join class as dependent_class on dependency.ref=dependent_class.id
+        where
+            (referenced.name != dependent_class.name or
+             referenced.schema != dependent_class.schema)
+    )
+
+    select
+        referenced_schema.name as referenced_schema,
+        relationships.referenced_name as referenced_name,
+        dependent_schema.name as dependent_schema,
+        relationships.dependent_name as dependent_name
+    from relationships
+    join schema as dependent_schema on relationships.dependent_schema_id=dependent_schema.id
+    join schema as referenced_schema on relationships.referenced_schema_id=referenced_schema.id
+    group by referenced_schema, referenced_name, dependent_schema, dependent_name
+    order by referenced_schema, referenced_name, dependent_schema, dependent_name;
+[0m09:29:18.433425 [debug] [MainThread]: SQL status: SELECT 1 in 0.0 seconds
+[0m09:29:18.435500 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'runnable_timing', 'label': '24cb3c00-75ca-4d51-855f-d23479bdde2f', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x76fb0cfda610>]}
+[0m09:29:18.436723 [debug] [MainThread]: On master: ROLLBACK
+[0m09:29:18.437853 [debug] [MainThread]: Using postgres connection "master"
+[0m09:29:18.438668 [debug] [MainThread]: On master: BEGIN
+[0m09:29:18.439756 [debug] [MainThread]: SQL status: BEGIN in 0.0 seconds
+[0m09:29:18.440527 [debug] [MainThread]: On master: COMMIT
+[0m09:29:18.441218 [debug] [MainThread]: Using postgres connection "master"
+[0m09:29:18.441939 [debug] [MainThread]: On master: COMMIT
+[0m09:29:18.442854 [debug] [MainThread]: SQL status: COMMIT in 0.0 seconds
+[0m09:29:18.443660 [debug] [MainThread]: On master: Close
+[0m09:29:18.444568 [info ] [MainThread]: Concurrency: 4 threads (target='dev')
+[0m09:29:18.445443 [info ] [MainThread]: 
+[0m09:29:18.454481 [debug] [Thread-1 (]: Began running node test.e_stock_pipeline.accepted_values_stg_calendar_event_status__confirmed__tentative__cancelled.174a66c918
+[0m09:29:18.454960 [debug] [Thread-2 (]: Began running node test.e_stock_pipeline.not_null_daily_meeting_stats_event_date.397a77fb3a
+[0m09:29:18.455293 [debug] [Thread-3 (]: Began running node test.e_stock_pipeline.not_null_daily_meeting_stats_meeting_count.11cd4e068b
+[0m09:29:18.455627 [debug] [Thread-4 (]: Began running node test.e_stock_pipeline.not_null_stg_calendar_event_event_id.4108eacae8
+[0m09:29:18.456348 [info ] [Thread-1 (]: 1 of 7 START test accepted_values_stg_calendar_event_status__confirmed__tentative__cancelled  [RUN]
+[0m09:29:18.457649 [info ] [Thread-2 (]: 2 of 7 START test not_null_daily_meeting_stats_event_date ...................... [RUN]
+[0m09:29:18.458855 [info ] [Thread-3 (]: 3 of 7 START test not_null_daily_meeting_stats_meeting_count ................... [RUN]
+[0m09:29:18.459930 [info ] [Thread-4 (]: 4 of 7 START test not_null_stg_calendar_event_event_id ......................... [RUN]
+[0m09:29:18.461088 [debug] [Thread-1 (]: Re-using an available connection from the pool (formerly list_stock_db_dbt_default_staging, now test.e_stock_pipeline.accepted_values_stg_calendar_event_status__confirmed__tentative__cancelled.174a66c918)
+[0m09:29:18.462092 [debug] [Thread-2 (]: Re-using an available connection from the pool (formerly list_stock_db_dbt_default_marts, now test.e_stock_pipeline.not_null_daily_meeting_stats_event_date.397a77fb3a)
+[0m09:29:18.463202 [debug] [Thread-3 (]: Acquiring new postgres connection 'test.e_stock_pipeline.not_null_daily_meeting_stats_meeting_count.11cd4e068b'
+[0m09:29:18.464167 [debug] [Thread-4 (]: Acquiring new postgres connection 'test.e_stock_pipeline.not_null_stg_calendar_event_event_id.4108eacae8'
+[0m09:29:18.465018 [debug] [Thread-1 (]: Began compiling node test.e_stock_pipeline.accepted_values_stg_calendar_event_status__confirmed__tentative__cancelled.174a66c918
+[0m09:29:18.465960 [debug] [Thread-2 (]: Began compiling node test.e_stock_pipeline.not_null_daily_meeting_stats_event_date.397a77fb3a
+[0m09:29:18.467137 [debug] [Thread-3 (]: Began compiling node test.e_stock_pipeline.not_null_daily_meeting_stats_meeting_count.11cd4e068b
+[0m09:29:18.468243 [debug] [Thread-4 (]: Began compiling node test.e_stock_pipeline.not_null_stg_calendar_event_event_id.4108eacae8
+[0m09:29:18.482859 [debug] [Thread-1 (]: Writing injected SQL for node "test.e_stock_pipeline.accepted_values_stg_calendar_event_status__confirmed__tentative__cancelled.174a66c918"
+[0m09:29:18.489739 [debug] [Thread-2 (]: Writing injected SQL for node "test.e_stock_pipeline.not_null_daily_meeting_stats_event_date.397a77fb3a"
+[0m09:29:18.493463 [debug] [Thread-3 (]: Writing injected SQL for node "test.e_stock_pipeline.not_null_daily_meeting_stats_meeting_count.11cd4e068b"
+[0m09:29:18.497191 [debug] [Thread-4 (]: Writing injected SQL for node "test.e_stock_pipeline.not_null_stg_calendar_event_event_id.4108eacae8"
+[0m09:29:18.507269 [debug] [Thread-1 (]: Began executing node test.e_stock_pipeline.accepted_values_stg_calendar_event_status__confirmed__tentative__cancelled.174a66c918
+[0m09:29:18.507678 [debug] [Thread-3 (]: Began executing node test.e_stock_pipeline.not_null_daily_meeting_stats_meeting_count.11cd4e068b
+[0m09:29:18.519538 [debug] [Thread-4 (]: Began executing node test.e_stock_pipeline.not_null_stg_calendar_event_event_id.4108eacae8
+[0m09:29:18.520015 [debug] [Thread-2 (]: Began executing node test.e_stock_pipeline.not_null_daily_meeting_stats_event_date.397a77fb3a
+[0m09:29:18.521149 [debug] [Thread-1 (]: Writing runtime sql for node "test.e_stock_pipeline.accepted_values_stg_calendar_event_status__confirmed__tentative__cancelled.174a66c918"
+[0m09:29:18.523887 [debug] [Thread-3 (]: Writing runtime sql for node "test.e_stock_pipeline.not_null_daily_meeting_stats_meeting_count.11cd4e068b"
+[0m09:29:18.526191 [debug] [Thread-4 (]: Writing runtime sql for node "test.e_stock_pipeline.not_null_stg_calendar_event_event_id.4108eacae8"
+[0m09:29:18.529865 [debug] [Thread-2 (]: Writing runtime sql for node "test.e_stock_pipeline.not_null_daily_meeting_stats_event_date.397a77fb3a"
+[0m09:29:18.538657 [debug] [Thread-3 (]: Using postgres connection "test.e_stock_pipeline.not_null_daily_meeting_stats_meeting_count.11cd4e068b"
+[0m09:29:18.539397 [debug] [Thread-1 (]: Using postgres connection "test.e_stock_pipeline.accepted_values_stg_calendar_event_status__confirmed__tentative__cancelled.174a66c918"
+[0m09:29:18.540099 [debug] [Thread-3 (]: On test.e_stock_pipeline.not_null_daily_meeting_stats_meeting_count.11cd4e068b: BEGIN
+[0m09:29:18.541186 [debug] [Thread-1 (]: On test.e_stock_pipeline.accepted_values_stg_calendar_event_status__confirmed__tentative__cancelled.174a66c918: BEGIN
+[0m09:29:18.541836 [debug] [Thread-2 (]: Using postgres connection "test.e_stock_pipeline.not_null_daily_meeting_stats_event_date.397a77fb3a"
+[0m09:29:18.542364 [debug] [Thread-3 (]: Opening a new connection, currently in state init
+[0m09:29:18.542693 [debug] [Thread-4 (]: Using postgres connection "test.e_stock_pipeline.not_null_stg_calendar_event_event_id.4108eacae8"
+[0m09:29:18.543573 [debug] [Thread-1 (]: Opening a new connection, currently in state closed
+[0m09:29:18.544480 [debug] [Thread-2 (]: On test.e_stock_pipeline.not_null_daily_meeting_stats_event_date.397a77fb3a: BEGIN
+[0m09:29:18.546049 [debug] [Thread-4 (]: On test.e_stock_pipeline.not_null_stg_calendar_event_event_id.4108eacae8: BEGIN
+[0m09:29:18.547839 [debug] [Thread-2 (]: Opening a new connection, currently in state closed
+[0m09:29:18.548776 [debug] [Thread-4 (]: Opening a new connection, currently in state init
+[0m09:29:18.551629 [debug] [Thread-3 (]: SQL status: BEGIN in 0.0 seconds
+[0m09:29:18.552748 [debug] [Thread-3 (]: Using postgres connection "test.e_stock_pipeline.not_null_daily_meeting_stats_meeting_count.11cd4e068b"
+[0m09:29:18.553117 [debug] [Thread-1 (]: SQL status: BEGIN in 0.0 seconds
+[0m09:29:18.553910 [debug] [Thread-3 (]: On test.e_stock_pipeline.not_null_daily_meeting_stats_meeting_count.11cd4e068b: /* {"app": "dbt", "dbt_version": "1.8.3", "profile_name": "e_stock_pipeline", "target_name": "dev", "node_id": "test.e_stock_pipeline.not_null_daily_meeting_stats_meeting_count.11cd4e068b"} */
+select
+      count(*) as failures,
+      count(*) != 0 as should_warn,
+      count(*) != 0 as should_error
+    from (
+      
+    
+    
+
+
+
+select meeting_count
+from "stock_db"."dbt_default_marts"."daily_meeting_stats"
+where meeting_count is null
+
+
+
+      
+    ) dbt_internal_test
+[0m09:29:18.554877 [debug] [Thread-1 (]: Using postgres connection "test.e_stock_pipeline.accepted_values_stg_calendar_event_status__confirmed__tentative__cancelled.174a66c918"
+[0m09:29:18.555556 [debug] [Thread-2 (]: SQL status: BEGIN in 0.0 seconds
+[0m09:29:18.556267 [debug] [Thread-4 (]: SQL status: BEGIN in 0.0 seconds
+[0m09:29:18.557106 [debug] [Thread-1 (]: On test.e_stock_pipeline.accepted_values_stg_calendar_event_status__confirmed__tentative__cancelled.174a66c918: /* {"app": "dbt", "dbt_version": "1.8.3", "profile_name": "e_stock_pipeline", "target_name": "dev", "node_id": "test.e_stock_pipeline.accepted_values_stg_calendar_event_status__confirmed__tentative__cancelled.174a66c918"} */
+select
+      count(*) as failures,
+      count(*) != 0 as should_warn,
+      count(*) != 0 as should_error
+    from (
+      
+    
+    
+
+with all_values as (
+
+    select
+        status as value_field,
+        count(*) as n_records
+
+    from "stock_db"."dbt_default_staging"."stg_calendar_event"
+    group by status
+
+)
+
+select *
+from all_values
+where value_field not in (
+    'confirmed','tentative','cancelled'
+)
+
+
+
+      
+    ) dbt_internal_test
+[0m09:29:18.558206 [debug] [Thread-2 (]: Using postgres connection "test.e_stock_pipeline.not_null_daily_meeting_stats_event_date.397a77fb3a"
+[0m09:29:18.558621 [debug] [Thread-3 (]: SQL status: SELECT 1 in 0.0 seconds
+[0m09:29:18.559411 [debug] [Thread-4 (]: Using postgres connection "test.e_stock_pipeline.not_null_stg_calendar_event_event_id.4108eacae8"
+[0m09:29:18.561053 [debug] [Thread-2 (]: On test.e_stock_pipeline.not_null_daily_meeting_stats_event_date.397a77fb3a: /* {"app": "dbt", "dbt_version": "1.8.3", "profile_name": "e_stock_pipeline", "target_name": "dev", "node_id": "test.e_stock_pipeline.not_null_daily_meeting_stats_event_date.397a77fb3a"} */
+select
+      count(*) as failures,
+      count(*) != 0 as should_warn,
+      count(*) != 0 as should_error
+    from (
+      
+    
+    
+
+
+
+select event_date
+from "stock_db"."dbt_default_marts"."daily_meeting_stats"
+where event_date is null
+
+
+
+      
+    ) dbt_internal_test
+[0m09:29:18.565194 [debug] [Thread-3 (]: On test.e_stock_pipeline.not_null_daily_meeting_stats_meeting_count.11cd4e068b: ROLLBACK
+[0m09:29:18.565651 [debug] [Thread-1 (]: SQL status: SELECT 1 in 0.0 seconds
+[0m09:29:18.566467 [debug] [Thread-4 (]: On test.e_stock_pipeline.not_null_stg_calendar_event_event_id.4108eacae8: /* {"app": "dbt", "dbt_version": "1.8.3", "profile_name": "e_stock_pipeline", "target_name": "dev", "node_id": "test.e_stock_pipeline.not_null_stg_calendar_event_event_id.4108eacae8"} */
+select
+      count(*) as failures,
+      count(*) != 0 as should_warn,
+      count(*) != 0 as should_error
+    from (
+      
+    
+    
+
+
+
+select event_id
+from "stock_db"."dbt_default_staging"."stg_calendar_event"
+where event_id is null
+
+
+
+      
+    ) dbt_internal_test
+[0m09:29:18.568262 [debug] [Thread-3 (]: On test.e_stock_pipeline.not_null_daily_meeting_stats_meeting_count.11cd4e068b: Close
+[0m09:29:18.568621 [debug] [Thread-2 (]: SQL status: SELECT 1 in 0.0 seconds
+[0m09:29:18.570076 [debug] [Thread-1 (]: On test.e_stock_pipeline.accepted_values_stg_calendar_event_status__confirmed__tentative__cancelled.174a66c918: ROLLBACK
+[0m09:29:18.572058 [info ] [Thread-3 (]: 3 of 7 PASS not_null_daily_meeting_stats_meeting_count ......................... [[32mPASS[0m in 0.11s]
+[0m09:29:18.572548 [debug] [Thread-4 (]: SQL status: SELECT 1 in 0.0 seconds
+[0m09:29:18.574542 [debug] [Thread-2 (]: On test.e_stock_pipeline.not_null_daily_meeting_stats_event_date.397a77fb3a: ROLLBACK
+[0m09:29:18.576202 [debug] [Thread-1 (]: On test.e_stock_pipeline.accepted_values_stg_calendar_event_status__confirmed__tentative__cancelled.174a66c918: Close
+[0m09:29:18.577053 [debug] [Thread-3 (]: Finished running node test.e_stock_pipeline.not_null_daily_meeting_stats_meeting_count.11cd4e068b
+[0m09:29:18.579166 [debug] [Thread-4 (]: On test.e_stock_pipeline.not_null_stg_calendar_event_event_id.4108eacae8: ROLLBACK
+[0m09:29:18.580379 [debug] [Thread-2 (]: On test.e_stock_pipeline.not_null_daily_meeting_stats_event_date.397a77fb3a: Close
+[0m09:29:18.581543 [info ] [Thread-1 (]: 1 of 7 PASS accepted_values_stg_calendar_event_status__confirmed__tentative__cancelled  [[32mPASS[0m in 0.12s]
+[0m09:29:18.582406 [debug] [Thread-3 (]: Began running node test.e_stock_pipeline.source_not_null_raw_calendar_event_event_id.a8316623d0
+[0m09:29:18.583526 [debug] [Thread-4 (]: On test.e_stock_pipeline.not_null_stg_calendar_event_event_id.4108eacae8: Close
+[0m09:29:18.584524 [info ] [Thread-2 (]: 2 of 7 PASS not_null_daily_meeting_stats_event_date ............................ [[32mPASS[0m in 0.12s]
+[0m09:29:18.585699 [debug] [Thread-1 (]: Finished running node test.e_stock_pipeline.accepted_values_stg_calendar_event_status__confirmed__tentative__cancelled.174a66c918
+[0m09:29:18.586735 [info ] [Thread-3 (]: 5 of 7 START test source_not_null_raw_calendar_event_event_id .................. [RUN]
+[0m09:29:18.588266 [info ] [Thread-4 (]: 4 of 7 PASS not_null_stg_calendar_event_event_id ............................... [[32mPASS[0m in 0.12s]
+[0m09:29:18.589686 [debug] [Thread-2 (]: Finished running node test.e_stock_pipeline.not_null_daily_meeting_stats_event_date.397a77fb3a
+[0m09:29:18.590774 [debug] [Thread-1 (]: Began running node test.e_stock_pipeline.source_unique_raw_calendar_event_event_id.6ec2c1c4f1
+[0m09:29:18.591665 [debug] [Thread-3 (]: Re-using an available connection from the pool (formerly test.e_stock_pipeline.not_null_daily_meeting_stats_meeting_count.11cd4e068b, now test.e_stock_pipeline.source_not_null_raw_calendar_event_event_id.a8316623d0)
+[0m09:29:18.592682 [debug] [Thread-4 (]: Finished running node test.e_stock_pipeline.not_null_stg_calendar_event_event_id.4108eacae8
+[0m09:29:18.593589 [debug] [Thread-2 (]: Began running node test.e_stock_pipeline.unique_stg_calendar_event_event_id.7942fc6059
+[0m09:29:18.594599 [info ] [Thread-1 (]: 6 of 7 START test source_unique_raw_calendar_event_event_id .................... [RUN]
+[0m09:29:18.595554 [debug] [Thread-3 (]: Began compiling node test.e_stock_pipeline.source_not_null_raw_calendar_event_event_id.a8316623d0
+[0m09:29:18.597110 [info ] [Thread-2 (]: 7 of 7 START test unique_stg_calendar_event_event_id ........................... [RUN]
+[0m09:29:18.598219 [debug] [Thread-1 (]: Re-using an available connection from the pool (formerly test.e_stock_pipeline.accepted_values_stg_calendar_event_status__confirmed__tentative__cancelled.174a66c918, now test.e_stock_pipeline.source_unique_raw_calendar_event_event_id.6ec2c1c4f1)
+[0m09:29:18.602345 [debug] [Thread-3 (]: Writing injected SQL for node "test.e_stock_pipeline.source_not_null_raw_calendar_event_event_id.a8316623d0"
+[0m09:29:18.603754 [debug] [Thread-2 (]: Re-using an available connection from the pool (formerly test.e_stock_pipeline.not_null_daily_meeting_stats_event_date.397a77fb3a, now test.e_stock_pipeline.unique_stg_calendar_event_event_id.7942fc6059)
+[0m09:29:18.604869 [debug] [Thread-1 (]: Began compiling node test.e_stock_pipeline.source_unique_raw_calendar_event_event_id.6ec2c1c4f1
+[0m09:29:18.606929 [debug] [Thread-2 (]: Began compiling node test.e_stock_pipeline.unique_stg_calendar_event_event_id.7942fc6059
+[0m09:29:18.612860 [debug] [Thread-1 (]: Writing injected SQL for node "test.e_stock_pipeline.source_unique_raw_calendar_event_event_id.6ec2c1c4f1"
+[0m09:29:18.616794 [debug] [Thread-2 (]: Writing injected SQL for node "test.e_stock_pipeline.unique_stg_calendar_event_event_id.7942fc6059"
+[0m09:29:18.625839 [debug] [Thread-3 (]: Began executing node test.e_stock_pipeline.source_not_null_raw_calendar_event_event_id.a8316623d0
+[0m09:29:18.626344 [debug] [Thread-2 (]: Began executing node test.e_stock_pipeline.unique_stg_calendar_event_event_id.7942fc6059
+[0m09:29:18.629218 [debug] [Thread-3 (]: Writing runtime sql for node "test.e_stock_pipeline.source_not_null_raw_calendar_event_event_id.a8316623d0"
+[0m09:29:18.629680 [debug] [Thread-1 (]: Began executing node test.e_stock_pipeline.source_unique_raw_calendar_event_event_id.6ec2c1c4f1
+[0m09:29:18.631882 [debug] [Thread-2 (]: Writing runtime sql for node "test.e_stock_pipeline.unique_stg_calendar_event_event_id.7942fc6059"
+[0m09:29:18.635287 [debug] [Thread-1 (]: Writing runtime sql for node "test.e_stock_pipeline.source_unique_raw_calendar_event_event_id.6ec2c1c4f1"
+[0m09:29:18.643940 [debug] [Thread-3 (]: Using postgres connection "test.e_stock_pipeline.source_not_null_raw_calendar_event_event_id.a8316623d0"
+[0m09:29:18.644513 [debug] [Thread-2 (]: Using postgres connection "test.e_stock_pipeline.unique_stg_calendar_event_event_id.7942fc6059"
+[0m09:29:18.645500 [debug] [Thread-3 (]: On test.e_stock_pipeline.source_not_null_raw_calendar_event_event_id.a8316623d0: BEGIN
+[0m09:29:18.646572 [debug] [Thread-2 (]: On test.e_stock_pipeline.unique_stg_calendar_event_event_id.7942fc6059: BEGIN
+[0m09:29:18.647535 [debug] [Thread-3 (]: Opening a new connection, currently in state closed
+[0m09:29:18.647931 [debug] [Thread-1 (]: Using postgres connection "test.e_stock_pipeline.source_unique_raw_calendar_event_event_id.6ec2c1c4f1"
+[0m09:29:18.648667 [debug] [Thread-2 (]: Opening a new connection, currently in state closed
+[0m09:29:18.650766 [debug] [Thread-1 (]: On test.e_stock_pipeline.source_unique_raw_calendar_event_event_id.6ec2c1c4f1: BEGIN
+[0m09:29:18.652571 [debug] [Thread-1 (]: Opening a new connection, currently in state closed
+[0m09:29:18.656076 [debug] [Thread-3 (]: SQL status: BEGIN in 0.0 seconds
+[0m09:29:18.657316 [debug] [Thread-3 (]: Using postgres connection "test.e_stock_pipeline.source_not_null_raw_calendar_event_event_id.a8316623d0"
+[0m09:29:18.657768 [debug] [Thread-2 (]: SQL status: BEGIN in 0.0 seconds
+[0m09:29:18.658620 [debug] [Thread-3 (]: On test.e_stock_pipeline.source_not_null_raw_calendar_event_event_id.a8316623d0: /* {"app": "dbt", "dbt_version": "1.8.3", "profile_name": "e_stock_pipeline", "target_name": "dev", "node_id": "test.e_stock_pipeline.source_not_null_raw_calendar_event_event_id.a8316623d0"} */
+select
+      count(*) as failures,
+      count(*) != 0 as should_warn,
+      count(*) != 0 as should_error
+    from (
+      
+    
+    
+
+
+
+select event_id
+from "stock_db"."google_workspace"."calendar_event"
+where event_id is null
+
+
+
+      
+    ) dbt_internal_test
+[0m09:29:18.659295 [debug] [Thread-1 (]: SQL status: BEGIN in 0.0 seconds
+[0m09:29:18.659916 [debug] [Thread-2 (]: Using postgres connection "test.e_stock_pipeline.unique_stg_calendar_event_event_id.7942fc6059"
+[0m09:29:18.661550 [debug] [Thread-1 (]: Using postgres connection "test.e_stock_pipeline.source_unique_raw_calendar_event_event_id.6ec2c1c4f1"
+[0m09:29:18.662479 [debug] [Thread-3 (]: SQL status: SELECT 1 in 0.0 seconds
+[0m09:29:18.662827 [debug] [Thread-2 (]: On test.e_stock_pipeline.unique_stg_calendar_event_event_id.7942fc6059: /* {"app": "dbt", "dbt_version": "1.8.3", "profile_name": "e_stock_pipeline", "target_name": "dev", "node_id": "test.e_stock_pipeline.unique_stg_calendar_event_event_id.7942fc6059"} */
+select
+      count(*) as failures,
+      count(*) != 0 as should_warn,
+      count(*) != 0 as should_error
+    from (
+      
+    
+    
+
+select
+    event_id as unique_field,
+    count(*) as n_records
+
+from "stock_db"."dbt_default_staging"."stg_calendar_event"
+where event_id is not null
+group by event_id
+having count(*) > 1
+
+
+
+      
+    ) dbt_internal_test
+[0m09:29:18.663816 [debug] [Thread-1 (]: On test.e_stock_pipeline.source_unique_raw_calendar_event_event_id.6ec2c1c4f1: /* {"app": "dbt", "dbt_version": "1.8.3", "profile_name": "e_stock_pipeline", "target_name": "dev", "node_id": "test.e_stock_pipeline.source_unique_raw_calendar_event_event_id.6ec2c1c4f1"} */
+select
+      count(*) as failures,
+      count(*) != 0 as should_warn,
+      count(*) != 0 as should_error
+    from (
+      
+    
+    
+
+select
+    event_id as unique_field,
+    count(*) as n_records
+
+from "stock_db"."google_workspace"."calendar_event"
+where event_id is not null
+group by event_id
+having count(*) > 1
+
+
+
+      
+    ) dbt_internal_test
+[0m09:29:18.665901 [debug] [Thread-3 (]: On test.e_stock_pipeline.source_not_null_raw_calendar_event_event_id.a8316623d0: ROLLBACK
+[0m09:29:18.668650 [debug] [Thread-3 (]: On test.e_stock_pipeline.source_not_null_raw_calendar_event_event_id.a8316623d0: Close
+[0m09:29:18.669852 [info ] [Thread-3 (]: 5 of 7 PASS source_not_null_raw_calendar_event_event_id ........................ [[32mPASS[0m in 0.08s]
+[0m09:29:18.670299 [debug] [Thread-2 (]: SQL status: SELECT 1 in 0.0 seconds
+[0m09:29:18.670687 [debug] [Thread-1 (]: SQL status: SELECT 1 in 0.0 seconds
+[0m09:29:18.671739 [debug] [Thread-3 (]: Finished running node test.e_stock_pipeline.source_not_null_raw_calendar_event_event_id.a8316623d0
+[0m09:29:18.673808 [debug] [Thread-2 (]: On test.e_stock_pipeline.unique_stg_calendar_event_event_id.7942fc6059: ROLLBACK
+[0m09:29:18.675811 [debug] [Thread-1 (]: On test.e_stock_pipeline.source_unique_raw_calendar_event_event_id.6ec2c1c4f1: ROLLBACK
+[0m09:29:18.677677 [debug] [Thread-2 (]: On test.e_stock_pipeline.unique_stg_calendar_event_event_id.7942fc6059: Close
+[0m09:29:18.678580 [debug] [Thread-1 (]: On test.e_stock_pipeline.source_unique_raw_calendar_event_event_id.6ec2c1c4f1: Close
+[0m09:29:18.679556 [info ] [Thread-2 (]: 7 of 7 PASS unique_stg_calendar_event_event_id ................................. [[32mPASS[0m in 0.08s]
+[0m09:29:18.680865 [info ] [Thread-1 (]: 6 of 7 PASS source_unique_raw_calendar_event_event_id .......................... [[32mPASS[0m in 0.08s]
+[0m09:29:18.682441 [debug] [Thread-2 (]: Finished running node test.e_stock_pipeline.unique_stg_calendar_event_event_id.7942fc6059
+[0m09:29:18.684198 [debug] [Thread-1 (]: Finished running node test.e_stock_pipeline.source_unique_raw_calendar_event_event_id.6ec2c1c4f1
+[0m09:29:18.688109 [debug] [MainThread]: Using postgres connection "master"
+[0m09:29:18.689105 [debug] [MainThread]: On master: BEGIN
+[0m09:29:18.690081 [debug] [MainThread]: Opening a new connection, currently in state closed
+[0m09:29:18.697246 [debug] [MainThread]: SQL status: BEGIN in 0.0 seconds
+[0m09:29:18.698782 [debug] [MainThread]: On master: COMMIT
+[0m09:29:18.699944 [debug] [MainThread]: Using postgres connection "master"
+[0m09:29:18.700969 [debug] [MainThread]: On master: COMMIT
+[0m09:29:18.702429 [debug] [MainThread]: SQL status: COMMIT in 0.0 seconds
+[0m09:29:18.703483 [debug] [MainThread]: On master: Close
+[0m09:29:18.704779 [debug] [MainThread]: Connection 'master' was properly closed.
+[0m09:29:18.705952 [debug] [MainThread]: Connection 'test.e_stock_pipeline.unique_stg_calendar_event_event_id.7942fc6059' was properly closed.
+[0m09:29:18.706904 [debug] [MainThread]: Connection 'test.e_stock_pipeline.source_unique_raw_calendar_event_event_id.6ec2c1c4f1' was properly closed.
+[0m09:29:18.707911 [debug] [MainThread]: Connection 'test.e_stock_pipeline.source_not_null_raw_calendar_event_event_id.a8316623d0' was properly closed.
+[0m09:29:18.708794 [debug] [MainThread]: Connection 'test.e_stock_pipeline.not_null_stg_calendar_event_event_id.4108eacae8' was properly closed.
+[0m09:29:18.710041 [info ] [MainThread]: 
+[0m09:29:18.711105 [info ] [MainThread]: Finished running 7 data tests in 0 hours 0 minutes and 0.38 seconds (0.38s).
+[0m09:29:18.713511 [debug] [MainThread]: Command end result
+[0m09:29:18.769949 [info ] [MainThread]: 
+[0m09:29:18.771276 [info ] [MainThread]: [32mCompleted successfully[0m
+[0m09:29:18.772556 [info ] [MainThread]: 
+[0m09:29:18.773976 [info ] [MainThread]: Done. PASS=7 WARN=0 ERROR=0 SKIP=0 TOTAL=7
+[0m09:29:18.775842 [debug] [MainThread]: Resource report: {"command_name": "test", "command_success": true, "command_wall_clock_time": 1.1078241, "process_user_time": 1.751957, "process_kernel_time": 0.257059, "process_mem_max_rss": "115976", "process_out_blocks": "1272", "process_in_blocks": "0"}
+[0m09:29:18.777139 [debug] [MainThread]: Command `dbt test` succeeded at 09:29:18.776982 after 1.11 seconds
+[0m09:29:18.778334 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x76fb0e8f9910>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x76fb0e8e9e10>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x76fb0ea88150>]}
+[0m09:29:18.779396 [debug] [MainThread]: Flushing usage events
+[0m09:29:19.529164 [debug] [MainThread]: Error sending anonymous usage statistics. Disabling tracking for this execution. If you wish to permanently disable tracking, see: https://docs.getdbt.com/reference/global-configs#send-anonymous-usage-stats.

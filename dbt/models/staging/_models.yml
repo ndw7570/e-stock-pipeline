@@ -1,0 +1,16 @@
+version: 2
+
+models:
+  - name: stg_calendar_event
+    description: "원본 calendar_event 정제 뷰. 삭제 이벤트 제외 + event_date 추가."
+    columns:
+      - name: event_id
+        description: "Google Calendar 이벤트 ID"
+        tests:
+          - unique
+          - not_null
+      - name: status
+        description: "이벤트 상태"
+        tests:
+          - accepted_values:
+              values: ['confirmed', 'tentative', 'cancelled']
