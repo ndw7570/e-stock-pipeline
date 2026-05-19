@@ -7,9 +7,14 @@ from app.common.config.settings import settings
 from app.monitoring_google_workspace_logs.clients.google_auth_client import (
     GoogleAuthClient,
 )
+from app.monitoring_google_workspace_logs.clients.pagination import (
+    paginate_google_api,
+    paginate_google_api_with_sync_token,
+)
 
 
 CALENDAR_READONLY_SCOPE = "https://www.googleapis.com/auth/calendar.readonly"
+CALENDAR_LIST_READONLY_SCOPE = "https://www.googleapis.com/auth/calendar.calendarlist.readonly"
 
 
 class GoogleCalendarClient:
@@ -37,11 +42,12 @@ class GoogleCalendarClient:
         self.service = self.auth_client.build_service(
             service_name="calendar",
             version="v3",
-            scopes=[CALENDAR_READONLY_SCOPE],
+            scopes=[CALENDAR_READONLY_SCOPE, CALENDAR_LIST_READONLY_SCOPE],
         )
 
     def list_events_by_time_range(
         self,
+        calendar_id: str | None = None,        # ← 새 인자, 첫 번째 위치
         time_min: datetime | None = None,
         time_max: datetime | None = None,
         max_results: int = 250,
@@ -60,6 +66,7 @@ class GoogleCalendarClient:
         Returns:
             Google Calendar 이벤트 dict 목록.
         """
+        cal_id = calendar_id or self.calendar_id
         now = datetime.now(timezone.utc)
 
         if time_min is None:
@@ -68,35 +75,43 @@ class GoogleCalendarClient:
         if time_max is None:
             time_max = now + timedelta(days=30)
 
-        events: list[dict[str, Any]] = []
-        page_token: str | None = None
-
-        while True:
-            response = (
-                self.service.events()
-                .list(
-                    calendarId=self.calendar_id,
-                    timeMin=self._to_rfc3339(time_min),
-                    timeMax=self._to_rfc3339(time_max),
-                    singleEvents=True,
-                    orderBy="startTime",
-                    maxResults=max_results,
-                    pageToken=page_token,
-                )
-                .execute()
+        return paginate_google_api(
+            lambda token: self.service.events().list(
+                calendarId=cal_id,
+                timeMin=self._to_rfc3339(time_min),
+                timeMax=self._to_rfc3339(time_max),
+                singleEvents=True,
+                orderBy="startTime",
+                maxResults=max_results,
+                pageToken=token,
             )
+        )
 
-            events.extend(response.get("items", []))
+    def list_calendars(self) -> list[dict[str, Any]]:
+        """
+        이 OAuth 토큰으로 접근 가능한 모든 캘린더 목록을 반환한다.
 
-            page_token = response.get("nextPageToken")
-            if not page_token:
-                break
+        Returns:
+            Google CalendarList 항목 dict 목록.
+            각 항목에는 id, summary, primary(bool), accessRole 등이 들어있다.
 
-        return events
+            주요 필드:
+            - id: 캘린더 ID (events.list 호출 시 calendarId 인자로 사용)
+            - summary: 캘린더 이름
+            - primary: 본인 주 캘린더 여부
+            - accessRole: owner / reader / writer / freeBusyReader
+        """
+        return paginate_google_api(
+            lambda token: self.service.calendarList().list(
+                maxResults=250,
+                pageToken=token,
+            )
+        )
 
     def list_events_by_sync_token(
         self,
         sync_token: str,
+        calendar_id: str | None = None,
         max_results: int = 250,
     ) -> tuple[list[dict[str, Any]], str | None]:
         """
@@ -105,6 +120,8 @@ class GoogleCalendarClient:
         Args:
             sync_token:
                 이전 전체 수집 또는 증분 수집 결과에서 받은 nextSyncToken.
+            calendar_id:
+                조회할 캘린더 ID. None이면 인스턴스 기본값(self.calendar_id) 사용.
             max_results:
                 API 요청당 최대 이벤트 수.
 
@@ -115,35 +132,21 @@ class GoogleCalendarClient:
             sync_token이 만료되면 Google API가 410 Gone 에러를 반환할 수 있다.
             그 경우 전체 재수집을 수행해야 한다.
         """
-        events: list[dict[str, Any]] = []
-        page_token: str | None = None
-        next_sync_token: str | None = None
+        cal_id = calendar_id or self.calendar_id
 
-        while True:
-            response = (
-                self.service.events()
-                .list(
-                    calendarId=self.calendar_id,
-                    syncToken=sync_token,
-                    singleEvents=True,
-                    maxResults=max_results,
-                    pageToken=page_token,
-                )
-                .execute()
+        return paginate_google_api_with_sync_token(
+            lambda token: self.service.events().list(
+                calendarId=cal_id,
+                syncToken=sync_token,
+                singleEvents=True,
+                maxResults=max_results,
+                pageToken=token,
             )
-
-            events.extend(response.get("items", []))
-
-            page_token = response.get("nextPageToken")
-            next_sync_token = response.get("nextSyncToken")
-
-            if not page_token:
-                break
-
-        return events, next_sync_token
+        )
 
     def list_events_for_initial_sync(
         self,
+        calendar_id: str | None = None,
         time_min: datetime | None = None,
         time_max: datetime | None = None,
         max_results: int = 250,
@@ -154,9 +157,14 @@ class GoogleCalendarClient:
         일반 기간 조회와 비슷하지만, 마지막에 nextSyncToken을 받는 것이 목적이다.
         이 token을 저장해두면 다음부터 증분 수집이 가능하다.
 
+        Args:
+            calendar_id:
+                조회할 캘린더 ID. None이면 인스턴스 기본값(self.calendar_id) 사용.
+
         Returns:
             (이벤트 목록, next_sync_token)
         """
+        cal_id = calendar_id or self.calendar_id
         now = datetime.now(timezone.utc)
 
         if time_min is None:
@@ -165,34 +173,17 @@ class GoogleCalendarClient:
         if time_max is None:
             time_max = now + timedelta(days=30)
 
-        events: list[dict[str, Any]] = []
-        page_token: str | None = None
-        next_sync_token: str | None = None
-
-        while True:
-            response = (
-                self.service.events()
-                .list(
-                    calendarId=self.calendar_id,
-                    timeMin=self._to_rfc3339(time_min),
-                    timeMax=self._to_rfc3339(time_max),
-                    singleEvents=True,
-                    orderBy="startTime",
-                    maxResults=max_results,
-                    pageToken=page_token,
-                )
-                .execute()
+        return paginate_google_api_with_sync_token(
+            lambda token: self.service.events().list(
+                calendarId=cal_id,
+                timeMin=self._to_rfc3339(time_min),
+                timeMax=self._to_rfc3339(time_max),
+                singleEvents=True,
+                orderBy="startTime",
+                maxResults=max_results,
+                pageToken=token,
             )
-
-            events.extend(response.get("items", []))
-
-            page_token = response.get("nextPageToken")
-            next_sync_token = response.get("nextSyncToken")
-
-            if not page_token:
-                break
-
-        return events, next_sync_token
+        )
 
     @staticmethod
     def _to_rfc3339(value: datetime) -> str:

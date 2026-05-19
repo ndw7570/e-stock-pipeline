@@ -38,6 +38,7 @@ class GoogleAuthClient:
             token_path or settings.google_workspace.token_path
         )
 
+    # Sequence[str]로 적으면 → "순서 있는 문자열 컬렉션이면 뭐든 OK" (list든 tuple든).
     def get_credentials(self, scopes: Sequence[str]) -> Credentials:
         """
         주어진 scope에 맞는 Google Credentials 객체를 반환한다.
@@ -74,14 +75,15 @@ class GoogleAuthClient:
                 f"Google credentials file not found: {self.credentials_path}"
             )
 
+        # 로컬에 임시 웹서버 띄우고, 브라우저를 Google 동의 페이지로 자동 오픈 (flow + run_local_server)
         flow = InstalledAppFlow.from_client_secrets_file(
             client_secrets_file=str(self.credentials_path),
             scopes=list(scopes),
         )
 
         credentials = flow.run_local_server(
-            port=0,
-            prompt="consent",
+            port=0,                 #OS가 비어있는 포트 자동 할당 → 충돌 없음
+            prompt="consent",       # 매번 동의 화면 강제 표시 + refresh_token 반드시 발급,  생략하면 → 이미 동의한 적 있는 사용자는 화면 건너뜀 + refresh_token이 안 나올 수 있음
         )
 
         self._save_token(credentials)
@@ -114,6 +116,7 @@ class GoogleAuthClient:
         """
         credentials = self.get_credentials(scopes=scopes)
 
+        # Google API 클라이언트 라이브러리가 제공하는 build() 함수를 사용해서, URL 조합, 캐시 Hit
         return build(
             serviceName=service_name,
             version=version,

@@ -11,6 +11,8 @@ requires-python = ">=3.12"
 [project.scripts]
 check-calendar = "app.monitoring_google_workspace_logs.scripts.check_calendar:main"
 collect-calendar = "app.monitoring_google_workspace_logs.scripts.collect_calendar_to_kafka:main"
+list-calendars = "app.monitoring_google_workspace_logs.scripts.list_calendars:main"
+sync-calendars = "app.monitoring_google_workspace_logs.scripts.sync_calendars:main"
 
 [tool.setuptools.packages.find]
 where = ["."]
