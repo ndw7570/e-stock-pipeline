@@ -6,7 +6,6 @@ from app.monitoring_google_workspace_logs.services.collectors.orchestrate_sync i
 def main() -> None:
     result = sync_all_calendars()
     print(f"Total changes: {result['total']}")
-    print(f"DB: {result['db']}")
     print(f"Kafka published: {result['kafka']}")
     print(f"Sync tokens committed: {result['committed_tokens']}")
 

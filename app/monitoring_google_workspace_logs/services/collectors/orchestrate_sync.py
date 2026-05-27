@@ -1,8 +1,5 @@
 from __future__ import annotations
 
-from app.monitoring_google_workspace_logs.services.collectors.sinks.calendar_database import (
-    write_changes_to_database,
-)
 from app.monitoring_google_workspace_logs.services.collectors.sinks.calendar_kafka import (
     write_changes_to_kafka,
 )
@@ -34,16 +31,15 @@ def sync_all_calendars() -> dict[str, object]:
     # 1) fetch
     changes, new_tokens = fetch_all_calendar_changes()
 
-    # 2) sinks — 양쪽으로 분배
-    db_stats = write_changes_to_database(changes)
+    # 2) sink — Kafka로만 (DB는 Consumer가 적재)
     kafka_count = write_changes_to_kafka(changes)
 
-    # 3) 모든 sink 성공 후에만 sync_token commit
+    # 3) Kafka 발행 성공 후 token commit (Kafka가 영속 보장 → 안전)
     commit_sync_tokens(new_tokens)
 
     return {
         "total": len(changes),
-        "db": db_stats,
         "kafka": kafka_count,
         "committed_tokens": len(new_tokens),
     }
+

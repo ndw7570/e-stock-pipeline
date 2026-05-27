@@ -19,3 +19,22 @@ sources:
             description: "이벤트 시작 시각 (UTC)"
           - name: status
             description: "confirmed / tentative / cancelled"
+      - name: calendar_event_changelog
+        description: "캘린더 변경 이력 (append-only). 한 event_id에 여러 행 가능."
+        columns:
+          - name: id
+            description: "이력 PK (auto increment)"
+            tests:
+              - unique
+              - not_null
+          - name: event_id
+            description: "Google Calendar 이벤트 ID"
+          - name: change_type
+            description: "added / modified / cancelled"
+            tests:
+              - accepted_values:
+                  values: ['added', 'modified', 'cancelled']
+          - name: observed_at
+            description: "변경을 관찰(적재)한 시각 (UTC)"
+            tests:
+              - not_null

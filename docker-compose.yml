@@ -8,6 +8,9 @@ services:
       ZOOKEEPER_TICK_TIME: 2000
     ports:
       - "${ZOOKEEPER_BIND_HOST:-127.0.0.1}:${ZOOKEEPER_HOST_PORT:-12181}:2181"
+    volumes:
+      - data_engine_zookeeper_data:/var/lib/zookeeper/data
+      - data_engine_zookeeper_log:/var/lib/zookeeper/log
     networks:
       - data-engine-network
 
@@ -44,6 +47,8 @@ services:
       timeout: 10s
       retries: 10
       start_period: 30s
+    volumes:
+      - data_engine_kafka_data:/var/lib/kafka/data
     networks:
       - data-engine-network
 
@@ -98,7 +103,8 @@ services:
       - .env.dev
     environment:
       AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/airflow_db
-      AIRFLOW__WEBSERVER__SECRET_KEY: ${AIRFLOW_WEBSERVER_SECRET_KEY}
+      AIRFLOW__API__SECRET_KEY: ${AIRFLOW_WEBSERVER_SECRET_KEY}
+      AIRFLOW__API_AUTH__JWT_SECRET: ${AIRFLOW_WEBSERVER_SECRET_KEY}
       AIRFLOW__CORE__FERNET_KEY: ${AIRFLOW_FERNET_KEY}
       PYTHONPATH: /opt/airflow
       POSTGRES_HOST: postgres
@@ -130,7 +136,8 @@ services:
       - .env.dev
     environment:
       AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/airflow_db
-      AIRFLOW__WEBSERVER__SECRET_KEY: ${AIRFLOW_WEBSERVER_SECRET_KEY}
+      AIRFLOW__API__SECRET_KEY: ${AIRFLOW_WEBSERVER_SECRET_KEY}
+      AIRFLOW__API_AUTH__JWT_SECRET: ${AIRFLOW_WEBSERVER_SECRET_KEY}
       AIRFLOW__CORE__FERNET_KEY: ${AIRFLOW_FERNET_KEY}
       PYTHONPATH: /opt/airflow
       AIRFLOW__CORE__SIMPLE_AUTH_MANAGER_USERS: "airflow:admin"
@@ -166,8 +173,10 @@ services:
       - .env.dev
     environment:
       AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/airflow_db
-      AIRFLOW__WEBSERVER__SECRET_KEY: ${AIRFLOW_WEBSERVER_SECRET_KEY}
+      AIRFLOW__API__SECRET_KEY: ${AIRFLOW_WEBSERVER_SECRET_KEY}
+      AIRFLOW__API_AUTH__JWT_SECRET: ${AIRFLOW_WEBSERVER_SECRET_KEY}
       AIRFLOW__CORE__FERNET_KEY: ${AIRFLOW_FERNET_KEY}
+      AIRFLOW__CORE__EXECUTION_API_SERVER_URL: "http://airflow-api-server:8080/execution/"
       PYTHONPATH: /opt/airflow
       AIRFLOW__CORE__SIMPLE_AUTH_MANAGER_USERS: "airflow:admin"
       POSTGRES_HOST: postgres
@@ -201,7 +210,9 @@ services:
       AIRFLOW__CORE__EXECUTOR: LocalExecutor
       AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/airflow_db
       AIRFLOW__API__SECRET_KEY: ${AIRFLOW_WEBSERVER_SECRET_KEY}
+      AIRFLOW__API_AUTH__JWT_SECRET: ${AIRFLOW_WEBSERVER_SECRET_KEY}
       AIRFLOW__CORE__FERNET_KEY: ${AIRFLOW_FERNET_KEY}
+      AIRFLOW__CORE__EXECUTION_API_SERVER_URL: "http://airflow-api-server:8080/execution/"
       PYTHONPATH: /opt/airflow
       AIRFLOW__CORE__SIMPLE_AUTH_MANAGER_USERS: "airflow:admin"
       POSTGRES_HOST: postgres
@@ -238,3 +249,6 @@ networks:
 volumes:
   data_engine_postgres_data:
   data_engine_minio_data:
+  data_engine_kafka_data:
+  data_engine_zookeeper_data:
+  data_engine_zookeeper_log:

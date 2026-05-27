@@ -147,15 +147,19 @@ class GoogleCalendarClient:
     def list_events_for_initial_sync(
         self,
         calendar_id: str | None = None,
-        time_min: datetime | None = None,
-        time_max: datetime | None = None,
         max_results: int = 250,
     ) -> tuple[list[dict[str, Any]], str | None]:
         """
         최초 수집용 Calendar 이벤트 조회.
 
-        일반 기간 조회와 비슷하지만, 마지막에 nextSyncToken을 받는 것이 목적이다.
-        이 token을 저장해두면 다음부터 증분 수집이 가능하다.
+        캘린더의 전체 이벤트를 받고 nextSyncToken을 회수한다.
+        이 token을 저장하면 다음부터 증분 수집(list_events_by_sync_token)이 가능하다.
+
+        주의:
+            Google API 정책상 nextSyncToken을 받으려면 timeMin/timeMax/orderBy/q
+            같은 필터를 사용할 수 없다. 그래서 이 메서드는 캘린더의 전체 이벤트를 받는다.
+            기간 필터가 필요하면 list_events_by_time_range()를 쓰되, 그 경우 sync_token은
+            받을 수 없다.
 
         Args:
             calendar_id:
@@ -165,25 +169,16 @@ class GoogleCalendarClient:
             (이벤트 목록, next_sync_token)
         """
         cal_id = calendar_id or self.calendar_id
-        now = datetime.now(timezone.utc)
-
-        if time_min is None:
-            time_min = now - timedelta(days=30)
-
-        if time_max is None:
-            time_max = now + timedelta(days=30)
 
         return paginate_google_api_with_sync_token(
             lambda token: self.service.events().list(
                 calendarId=cal_id,
-                timeMin=self._to_rfc3339(time_min),
-                timeMax=self._to_rfc3339(time_max),
                 singleEvents=True,
-                orderBy="startTime",
                 maxResults=max_results,
                 pageToken=token,
             )
         )
+
 
     @staticmethod
     def _to_rfc3339(value: datetime) -> str:

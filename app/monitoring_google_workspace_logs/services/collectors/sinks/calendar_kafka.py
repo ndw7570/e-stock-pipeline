@@ -29,7 +29,11 @@ def write_changes_to_kafka(
             producer.send(
                 topic=topic,
                 key=change.event["id"],
-                value={**change.event, "change_type": change.change_type},
+                value={
+                    "calendar_id": change.calendar_id,
+                    "change_type": change.change_type,
+                    "event": change.event,
+                },
             )
         producer.flush()
         return len(changes)
