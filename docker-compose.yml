@@ -181,6 +181,7 @@ services:
       AIRFLOW__CORE__SIMPLE_AUTH_MANAGER_USERS: "airflow:admin"
       POSTGRES_HOST: postgres
       POSTGRES_PORT: "5432"
+      AIRFLOW_CONN_DBT_POSTGRES: "postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}"
     command: scheduler
     volumes:
       - ./dags:/opt/airflow/dags
@@ -188,6 +189,7 @@ services:
       - ./plugins:/opt/airflow/plugins
       - ./app:/opt/airflow/app
       - ./secrets:/opt/airflow/secrets
+      - ./dbt:/opt/airflow/dbt
     networks:
       - data-engine-network
 
@@ -224,6 +226,7 @@ services:
       - ./plugins:/opt/airflow/plugins
       - ./app:/opt/airflow/app
       - ./secrets:/opt/airflow/secrets
+      - ./dbt:/opt/airflow/dbt
     networks:
       - data-engine-network
 
