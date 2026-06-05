@@ -80,7 +80,7 @@ services:
       - "${POSTGRES_BIND_HOST:-127.0.0.1}:${POSTGRES_HOST_PORT:-15439}:5432"
     volumes:
       - data_engine_postgres_data:/var/lib/postgresql/data
-      - ./config/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
       interval: 10s
@@ -109,7 +109,13 @@ services:
       PYTHONPATH: /opt/airflow
       POSTGRES_HOST: postgres
       POSTGRES_PORT: "5432"
-    command: db migrate
+    command:
+      - bash
+      - -c
+      - |
+        set -e
+        airflow db migrate
+        python -m app.common.db_core.init_schema
     volumes:
       - ./dags:/opt/airflow/dags
       - ./logs:/opt/airflow/logs

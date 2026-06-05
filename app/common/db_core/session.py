@@ -5,7 +5,7 @@ from typing import Iterator
 
 from sqlalchemy.orm import Session, sessionmaker
 
-from app.common.db.engine import get_engine
+from app.common.db_core.engine import get_engine
 
 
 def _make_session_factory() -> sessionmaker[Session]:
@@ -26,7 +26,7 @@ def session_scope() -> Iterator[Session]:
     정상 종료 시 자동 commit, 예외 시 자동 rollback, 종료 시 항상 close.
 
     Usage:
-        from app.common.db import session_scope
+        from app.common.db_core import session_scope
 
 
         with session_scope() as s:

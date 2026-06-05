@@ -6,7 +6,7 @@ from typing import Optional
 
 from sqlalchemy import Boolean, Column, DateTime, String, Text
 
-from app.common.db import Base
+from app.common.db_core import Base
 
 
 @dataclass

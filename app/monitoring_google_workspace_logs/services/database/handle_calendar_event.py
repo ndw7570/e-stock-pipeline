@@ -5,7 +5,7 @@ from dataclasses import asdict
 from sqlalchemy import delete, select, update
 from sqlalchemy.dialects.postgresql import insert as pg_insert
 
-from app.common.db import session_scope
+from app.common.db_core import session_scope
 from app.monitoring_google_workspace_logs.services.database.model.calendar_event import (
     CalendarEvent,
     CalendarEventModel,

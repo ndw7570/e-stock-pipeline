@@ -5,7 +5,7 @@ from datetime import datetime, timezone
 from sqlalchemy import delete, select
 from sqlalchemy.dialects.postgresql import insert as pg_insert
 
-from app.common.db import session_scope
+from app.common.db_core import session_scope
 from app.monitoring_google_workspace_logs.services.database.model.calendar_sync_state import (
     CalendarSyncState,
 )

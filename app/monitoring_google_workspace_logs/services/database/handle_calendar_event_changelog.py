@@ -6,7 +6,7 @@ from typing import Optional
 
 from sqlalchemy import desc, select
 
-from app.common.db import session_scope
+from app.common.db_core import session_scope
 from app.monitoring_google_workspace_logs.services.database.model.calendar_event_changelog import (
     CalendarEventChangelog,
     CalendarEventChangelogModel,

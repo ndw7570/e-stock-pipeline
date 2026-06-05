@@ -14,7 +14,7 @@ SQLAlchemy 1.4 호환: declarative_base() 함수형 사용.
 
 Usage (1.4 클래식):
     from sqlalchemy import Column, String
-    from app.common.db import Base
+    from app.common.db_core import Base
 
     class CalendarEvent(Base):
         __tablename__ = "calendar_event"
@@ -24,7 +24,7 @@ Usage (1.4 클래식):
 
 Usage (1.4.39+ / 2.0 호환 신 스타일):
     from sqlalchemy.orm import Mapped, mapped_column
-    from app.common.db import Base
+    from app.common.db_core import Base
 
     class CalendarEvent(Base):
         __tablename__ = "calendar_event"

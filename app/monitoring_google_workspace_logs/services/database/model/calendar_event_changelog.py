@@ -7,7 +7,7 @@ from typing import Any, Optional
 from sqlalchemy import BigInteger, Column, DateTime, Index, String, func
 from sqlalchemy.dialects.postgresql import JSONB
 
-from app.common.db import Base
+from app.common.db_core import Base
 
 
 # 변경 타입 상수 (서비스에서 import해서 사용)
