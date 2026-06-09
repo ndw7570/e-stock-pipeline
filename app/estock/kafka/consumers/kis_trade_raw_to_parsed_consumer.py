@@ -1,8 +1,8 @@
-from estock.kafka.consumer import create_kafka_consumer
-from estock.kafka.producer import create_kafka_producer
-from estock.kafka.kis_message_classifier import classify_kis_raw_message
-from estock.kafka.kis_trade_parser import parse_kis_trade_raw_message
-from estock.kafka.topics import (
+from app.estock.kafka.consumer import create_kafka_consumer
+from app.estock.kafka.producer import create_kafka_producer
+from app.estock.kafka.kis_message_classifier import classify_kis_raw_message
+from app.estock.kafka.kis_trade_parser import parse_kis_trade_raw_message
+from app.estock.kafka.topics import (
     KIS_STOCK_TRADE_RAW,
     KIS_STOCK_TRADE_PARSED,
 )

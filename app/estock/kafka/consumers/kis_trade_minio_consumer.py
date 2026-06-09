@@ -3,9 +3,9 @@ import os
 import time
 from datetime import datetime, timedelta, timezone
 
-from estock.kafka.consumer import create_kafka_consumer
-from estock.kafka.topics import TEST_STOCK_PRICES
-from estock.storage.minio_storage import (
+from app.estock.kafka.consumer import create_kafka_consumer
+from app.estock.kafka.topics import TEST_STOCK_PRICES
+from app.estock.storage.minio_storage import (
     create_minio_client,
     ensure_bucket,
     upload_text,

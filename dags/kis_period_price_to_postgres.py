@@ -3,7 +3,7 @@ from datetime import datetime, timedelta
 from airflow import DAG
 from airflow.operators.python import PythonOperator
 
-from estock.services.stock_price_service import collect_kis_period_price
+from app.estock.services.stock_price_service import collect_kis_period_price
 
 
 default_args = {

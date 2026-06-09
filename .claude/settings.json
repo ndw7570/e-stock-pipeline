@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(MSYS_NO_PATHCONV=1 docker exec data-engine-airflow-scheduler ls /opt/airflow/app/estock/)",
+      "Bash(MSYS_NO_PATHCONV=1 docker exec data-engine-airflow-scheduler python -c \"from app.estock.services.stock_price_service import collect_kis_current_price; print\\('OK'\\)\")"
+    ]
+  }
+}

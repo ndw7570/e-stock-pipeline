@@ -1,7 +1,7 @@
 import json
 
-from estock.kafka.consumer import create_kafka_consumer
-from estock.kafka.topics import KIS_STOCK_TRADE_PARSED
+from app.estock.kafka.consumer import create_kafka_consumer
+from app.estock.kafka.topics import KIS_STOCK_TRADE_PARSED
 
 
 def main():

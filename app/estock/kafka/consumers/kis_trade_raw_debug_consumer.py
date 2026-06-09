@@ -1,8 +1,8 @@
 import json
 
-from estock.kafka.consumer import create_kafka_consumer
-from estock.kafka.topics import KIS_STOCK_TRADE_RAW
-from estock.kafka.kis_message_classifier import classify_kis_raw_message
+from app.estock.kafka.consumer import create_kafka_consumer
+from app.estock.kafka.topics import KIS_STOCK_TRADE_RAW
+from app.estock.kafka.kis_message_classifier import classify_kis_raw_message
 
 
 def main():

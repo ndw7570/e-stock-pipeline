@@ -1,8 +1,8 @@
 import time
 from datetime import datetime, timedelta, timezone
 
-from estock.kafka.producer import create_kafka_producer
-from estock.kafka.topics import TEST_STOCK_PRICES
+from app.estock.kafka.producer import create_kafka_producer
+from app.estock.kafka.topics import TEST_STOCK_PRICES
 
 
 KST = timezone(timedelta(hours=9))

@@ -1,5 +1,5 @@
-from estock.kafka.consumer import create_kafka_consumer
-from estock.kafka.topics import TEST_STOCK_PRICES
+from app.estock.kafka.consumer import create_kafka_consumer
+from app.estock.kafka.topics import TEST_STOCK_PRICES
 
 
 def main():

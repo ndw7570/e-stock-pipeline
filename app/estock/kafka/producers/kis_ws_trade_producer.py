@@ -2,13 +2,13 @@ import asyncio
 import json
 import os
 from datetime import datetime, timedelta, timezone
-from estock.clients.kis_client import KisClient
-from estock.kafka.kis_message_classifier import classify_kis_raw_message
+from app.estock.clients.kis_client import KisClient
+from app.estock.kafka.kis_message_classifier import classify_kis_raw_message
 
 import websockets
 
-from estock.kafka.producer import create_kafka_producer
-from estock.kafka.topics import KIS_STOCK_TRADE_RAW
+from app.estock.kafka.producer import create_kafka_producer
+from app.estock.kafka.topics import KIS_STOCK_TRADE_RAW
 
 
 KST = timezone(timedelta(hours=9))

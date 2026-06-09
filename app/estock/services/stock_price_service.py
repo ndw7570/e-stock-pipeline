@@ -1,5 +1,5 @@
-from estock.clients.kis_client import KisClient
-from estock.repositories.stock_price_repository import StockCurrentPriceRepository, StockOhlcvRepository
+from app.estock.clients.kis_client import KisClient
+from app.estock.repositories.stock_price_repository import StockCurrentPriceRepository, StockOhlcvRepository
 
 def collect_kis_current_price(stock_code: str, stock_name: str):
     """
