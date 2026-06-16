@@ -2,7 +2,14 @@
   "permissions": {
     "allow": [
       "Bash(MSYS_NO_PATHCONV=1 docker exec data-engine-airflow-scheduler ls /opt/airflow/app/estock/)",
-      "Bash(MSYS_NO_PATHCONV=1 docker exec data-engine-airflow-scheduler python -c \"from app.estock.services.stock_price_service import collect_kis_current_price; print\\('OK'\\)\")"
+      "Bash(MSYS_NO_PATHCONV=1 docker exec data-engine-airflow-scheduler python -c \"from app.estock.services.stock_price_service import collect_kis_current_price; print\\('OK'\\)\")",
+      "Bash(python -c \"import json, sys; d = json.load\\(sys.stdin\\); print\\('scopes:', d.get\\('scopes'\\)\\)\")",
+      "Bash(cd \"c:/study/data_engineering/e-stock-pipeline\" && mkdir -p app/rag_drive_search/clients app/rag_drive_search/services/collectors/sources app/rag_drive_search/services/collectors/sinks app/rag_drive_search/services/parsers app/rag_drive_search/services/chunking app/rag_drive_search/services/embedding app/rag_drive_search/services/database/model app/rag_drive_search/scripts && echo \"폴더 생성 완료\" && find app/rag_drive_search -type d 2>&1)",
+      "Bash(mv app/rag_drive_search/services/parsers/markdown_parser.py app/rag_drive_search/services/parsers/direct_markdown_parser.py)",
+      "Bash(mv app/rag_drive_search/services/parsers/pdf_parser.py app/rag_drive_search/services/parsers/direct_pdf_parser.py)",
+      "Bash(mv app/rag_drive_search/services/parsers/google_docs_parser.py app/rag_drive_search/services/parsers/direct_google_docs_parser.py)",
+      "Bash(mv app/rag_drive_search/services/parsers/dispatcher.py app/rag_drive_search/services/parsers/direct_dispatcher.py)",
+      "Bash(mv app/rag_drive_search/services/parsers/parse_one_file.py app/rag_drive_search/scripts/direct_parse_one_file.py)"
     ]
   }
 }

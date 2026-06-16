@@ -49,3 +49,14 @@ structlog
 
 # Spark
 pyspark
+
+# file handling
+pypdf
+
+# NLP / embeddings
+sentence-transformers
+
+# LangChain
+langchain
+langchain-core
+langchain-community
