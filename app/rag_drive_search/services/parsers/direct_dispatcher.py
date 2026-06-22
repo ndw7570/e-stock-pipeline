@@ -1,6 +1,6 @@
-from app.rag_drive_search.services.parsers.markdown_parser import parse_markdown
-from app.rag_drive_search.services.parsers.pdf_parser import parse_pdf
-from app.rag_drive_search.services.parsers.google_docs_parser import parse_google_doc_text
+from app.rag_drive_search.services.parsers.direct_markdown_parser import parse_markdown
+from app.rag_drive_search.services.parsers.direct_pdf_parser import parse_pdf
+from app.rag_drive_search.services.parsers.direct_google_docs_parser import parse_google_doc_text
 
 
 # mimeType별 파서 매핑.

@@ -9,7 +9,8 @@
       "Bash(mv app/rag_drive_search/services/parsers/pdf_parser.py app/rag_drive_search/services/parsers/direct_pdf_parser.py)",
       "Bash(mv app/rag_drive_search/services/parsers/google_docs_parser.py app/rag_drive_search/services/parsers/direct_google_docs_parser.py)",
       "Bash(mv app/rag_drive_search/services/parsers/dispatcher.py app/rag_drive_search/services/parsers/direct_dispatcher.py)",
-      "Bash(mv app/rag_drive_search/services/parsers/parse_one_file.py app/rag_drive_search/scripts/direct_parse_one_file.py)"
+      "Bash(mv app/rag_drive_search/services/parsers/parse_one_file.py app/rag_drive_search/scripts/direct_parse_one_file.py)",
+      "Bash(python -c \"import json, sys; d = json.load\\(sys.stdin\\); print\\('scopes:', d.get\\('scopes'\\)\\); print\\('has refresh_token:', bool\\(d.get\\('refresh_token'\\)\\)\\)\")"
     ]
   }
 }

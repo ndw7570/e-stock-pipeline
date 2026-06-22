@@ -1,10 +1,10 @@
 from app.rag_drive_search.clients.google_drive_client import GoogleDriveClient
-from app.rag_drive_search.services.parsers.dispatcher import (
+from app.rag_drive_search.services.parsers.direct_dispatcher import (
     PARSER_REGISTRY,
     parse_file,
 )
-from app.rag_drive_search.services.chunking.text_chunker import chunk_text
-from app.rag_drive_search.services.embedding.sentence_transformer_embedder import (
+from app.rag_drive_search.services.chunking.direct_text_chunker import chunk_text
+from app.rag_drive_search.services.embedding.direct_sentence_transformer_embedder import (
     SentenceTransformerEmbedder,
 )
 

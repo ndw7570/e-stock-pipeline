@@ -20,10 +20,11 @@ def main() -> None:
     client = GoogleDriveClient()
 
     # 지원 mimeType만 가져오는 query
+    #"휴지통에 없는: trashed = false and (mimeType = 'application/pdf' or mimeType = 'text/plain')"
     supported_types = list(PARSER_REGISTRY.keys())
     query = (
         "trashed = false and ("
-        + " or ".join(f"mimeType = '{mt}'" for mt in supported_types)
+        + " or ".join(f"mimeType = '{mt}'" for mt in supported_types) 
         + ")"
     )
 

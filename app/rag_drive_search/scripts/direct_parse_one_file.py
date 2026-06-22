@@ -1,5 +1,5 @@
 from app.rag_drive_search.clients.google_drive_client import GoogleDriveClient
-from app.rag_drive_search.services.parsers.dispatcher import (
+from app.rag_drive_search.services.parsers.direct_dispatcher import (
     PARSER_REGISTRY,
     parse_file,
 )
