@@ -17,6 +17,7 @@ aiohttp==3.13.3
     #   apache-airflow-providers-http
     #   gcloud-aio-auth
     #   gcsfs
+    #   kubernetes
     #   langchain-community
     #   litellm
     #   ray
@@ -124,12 +125,16 @@ babel==2.17.0
     # via apache-airflow-task-sdk
 backoff==2.2.1
     # via gcloud-aio-auth
+bcrypt==5.0.0
+    # via chromadb
 boto3==1.43.30
     # via transformers
 botocore==1.43.30
     # via
     #   boto3
     #   s3transfer
+build==1.5.0
+    # via chromadb
 cadwyn==5.4.6
     # via apache-airflow-core
 cattrs==25.3.0
@@ -138,6 +143,7 @@ certifi==2026.1.4
     # via
     #   httpcore
     #   httpx
+    #   kubernetes
     #   minio
     #   requests
 cffi==2.0.0
@@ -148,6 +154,10 @@ chardet==5.2.0
     # via gcloud-aio-auth
 charset-normalizer==3.4.4
     # via requests
+chromadb==1.5.9
+    # via
+    #   -r requirements.in
+    #   langchain-chroma
 click==8.3.1
     # via
     #   litellm
@@ -160,6 +170,7 @@ click==8.3.1
     #   uvicorn
 colorama==0.4.6
     # via
+    #   build
     #   click
     #   colorful
     #   colorlog
@@ -209,10 +220,13 @@ dnspython==2.8.0
     # via email-validator
 docstring-parser==0.17.0
     # via google-cloud-aiplatform
+durationpy==0.10
+    # via kubernetes
 email-validator==2.3.0
     # via fastapi
 fastapi[standard-no-fastapi-cloud-cli]==0.117.1
     # via
+    #   -r requirements.in
     #   apache-airflow-core
     #   cadwyn
 fastapi-cli[standard-no-fastapi-cloud-cli]==0.0.20
@@ -224,8 +238,11 @@ filelock==3.20.2
     #   huggingface-hub
     #   ray
     #   torch
-    #   transformers
     #   virtualenv
+filetype==1.2.0
+    # via langchain-google-genai
+flatbuffers==25.12.19
+    # via onnxruntime
 frozenlist==1.8.0
     # via
     #   aiohttp
@@ -250,12 +267,15 @@ gcsfs==2025.12.0
     # via apache-airflow-providers-google
 google-ads==28.4.1
     # via apache-airflow-providers-google
+google-ai-generativelanguage==0.6.15
+    # via google-generativeai
 google-analytics-admin==0.26.0
     # via apache-airflow-providers-google
 google-api-core[grpc]==2.28.1
     # via
     #   apache-airflow-providers-google
     #   google-ads
+    #   google-ai-generativelanguage
     #   google-analytics-admin
     #   google-api-python-client
     #   google-cloud-aiplatform
@@ -302,6 +322,7 @@ google-api-core[grpc]==2.28.1
     #   google-cloud-videointelligence
     #   google-cloud-vision
     #   google-cloud-workflows
+    #   google-generativeai
     #   opencensus
     #   pandas-gbq
     #   sqlalchemy-bigquery
@@ -309,11 +330,13 @@ google-api-python-client==2.187.0
     # via
     #   -r requirements.in
     #   apache-airflow-providers-google
+    #   google-generativeai
 google-auth[requests]==2.47.0
     # via
     #   -r requirements.in
     #   apache-airflow-providers-google
     #   gcsfs
+    #   google-ai-generativelanguage
     #   google-analytics-admin
     #   google-api-core
     #   google-api-python-client
@@ -363,6 +386,7 @@ google-auth[requests]==2.47.0
     #   google-cloud-vision
     #   google-cloud-workflows
     #   google-genai
+    #   google-generativeai
     #   pandas-gbq
     #   pydata-google-auth
     #   sqlalchemy-bigquery
@@ -491,7 +515,11 @@ google-crc32c==1.8.0
     #   google-cloud-storage
     #   google-resumable-media
 google-genai==1.57.0
-    # via google-cloud-aiplatform
+    # via
+    #   google-cloud-aiplatform
+    #   langchain-google-genai
+google-generativeai==0.8.6
+    # via -r requirements.in
 google-resumable-media==2.8.0
     # via
     #   google-cloud-bigquery
@@ -535,6 +563,7 @@ grpc-interceptor==0.15.4
     # via google-cloud-spanner
 grpcio==1.65.5
     # via
+    #   chromadb
     #   google-ads
     #   google-analytics-admin
     #   google-api-core
@@ -610,6 +639,7 @@ httpx==0.28.1
     #   apache-airflow-core
     #   apache-airflow-providers-google
     #   apache-airflow-task-sdk
+    #   chromadb
     #   fastapi
     #   google-genai
     #   huggingface-hub
@@ -621,7 +651,7 @@ httpx-sse==0.4.3
     # via langchain-community
 huggingface-hub==1.2.4
     # via
-    #   sentence-transformers
+    #   langchain-huggingface
     #   tokenizers
 idna==3.11
     # via
@@ -637,6 +667,8 @@ importlib-metadata==8.4.0
     #   apache-airflow-core
     #   litellm
     #   opentelemetry-api
+importlib-resources==7.1.0
+    # via chromadb
 itsdangerous==2.2.0
     # via apache-airflow-core
 jinja2==3.1.6
@@ -665,6 +697,7 @@ jsonpointer==3.1.1
 jsonschema==4.26.0
     # via
     #   apache-airflow-core
+    #   chromadb
     #   google-cloud-aiplatform
     #   litellm
     #   ray
@@ -672,7 +705,11 @@ jsonschema-specifications==2025.9.1
     # via jsonschema
 kafka-python-ng==2.2.3
     # via -r requirements.in
+kubernetes==36.0.0
+    # via chromadb
 langchain==1.3.9
+    # via -r requirements.in
+langchain-chroma==1.1.0
     # via -r requirements.in
 langchain-classic==1.0.8
     # via langchain-community
@@ -682,13 +719,23 @@ langchain-core==1.4.7
     # via
     #   -r requirements.in
     #   langchain
+    #   langchain-chroma
     #   langchain-classic
     #   langchain-community
+    #   langchain-google-genai
+    #   langchain-huggingface
+    #   langchain-openai
     #   langchain-text-splitters
     #   langgraph
     #   langgraph-checkpoint
     #   langgraph-prebuilt
     #   langgraph-sdk
+langchain-google-genai==4.2.1
+    # via -r requirements.in
+langchain-huggingface==1.2.2
+    # via -r requirements.in
+langchain-openai==1.1.9
+    # via -r requirements.in
 langchain-protocol==0.0.17
     # via
     #   langchain-core
@@ -742,7 +789,9 @@ methodtools==0.4.7
 minio==7.2.20
     # via -r requirements.in
 mmh3==5.2.0
-    # via google-cloud-spanner
+    # via
+    #   chromadb
+    #   google-cloud-spanner
 more-itertools==10.8.0
     # via apache-airflow-providers-common-sql
 mpmath==1.3.0
@@ -765,8 +814,11 @@ nltk==3.9.4
     # via sentence-transformers
 numpy==1.26.4
     # via
+    #   chromadb
     #   db-dtypes
+    #   langchain-chroma
     #   langchain-community
+    #   onnxruntime
     #   pandas
     #   pandas-gbq
     #   scikit-learn
@@ -776,8 +828,13 @@ numpy==1.26.4
     #   transformers
 oauthlib==3.3.1
     # via requests-oauthlib
+onnxruntime==1.27.0
+    # via chromadb
 openai==2.14.0
-    # via litellm
+    # via
+    #   -r requirements.in
+    #   langchain-openai
+    #   litellm
 opencensus==0.11.4
     # via ray
 opencensus-context==0.1.3
@@ -785,6 +842,7 @@ opencensus-context==0.1.3
 opentelemetry-api==1.27.0
     # via
     #   apache-airflow-core
+    #   chromadb
     #   google-cloud-logging
     #   google-cloud-pubsub
     #   google-cloud-spanner
@@ -801,7 +859,9 @@ opentelemetry-exporter-otlp-proto-common==1.27.0
     #   opentelemetry-exporter-otlp-proto-grpc
     #   opentelemetry-exporter-otlp-proto-http
 opentelemetry-exporter-otlp-proto-grpc==1.27.0
-    # via opentelemetry-exporter-otlp
+    # via
+    #   chromadb
+    #   opentelemetry-exporter-otlp
 opentelemetry-exporter-otlp-proto-http==1.27.0
     # via opentelemetry-exporter-otlp
 opentelemetry-exporter-prometheus==0.48b0
@@ -817,6 +877,7 @@ opentelemetry-resourcedetector-gcp==1.9.0a0
     # via google-cloud-spanner
 opentelemetry-sdk==1.27.0
     # via
+    #   chromadb
     #   google-cloud-pubsub
     #   google-cloud-spanner
     #   opentelemetry-exporter-otlp-proto-grpc
@@ -831,25 +892,29 @@ opentelemetry-semantic-conventions==0.48b0
 orjson==3.11.5
     # via
     #   -r requirements.in
+    #   chromadb
     #   langgraph-sdk
     #   langsmith
 ormsgpack==1.12.2
     # via langgraph-checkpoint
 outcome==1.3.0.post0
     # via greenback
+overrides==7.7.0
+    # via chromadb
 packaging==25.0
     # via
     #   apache-airflow-core
+    #   build
     #   db-dtypes
     #   google-cloud-aiplatform
     #   google-cloud-bigquery
     #   huggingface-hub
     #   langchain-core
     #   langsmith
+    #   onnxruntime
     #   pandas-gbq
     #   ray
     #   sqlalchemy-bigquery
-    #   transformers
 pandas==2.1.4
     # via
     #   -r requirements.in
@@ -881,6 +946,7 @@ proto-plus==1.27.0
     # via
     #   apache-airflow-providers-google
     #   google-ads
+    #   google-ai-generativelanguage
     #   google-analytics-admin
     #   google-api-core
     #   google-cloud-aiplatform
@@ -927,6 +993,7 @@ proto-plus==1.27.0
 protobuf==4.25.8
     # via
     #   google-ads
+    #   google-ai-generativelanguage
     #   google-analytics-admin
     #   google-api-core
     #   google-cloud-aiplatform
@@ -971,9 +1038,11 @@ protobuf==4.25.8
     #   google-cloud-videointelligence
     #   google-cloud-vision
     #   google-cloud-workflows
+    #   google-generativeai
     #   googleapis-common-protos
     #   grpc-google-iam-v1
     #   grpcio-status
+    #   onnxruntime
     #   opentelemetry-proto
     #   proto-plus
     #   ray
@@ -1004,6 +1073,8 @@ pyasn1-modules==0.4.2
     # via
     #   gcloud-aio-storage
     #   google-auth
+pybase64==1.4.3
+    # via chromadb
 pycparser==2.23
     # via cffi
 pycryptodome==3.23.0
@@ -1014,12 +1085,15 @@ pydantic==2.12.5
     #   apache-airflow-core
     #   apache-airflow-task-sdk
     #   cadwyn
+    #   chromadb
     #   fastapi
     #   google-cloud-aiplatform
     #   google-genai
+    #   google-generativeai
     #   langchain
     #   langchain-classic
     #   langchain-core
+    #   langchain-google-genai
     #   langgraph
     #   langsmith
     #   litellm
@@ -1031,6 +1105,7 @@ pydantic-core==2.41.5
 pydantic-settings==2.14.1
     # via
     #   -r requirements.in
+    #   chromadb
     #   langchain-community
 pydata-google-auth==1.9.1
     # via pandas-gbq
@@ -1052,6 +1127,10 @@ pyparsing==3.3.1
     # via httplib2
 pypdf==6.13.2
     # via -r requirements.in
+pypika==0.51.1
+    # via chromadb
+pyproject-hooks==1.2.0
+    # via build
 pyspark==4.1.0
     # via
     #   -r requirements.in
@@ -1065,6 +1144,7 @@ python-dateutil==2.9.0.post0
     #   botocore
     #   croniter
     #   google-cloud-bigquery
+    #   kubernetes
     #   pandas
     #   pendulum
 python-dotenv==1.2.1
@@ -1085,15 +1165,16 @@ pytz==2025.2
     #   pandas
 pyyaml==6.0.3
     # via
+    #   chromadb
     #   google-ads
     #   google-cloud-aiplatform
     #   huggingface-hub
+    #   kubernetes
     #   langchain-classic
     #   langchain-community
     #   langchain-core
     #   libcst
     #   ray
-    #   transformers
     #   uvicorn
 ray[default]==2.47.1
     # via apache-airflow-providers-google
@@ -1118,6 +1199,7 @@ requests==2.32.5
     #   google-cloud-bigquery
     #   google-cloud-storage
     #   google-genai
+    #   kubernetes
     #   langchain-classic
     #   langchain-community
     #   langsmith
@@ -1130,7 +1212,9 @@ requests==2.32.5
     #   tiktoken
     #   transformers
 requests-oauthlib==2.0.0
-    # via google-auth-oauthlib
+    # via
+    #   google-auth-oauthlib
+    #   kubernetes
 requests-toolbelt==1.0.0
     # via
     #   apache-airflow-providers-http
@@ -1138,6 +1222,7 @@ requests-toolbelt==1.0.0
 rich==13.9.4
     # via
     #   apache-airflow-core
+    #   chromadb
     #   rich-argparse
     #   rich-toolkit
     #   typer
@@ -1170,9 +1255,7 @@ scipy==1.16.3
 sentence-transformers==0.2.5.1
     # via -r requirements.in
 sentencepiece==0.2.1
-    # via
-    #   sentence-transformers
-    #   transformers
+    # via transformers
 setproctitle==1.3.7
     # via apache-airflow-core
 shapely==2.1.2
@@ -1183,6 +1266,7 @@ shellingham==1.5.4
     #   typer
 six==1.17.0
     # via
+    #   kubernetes
     #   opencensus
     #   python-dateutil
     #   wirerope
@@ -1237,6 +1321,7 @@ tenacity==9.1.2
     #   apache-airflow-core
     #   apache-airflow-providers-google
     #   apache-airflow-task-sdk
+    #   chromadb
     #   google-genai
     #   langchain-community
     #   langchain-core
@@ -1247,16 +1332,22 @@ text-unidecode==1.3
 threadpoolctl==3.6.0
     # via scikit-learn
 tiktoken==0.12.0
-    # via litellm
+    # via
+    #   -r requirements.in
+    #   langchain-openai
+    #   litellm
 tokenizers==0.22.2
     # via
+    #   chromadb
+    #   langchain-huggingface
     #   litellm
-    #   sentence-transformers
 torch==2.12.0
     # via sentence-transformers
 tqdm==4.67.1
     # via
+    #   chromadb
     #   google-cloud-aiplatform
+    #   google-generativeai
     #   huggingface-hub
     #   nltk
     #   openai
@@ -1266,7 +1357,9 @@ tqdm==4.67.1
 transformers==2.3.0
     # via sentence-transformers
 typer==0.21.1
-    # via fastapi-cli
+    # via
+    #   chromadb
+    #   fastapi-cli
 typer-slim==0.21.1
     # via huggingface-hub
 types-protobuf==6.32.1.20251210
@@ -1280,10 +1373,12 @@ typing-extensions==4.15.0
     #   apache-airflow-core
     #   cadwyn
     #   cattrs
+    #   chromadb
     #   cron-descriptor
     #   fastapi
     #   google-cloud-aiplatform
     #   google-genai
+    #   google-generativeai
     #   huggingface-hub
     #   langchain-core
     #   langchain-protocol
@@ -1320,6 +1415,7 @@ uritemplate==4.2.0
 urllib3==2.6.3
     # via
     #   botocore
+    #   kubernetes
     #   minio
     #   requests
 uuid-utils==0.16.1
@@ -1330,13 +1426,17 @@ uuid6==2025.0.1
     # via apache-airflow-core
 uvicorn[standard]==0.40.0
     # via
+    #   -r requirements.in
     #   apache-airflow-core
+    #   chromadb
     #   fastapi
     #   fastapi-cli
 virtualenv==20.36.0
     # via ray
 watchfiles==1.1.1
     # via uvicorn
+websocket-client==1.9.0
+    # via kubernetes
 websockets==15.0.1
     # via
     #   -r requirements.in

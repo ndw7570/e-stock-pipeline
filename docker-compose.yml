@@ -68,6 +68,42 @@ services:
     networks:
       - data-engine-network
 
+  kafka-connect:
+    image: debezium/connect:2.7.3.Final
+    container_name: ${CONTAINER_PREFIX:-data-engine}-kafka-connect
+    restart: unless-stopped
+    depends_on:
+      kafka-1:
+        condition: service_healthy
+    env_file:
+      - .env
+      - .env.dev
+    ports:
+      - "${KAFKA_CONNECT_BIND_HOST:-127.0.0.1}:${KAFKA_CONNECT_HOST_PORT:-18083}:8083"
+    environment:
+      # Kafka 연결 — 우리 kafka-1 컨테이너 internal listener
+      BOOTSTRAP_SERVERS: kafka-1:29092
+      # Connect 클러스터 식별
+      GROUP_ID: dbz-connect-cluster
+      # 내부 메타 토픽 (자동 생성)
+      CONFIG_STORAGE_TOPIC: dbz_connect_configs
+      OFFSET_STORAGE_TOPIC: dbz_connect_offsets
+      STATUS_STORAGE_TOPIC: dbz_connect_status
+      # 단일 노드 학습 환경 — replication factor 1
+      CONFIG_STORAGE_REPLICATION_FACTOR: 1
+      OFFSET_STORAGE_REPLICATION_FACTOR: 1
+      STATUS_STORAGE_REPLICATION_FACTOR: 1
+      # JSON 컨버터 (Debezium 표준)
+      KEY_CONVERTER: org.apache.kafka.connect.json.JsonConverter
+      VALUE_CONVERTER: org.apache.kafka.connect.json.JsonConverter
+      # KEY_CONVERTER_SCHEMAS_ENABLE: "false"
+      # VALUE_CONVERTER_SCHEMAS_ENABLE: "false"
+      #  EnvVarConfigProvider 활성화
+      CONNECT_CONFIG_PROVIDERS: env
+      CONNECT_CONFIG_PROVIDERS_ENV_CLASS: org.apache.kafka.common.config.provider.EnvVarConfigProvider
+    networks:
+      - data-engine-network
+
   postgres:
     image: postgres:15.17-alpine
     container_name: ${CONTAINER_PREFIX:-data-engine}-postgres

@@ -5,12 +5,9 @@ from typing import Any
 
 from googleapiclient.http import MediaIoBaseDownload
 
-from app.monitoring_google_workspace_logs.clients.google_auth_client import (
-    GoogleAuthClient,
-)
-from app.monitoring_google_workspace_logs.clients.pagination import (
-    paginate_google_api,
-)
+from app.common.config.settings import settings
+from app.common.google.auth_client import GoogleAuthClient
+from app.common.google.pagination import paginate_google_api
 
 
 DRIVE_READONLY_SCOPE = "https://www.googleapis.com/auth/drive.readonly"
@@ -43,7 +40,10 @@ class GoogleDriveClient:
         self,
         auth_client: GoogleAuthClient | None = None,
     ) -> None:
-        self.auth_client = auth_client or GoogleAuthClient()
+        # Drive 전용 토큰 사용 → calendar 토큰과 격리 (서로 덮어쓰지 않음)
+        self.auth_client = auth_client or GoogleAuthClient(
+            token_path=settings.google_workspace.token_drive_path,
+        )
         self._service = self.auth_client.build_service(
             service_name="drive",
             version="v3",

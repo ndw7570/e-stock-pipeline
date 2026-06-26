@@ -4,10 +4,8 @@ from datetime import datetime, timedelta, timezone
 from typing import Any
 
 from app.common.config.settings import settings
-from app.monitoring_google_workspace_logs.clients.google_auth_client import (
-    GoogleAuthClient,
-)
-from app.monitoring_google_workspace_logs.clients.pagination import (
+from app.common.google.auth_client import GoogleAuthClient
+from app.common.google.pagination import (
     paginate_google_api,
     paginate_google_api_with_sync_token,
 )
@@ -37,7 +35,10 @@ class GoogleCalendarClient:
         auth_client: GoogleAuthClient | None = None,
     ) -> None:
         self.calendar_id = calendar_id or settings.google_workspace.calendar_id
-        self.auth_client = auth_client or GoogleAuthClient()
+        # 캘린더 전용 토큰 사용 → drive 토큰과 격리 (서로 덮어쓰지 않음)
+        self.auth_client = auth_client or GoogleAuthClient(
+            token_path=settings.google_workspace.token_calendar_path,
+        )
 
         self.service = self.auth_client.build_service(
             service_name="calendar",

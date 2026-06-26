@@ -45,7 +45,11 @@ class PostgresSettings:
 @dataclass(frozen=True)
 class GoogleWorkspaceSettings:
     credentials_path: str
-    token_path: str
+    # 도메인별 token 분리 — 캘린더와 드라이브가 서로 토큰 덮어쓰지 않도록.
+    # 각 토큰은 해당 도메인 scope만 가짐.
+    token_calendar_path: str
+    token_drive_path: str
+    token_sheets_path: str
     calendar_id: str
 
 
@@ -91,9 +95,17 @@ def load_settings() -> AppSettings:
             "GOOGLE_WORKSPACE_CREDENTIALS_PATH",
             str(PROJECT_ROOT / "secrets" / "google" / "google_oauth_client.json"),
         ),
-        token_path=get_env(
-            "GOOGLE_WORKSPACE_TOKEN_PATH",
+        token_calendar_path=get_env(
+            "GOOGLE_WORKSPACE_TOKEN_CALENDAR_PATH",
+            str(PROJECT_ROOT / "secrets" / "google" / "token_calendar.json"),
+        ),
+        token_drive_path=get_env(
+            "GOOGLE_WORKSPACE_TOKEN_DRIVE_PATH",
             str(PROJECT_ROOT / "secrets" / "google" / "token_drive.json"),
+        ),
+        token_sheets_path=get_env(
+            "GOOGLE_WORKSPACE_TOKEN_SHEETS_PATH",
+            str(PROJECT_ROOT / "secrets" / "google" / "token_sheets.json"),
         ),
         calendar_id=get_env(
             "GOOGLE_CALENDAR_ID",

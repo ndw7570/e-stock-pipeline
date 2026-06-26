@@ -61,3 +61,20 @@ langchain
 langchain-core
 langchain-community
 langchain-huggingface
+
+# Vector DB
+chromadb
+langchain-chroma
+
+# OpenAI
+openai
+tiktoken
+langchain-openai
+
+# Gemini
+google-generativeai
+langchain-google-genai
+
+# FastAPI
+fastapi
+uvicorn[standard]

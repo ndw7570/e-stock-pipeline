@@ -2,7 +2,11 @@
   "permissions": {
     "allow": [
       "Bash(git check-ignore *)",
-      "Bash(docker exec *)"
+      "Bash(docker exec *)",
+      "Bash(mkdir -p app/common/google)",
+      "Bash(touch app/common/google/__init__.py)",
+      "Bash(mv app/monitoring_google_workspace_logs/clients/google_auth_client.py app/common/google/auth_client.py)",
+      "Bash(mv app/monitoring_google_workspace_logs/clients/pagination.py app/common/google/pagination.py)"
     ]
   }
 }

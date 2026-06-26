@@ -34,3 +34,6 @@ secrets/**/*key*
 # 작업 산출물
 *.zip
 archive/
+
+secrets/**/*.json
+secrets/connectors/

@@ -14,6 +14,8 @@ from sqlalchemy import text
 from app.common.db_core import Base, get_engine, session_scope
 
 # === 도메인 모델 import (Base에 등록되게 — 빠뜨리면 그 테이블이 안 만들어짐) ===
+
+# Google Workspace 캘린더 모니터링
 from app.monitoring_google_workspace_logs.services.database.model.calendar_event import (  # noqa: F401
     CalendarEvent,
 )
@@ -24,10 +26,15 @@ from app.monitoring_google_workspace_logs.services.database.model.calendar_sync_
     CalendarSyncState,
 )
 
+# Employee CDC → Sheets (interx_hr.employee → ems_api 시트)
+from app.employee_sheets_cdc.services.database.model.row_mapping import (  # noqa: F401
+    EmployeeRowMapping,
+)
+
 
 SCHEMAS_TO_ENSURE = [
     "google_workspace",
-    # 미래: "kis_stock", "slack" 등 도메인 추가 시 여기 추가
+    "cdc",   # CDC 매핑 테이블 (interx_hr_employee_row_mapping 등)
 ]
 
 
